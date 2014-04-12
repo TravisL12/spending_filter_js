@@ -1,5 +1,7 @@
 .container{
 
+  padding-bottom: 50px;
+
   h2{
     text-align: center;
   }
@@ -10,11 +12,11 @@
     margin: 0 auto;
 
     label{ width: 100px; }
-    input{ 
-      width: 250px; 
-      &#start-date, 
+    input{
+      width: 250px;
+      &#start-date,
       &#end-date,
-      &#start-price, 
+      &#start-price,
       &#end-price
       {
         width: 100px;
@@ -42,6 +44,10 @@
 .all-records{
   text-align: center;
 
+  a{
+    cursor: pointer;
+  }
+
   #filter-count{
     text-align: center;
     font-size: 24px;
@@ -53,7 +59,7 @@
 
   .solo-rec{
     text-align: left;
-    padding: 10px 0;
+    padding: 5px 0;
     overflow: hidden;
 
     &:nth-child(even){

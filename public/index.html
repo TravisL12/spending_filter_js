@@ -24,19 +24,22 @@
           <ul class="col-md-3">
             <li><label>Begin Date:</label><input id="start-date" type='text' ng-model='start_date'></li>
             <li><label>End Date:</label><input id="end-date" type='text' ng-model='end_date'></li>
-            <li><input id="date-submit" type='submit' ng-click="other_view_range()" value='Filter Dates'></li>
+            <li><input id="date-submit" type='submit' ng-click="date_price_range()" value='Filter Dates'></li>
           </ul>
 
           <ul class="col-md-3">
             <li><label>Min Price:</label><input id="start-price" type='text' ng-model='start_price'></li>
             <li><label>High Price:</label><input id="end-price" type='text' ng-model='end_price'></li>
-            <li><input id="date-submit" type='submit' ng-click="other_view_range()" value='Filter Price'></li>
+            <li><input id="date-submit" type='submit' ng-click="date_price_range()" value='Filter Price'></li>
           </ul>
 
         </form>
       </div>
 
       <div class="all-records">
+
+        <span ng-repeat="i in total_pages track by $index" ng-click="setCurrentPage($index)"><a>{{$index + 1}}</a> </span>
+
         <div class="row" id='filter-count'>Records found: {{(filter_records | filter: searchRecords).length}} / {{all_records.length}}
         </div>
 
@@ -47,7 +50,7 @@
           <span class="col-md-7" id='description'>Description:</span>
         </div>
 
-        <div class="solo-rec row" ng-repeat="record in filter_records | filter:searchRecords">
+        <div class="solo-rec row" ng-repeat="record in filter_records | filter:searchRecords | startFrom: currentPage * pageSize  | limitTo:pageSize" watch-filter>
           <span class="col-md-1" id='date'>{{record.date}}</span>
           <span class="col-md-2" id='category'>{{record.category}}</span>
           <span class="col-md-1" id='currency'>{{record.amount | currency}}</span>
@@ -63,5 +66,7 @@
 <script src="js/angular.min.js"></script>
 <script src="js/jquery-2.0.3.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="js/application.js"></script>
+<script src="js/d3_app.js"></script>
 </html>

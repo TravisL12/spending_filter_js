@@ -1,39 +1,43 @@
-.container h2 {
-  text-align: center; }
-.container .input-fields {
-  max-width: 900px;
-  min-width: 350px;
-  margin: 0 auto; }
-  .container .input-fields label {
-    width: 100px; }
-  .container .input-fields input {
-    width: 250px; }
-    .container .input-fields input#start-date, .container .input-fields input#end-date, .container .input-fields input#start-price, .container .input-fields input#end-price {
+.container {
+  padding-bottom: 50px; }
+  .container h2 {
+    text-align: center; }
+  .container .input-fields {
+    max-width: 900px;
+    min-width: 350px;
+    margin: 0 auto; }
+    .container .input-fields label {
       width: 100px; }
-    .container .input-fields input#date-submit {
-      margin-left: 100px;
-      width: 100px; }
-    .container .input-fields input#clear-all {
-      margin-left: 100px; }
-  .container .input-fields ul {
-    list-style: none;
-    padding: 0; }
-    .container .input-fields ul li {
-      margin: 5px 0; }
-.container .all-records {
-  text-align: center; }
-  .container .all-records #filter-count {
-    text-align: center;
-    font-size: 24px; }
-  .container .all-records .item-header {
-    text-align: left; }
-  .container .all-records .solo-rec {
-    text-align: left;
-    padding: 10px 0;
-    overflow: hidden; }
-    .container .all-records .solo-rec:nth-child(even) {
-      background: #fff; }
-    .container .all-records .solo-rec:nth-child(odd) {
-      background: #f0ffe2; }
-    .container .all-records .solo-rec:hover {
-      background: #ccc; }
+    .container .input-fields input {
+      width: 250px; }
+      .container .input-fields input#start-date, .container .input-fields input#end-date, .container .input-fields input#start-price, .container .input-fields input#end-price {
+        width: 100px; }
+      .container .input-fields input#date-submit {
+        margin-left: 100px;
+        width: 100px; }
+      .container .input-fields input#clear-all {
+        margin-left: 100px; }
+    .container .input-fields ul {
+      list-style: none;
+      padding: 0; }
+      .container .input-fields ul li {
+        margin: 5px 0; }
+  .container .all-records {
+    text-align: center; }
+    .container .all-records a {
+      cursor: pointer; }
+    .container .all-records #filter-count {
+      text-align: center;
+      font-size: 24px; }
+    .container .all-records .item-header {
+      text-align: left; }
+    .container .all-records .solo-rec {
+      text-align: left;
+      padding: 5px 0;
+      overflow: hidden; }
+      .container .all-records .solo-rec:nth-child(even) {
+        background: #fff; }
+      .container .all-records .solo-rec:nth-child(odd) {
+        background: #f0ffe2; }
+      .container .all-records .solo-rec:hover {
+        background: #ccc; }
