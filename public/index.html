@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Spending Demo</title>
+  <link rel="stylesheet" type="text/css" href="css/application.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+</head>
+
+<body>
+
+  <div ng-app="spendingApp">
+    <div class="container row-fluid" ng-controller="SpendCtrl">
+      <h2>Find your Transactions!!</h2>
+      <div class="input-fields row">
+        <form>
+
+          <ul class="col-md-5">
+            <li><label>Description:</label><input type='text' ng-model='searchRecords.description'></li>
+            <li><label>Category:</label><input type='text' ng-model='searchRecords.category'></li>
+            <li><input id="clear-all" type='submit' ng-click="clear_all()" value='Clear All'></li>
+          </ul>
+
+          <ul class="col-md-3">
+            <li><label>Begin Date:</label><input id="start-date" type='text' ng-model='start_date'></li>
+            <li><label>End Date:</label><input id="end-date" type='text' ng-model='end_date'></li>
+            <li><input id="date-submit" type='submit' ng-click="other_view_range()" value='Filter Dates'></li>
+          </ul>
+
+          <ul class="col-md-3">
+            <li><label>Min Price:</label><input id="start-price" type='text' ng-model='start_price'></li>
+            <li><label>High Price:</label><input id="end-price" type='text' ng-model='end_price'></li>
+            <li><input id="date-submit" type='submit' ng-click="other_view_range()" value='Filter Price'></li>
+          </ul>
+
+        </form>
+      </div>
+
+      <div class="all-records">
+        <div class="row" id='filter-count'>Records found: {{(filter_records | filter: searchRecords).length}} / {{all_records.length}}
+        </div>
+
+        <div class="item-header row">
+          <span class="col-md-1" id='date'>Date:</span>
+          <span class="col-md-2" id='category'>Category:</span>
+          <span class="col-md-1" id='currency'>Amount:</span>
+          <span class="col-md-7" id='description'>Description:</span>
+        </div>
+
+        <div class="solo-rec row" ng-repeat="record in filter_records | filter:searchRecords">
+          <span class="col-md-1" id='date'>{{record.date}}</span>
+          <span class="col-md-2" id='category'>{{record.category}}</span>
+          <span class="col-md-1" id='currency'>{{record.amount | currency}}</span>
+          <span class="col-md-7" id='description'>{{record.description}}</span>
+          <br>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+<script src="js/angular.min.js"></script>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/application.js"></script>
+</html>

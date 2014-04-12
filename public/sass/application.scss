@@ -1,0 +1,72 @@
+.container{
+
+  h2{
+    text-align: center;
+  }
+
+  .input-fields{
+    max-width: 900px;
+    min-width: 350px;
+    margin: 0 auto;
+
+    label{ width: 100px; }
+    input{ 
+      width: 250px; 
+      &#start-date, 
+      &#end-date,
+      &#start-price, 
+      &#end-price
+      {
+        width: 100px;
+      }
+
+      &#date-submit{
+       margin-left: 100px;
+       width: 100px;
+     }
+
+     &#clear-all{
+      margin-left: 100px;
+     }
+   }
+
+   ul{
+    list-style: none;
+    padding: 0;
+    li{
+      margin: 5px 0;
+    }
+  }
+}
+
+.all-records{
+  text-align: center;
+
+  #filter-count{
+    text-align: center;
+    font-size: 24px;
+  }
+
+  .item-header{
+    text-align: left;
+  }
+
+  .solo-rec{
+    text-align: left;
+    padding: 10px 0;
+    overflow: hidden;
+
+    &:nth-child(even){
+      background: #fff;
+    }
+
+    &:nth-child(odd){
+      background: #f0ffe2;
+    }
+
+    &:hover{
+      background: #ccc;
+    }
+  }
+}
+}
