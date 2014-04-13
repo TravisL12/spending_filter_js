@@ -1,10 +1,16 @@
 var spendingApp = angular.module('spendingApp', []);
 
-// spendingApp.factory BUILD FACTORY FOR PAGINATION CONTROL!!!
-
-spendingApp.controller('SpendCtrl', ['$scope', '$http', function($scope, $http){
+spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function($scope, $http, filterFilter){
   $scope.currentPage = 0;
   $scope.pageSize = 200;
+
+  $scope.$watch('searchRecords', function(data){
+    $scope.filter_records = filterFilter($scope.all_records, data)
+    if($scope.filter_records){
+      $scope.setCurrentPage(0);
+      $scope.total_pages = getNumberAsArray(numberOfPages());
+    }
+  })
 
   $scope.setCurrentPage = function(currentPage) {
     $scope.currentPage = currentPage;
@@ -72,11 +78,3 @@ spendingApp.filter('startFrom', function() {
     }
   }
 });
-
-spendingApp.directive('watchFilter', [function($scope){
-  return function(scope, element, attrs){
-    if(scope.$last){
-      console.log('hi')
-    }
-  }
-}])

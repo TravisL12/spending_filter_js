@@ -50,7 +50,7 @@
           <span class="col-md-7" id='description'>Description:</span>
         </div>
 
-        <div class="solo-rec row" ng-repeat="record in filter_records | filter:searchRecords | startFrom: currentPage * pageSize  | limitTo:pageSize" watch-filter>
+        <div class="solo-rec row" ng-repeat="record in filter_records | filter:searchRecords | startFrom: currentPage * pageSize  | limitTo:pageSize">
           <span class="col-md-1" id='date'>{{record.date}}</span>
           <span class="col-md-2" id='category'>{{record.category}}</span>
           <span class="col-md-1" id='currency'>{{record.amount | currency}}</span>
