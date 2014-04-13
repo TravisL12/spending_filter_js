@@ -11,7 +11,7 @@
 
   <div ng-app="spendingApp">
     <div class="container row-fluid" ng-controller="SpendCtrl">
-      <h2>Find your Transactions!!</h2>
+      <h2>Find your Transactions</h2>
       <div class="input-fields row">
         <form>
 
@@ -39,6 +39,9 @@
       <div class="all-records">
 
         <span ng-repeat="i in total_pages track by $index" ng-click="setCurrentPage($index)"><a>{{$index + 1}}</a> </span>
+        <br>
+        <button id="prev-page" ng-click="prevPage()" ng-disabled="currentPage == 0">Prev Page</button>
+        <button id="next-page" ng-click="nextPage()">Next Page</button>
 
         <div class="row" id='filter-count'>Records found: {{(filter_records | filter: searchRecords).length}} / {{all_records.length}}
         </div>

@@ -16,6 +16,14 @@ spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function
     $scope.currentPage = currentPage;
   }
 
+  $scope.prevPage = function(){
+    $scope.currentPage -= 1;
+  }
+
+  $scope.nextPage = function(){
+    $scope.currentPage += 1;
+  }
+
   function getNumberAsArray(num) {
     return new Array(num);
   };
