@@ -1,42 +1,77 @@
-.container{
-  padding-bottom: 50px;
+.top-sect{
+  position: fixed;
+  top: 0;
+  background: lightblue;
 
-  .top-sect{
-    position: relative;
-    background: lightblue;
-    height: 300px;
+  .chart{
+    position: absolute;
+    top: 0;
+    left: 380px;
+    width: 800px;
+    height: 275px;
+    border: 1px solid;
+    overflow: auto;
 
-    .input-fields{
-      position: absolute;
-      width: 370px;
-      top: 0;
-      left: 0;
-      padding: 10px;
-      border: 1px solid;
+    rect {
+      fill: steelblue;
+    }
 
-      .desc-filter{
-        label{
-          width: 80px;
-        }
-        input{
-          width: 250px;
+    text {
+      fill: white;
+      font: 10px sans-serif;
+      text-anchor: end;
+    }
+  }
 
-          &#clear-all{
-            margin-left: 84px;
-          }
+  .input-fields{
+    position: absolute;
+    width: 370px;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    border: 1px solid;
 
-        }
+    .desc-filter{
+      label{
+        width: 80px;
       }
+      input{
+        width: 250px;
 
-      #date-submit{
-        text-align: center;
-        input{
-          margin-right: 30px;
+        &#clear-all{
+          margin-left: 84px;
         }
+
       }
     }
 
+    #date-submit{
+      text-align: center;
+      input{
+        margin-right: 30px;
+      }
+    }
   }
+
+  .pagination{
+    position: absolute;
+    top: 260px;
+    left: 0;
+    width: 650px;
+
+    #filter-count{
+      text-align: center;
+      font-size: 24px;
+    }
+  }
+
+}
+
+.container{
+  margin-top: 370px;
+  padding-bottom: 50px;
+  overflow: auto;
+  height: 600px;
 
   .all-records{
     text-align: center;
@@ -45,10 +80,6 @@
       cursor: pointer;
     }
 
-    #filter-count{
-      text-align: center;
-      font-size: 24px;
-    }
 
     .item-header{
       text-align: left;

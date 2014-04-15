@@ -1,33 +1,56 @@
+.top-sect {
+  position: fixed;
+  top: 0;
+  background: lightblue; }
+  .top-sect .chart {
+    position: absolute;
+    top: 0;
+    left: 380px;
+    width: 800px;
+    height: 275px;
+    border: 1px solid;
+    overflow: auto; }
+    .top-sect .chart rect {
+      fill: steelblue; }
+    .top-sect .chart text {
+      fill: white;
+      font: 10px sans-serif;
+      text-anchor: end; }
+  .top-sect .input-fields {
+    position: absolute;
+    width: 370px;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    border: 1px solid; }
+    .top-sect .input-fields .desc-filter label {
+      width: 80px; }
+    .top-sect .input-fields .desc-filter input {
+      width: 250px; }
+      .top-sect .input-fields .desc-filter input#clear-all {
+        margin-left: 84px; }
+    .top-sect .input-fields #date-submit {
+      text-align: center; }
+      .top-sect .input-fields #date-submit input {
+        margin-right: 30px; }
+  .top-sect .pagination {
+    position: absolute;
+    top: 260px;
+    left: 0;
+    width: 650px; }
+    .top-sect .pagination #filter-count {
+      text-align: center;
+      font-size: 24px; }
+
 .container {
-  padding-bottom: 50px; }
-  .container .top-sect {
-    position: relative;
-    background: lightblue;
-    height: 300px; }
-    .container .top-sect .input-fields {
-      position: absolute;
-      width: 370px;
-      top: 0;
-      left: 0;
-      padding: 10px;
-      border: 1px solid; }
-      .container .top-sect .input-fields .desc-filter label {
-        width: 80px; }
-      .container .top-sect .input-fields .desc-filter input {
-        width: 250px; }
-        .container .top-sect .input-fields .desc-filter input#clear-all {
-          margin-left: 84px; }
-      .container .top-sect .input-fields #date-submit {
-        text-align: center; }
-        .container .top-sect .input-fields #date-submit input {
-          margin-right: 30px; }
+  margin-top: 370px;
+  padding-bottom: 50px;
+  overflow: auto;
+  height: 600px; }
   .container .all-records {
     text-align: center; }
     .container .all-records a {
       cursor: pointer; }
-    .container .all-records #filter-count {
-      text-align: center;
-      font-size: 24px; }
     .container .all-records .item-header {
       text-align: left; }
     .container .all-records .solo-rec {

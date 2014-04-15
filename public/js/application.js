@@ -4,9 +4,40 @@ spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function
   $scope.currentPage = 0;
   $scope.pageSize = 200;
 
+  var createArray = function(attr, elem){
+    items = []
+    if(!elem){
+      elem = $scope.filter_records;
+    }
+
+    for(var i=0; i<elem.length; i++){
+      items.push(elem[i][attr])
+    }
+
+    return items;
+  }
+
+  var d3Stuff = function(){
+    $('.chart').empty();
+    items = createArray('amount');
+
+    var x = d3.scale.linear()
+    .domain([0, d3.max(items)])
+    .range([0, 750]);
+
+    d3.select(".chart")
+    .selectAll("div")
+    .data(items)
+    .enter().append("div")
+    .style("width", function(d) { return x(d) + "px"; })
+    .text(function(d) { return d; });
+
+  }
+
   $scope.$watch('searchRecords', function(data){
     $scope.filter_records = filterFilter($scope.all_records, data)
     if($scope.filter_records){
+      d3Stuff();
       $scope.setCurrentPage(0);
       $scope.total_pages = getNumberAsArray(numberOfPages());
     }
@@ -34,11 +65,12 @@ spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function
 
   var httpRequest = $http({
     method: 'GET',
-    url: 'total_spending.json'
+    url: 'total_spending_small.json'
   }).success(function(data, status) {
     $scope.filter_records = data;
     $scope.all_records = $scope.filter_records;
     $scope.total_pages = getNumberAsArray(numberOfPages());
+    d3Stuff();
   });
 
   $scope.clear_all = function(){
@@ -73,6 +105,7 @@ spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function
     });
 
     $scope.filter_records = result;
+    d3Stuff();
     $scope.setCurrentPage(0);
     $scope.total_pages = getNumberAsArray(numberOfPages());
   };
