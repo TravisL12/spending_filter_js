@@ -10,33 +10,60 @@
 <body>
 
   <div ng-app="spendingApp">
+
     <div class="container row-fluid" ng-controller="SpendCtrl">
-      <h2>Find your Transactions</h2>
-      <div class="input-fields row">
-        <form>
 
-          <ul class="col-md-5">
-            <li><label>Description:</label><input type='text' ng-model='searchRecords.description'></li>
-            <li><label>Category:</label><input type='text' ng-model='searchRecords.category'></li>
-            <li><input id="clear-all" type='submit' ng-click="clear_all()" value='Clear All'></li>
-          </ul>
+      <div class="top-sect">
+        <div class="input-fields">
+          <form role="form">
 
-          <ul class="col-md-3">
-            <li><label>Begin Date:</label><input id="start-date" type='text' ng-model='start_date'></li>
-            <li><label>End Date:</label><input id="end-date" type='text' ng-model='end_date'></li>
-            <li><input id="date-submit" type='submit' ng-click="date_price_range()" value='Filter Dates'></li>
-          </ul>
+            <div class="desc-filter form-group">
+              <div>
+                <label>Description:</label>
+                <input type='text' ng-model='searchRecords.description'>
+              </div>
 
-          <ul class="col-md-3">
-            <li><label>Min Price:</label><input id="start-price" type='text' ng-model='start_price'></li>
-            <li><label>High Price:</label><input id="end-price" type='text' ng-model='end_price'></li>
-            <li><input id="date-submit" type='submit' ng-click="date_price_range()" value='Filter Price'></li>
-          </ul>
+              <div>
+                <label>Category:</label>
+                <input type='text' ng-model='searchRecords.category'>
+              </div>
 
-        </form>
+              <input id="clear-all" type='submit' ng-click="clear_all()" value='Clear All'>
+            </div>
+
+            <div class="date-filter form-group row">
+              <div class="col-md-5" id="start-date">
+                <label>Begin Date:</label>
+                <input type='text' ng-model='start_date'>
+              </div>
+
+              <div class="col-md-5" id="end-date">
+                <label>End Date:</label>
+                <input type='text' ng-model='end_date'>
+              </div>
+            </div>
+
+            <div class="price-filter form-group row">
+              <div class="col-md-5" id="start-price">
+                <label>Min Price:</label>
+                <input type='text' ng-model='start_price'>
+              </div>
+
+              <div class="col-md-5" id="end-price">
+                <label>High Price:</label>
+                <input type='text' ng-model='end_price'>
+              </div>
+            </div>
+
+            <div id="date-submit">
+              <input type='submit' ng-click="date_price_range()" value='Filter Date/Price'>
+            </div>
+
+          </form>
+        </div>
       </div>
 
-      <div class="all-records">
+      <div class="all-records row">
 
         <span ng-repeat="i in total_pages track by $index" ng-click="setCurrentPage($index)"><a>{{$index + 1}}</a> </span>
         <br>

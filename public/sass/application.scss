@@ -1,78 +1,75 @@
 .container{
-
   padding-bottom: 50px;
 
-  h2{
-    text-align: center;
-  }
+  .top-sect{
+    position: relative;
+    background: lightblue;
+    height: 300px;
 
-  .input-fields{
-    max-width: 900px;
-    min-width: 350px;
-    margin: 0 auto;
+    .input-fields{
+      position: absolute;
+      width: 370px;
+      top: 0;
+      left: 0;
+      padding: 10px;
+      border: 1px solid;
 
-    label{ width: 100px; }
-    input{
-      width: 250px;
-      &#start-date,
-      &#end-date,
-      &#start-price,
-      &#end-price
-      {
-        width: 100px;
+      .desc-filter{
+        label{
+          width: 80px;
+        }
+        input{
+          width: 250px;
+
+          &#clear-all{
+            margin-left: 84px;
+          }
+
+        }
       }
 
-      &#date-submit{
-       margin-left: 100px;
-       width: 100px;
-     }
-
-     &#clear-all{
-      margin-left: 100px;
-     }
-   }
-
-   ul{
-    list-style: none;
-    padding: 0;
-    li{
-      margin: 5px 0;
+      #date-submit{
+        text-align: center;
+        input{
+          margin-right: 30px;
+        }
+      }
     }
-  }
-}
 
-.all-records{
-  text-align: center;
-
-  a{
-    cursor: pointer;
   }
 
-  #filter-count{
+  .all-records{
     text-align: center;
-    font-size: 24px;
-  }
 
-  .item-header{
-    text-align: left;
-  }
-
-  .solo-rec{
-    text-align: left;
-    padding: 5px 0;
-    overflow: hidden;
-
-    &:nth-child(even){
-      background: #fff;
+    a{
+      cursor: pointer;
     }
 
-    &:nth-child(odd){
-      background: #f0ffe2;
+    #filter-count{
+      text-align: center;
+      font-size: 24px;
     }
 
-    &:hover{
-      background: #ccc;
+    .item-header{
+      text-align: left;
+    }
+
+    .solo-rec{
+      text-align: left;
+      padding: 5px 0;
+      overflow: hidden;
+
+      &:nth-child(even){
+        background: #fff;
+      }
+
+      &:nth-child(odd){
+        background: #f0ffe2;
+      }
+
+      &:hover{
+        background: #ccc;
+      }
     }
   }
-}
 }

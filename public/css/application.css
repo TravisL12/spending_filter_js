@@ -1,27 +1,26 @@
 .container {
   padding-bottom: 50px; }
-  .container h2 {
-    text-align: center; }
-  .container .input-fields {
-    max-width: 900px;
-    min-width: 350px;
-    margin: 0 auto; }
-    .container .input-fields label {
-      width: 100px; }
-    .container .input-fields input {
-      width: 250px; }
-      .container .input-fields input#start-date, .container .input-fields input#end-date, .container .input-fields input#start-price, .container .input-fields input#end-price {
-        width: 100px; }
-      .container .input-fields input#date-submit {
-        margin-left: 100px;
-        width: 100px; }
-      .container .input-fields input#clear-all {
-        margin-left: 100px; }
-    .container .input-fields ul {
-      list-style: none;
-      padding: 0; }
-      .container .input-fields ul li {
-        margin: 5px 0; }
+  .container .top-sect {
+    position: relative;
+    background: lightblue;
+    height: 300px; }
+    .container .top-sect .input-fields {
+      position: absolute;
+      width: 370px;
+      top: 0;
+      left: 0;
+      padding: 10px;
+      border: 1px solid; }
+      .container .top-sect .input-fields .desc-filter label {
+        width: 80px; }
+      .container .top-sect .input-fields .desc-filter input {
+        width: 250px; }
+        .container .top-sect .input-fields .desc-filter input#clear-all {
+          margin-left: 84px; }
+      .container .top-sect .input-fields #date-submit {
+        text-align: center; }
+        .container .top-sect .input-fields #date-submit input {
+          margin-right: 30px; }
   .container .all-records {
     text-align: center; }
     .container .all-records a {
