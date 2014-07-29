@@ -2,7 +2,7 @@ var spendingApp = angular.module('spendingApp', []);
 
 spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function($scope, $http, filterFilter){
   $scope.currentPage = 0;
-  $scope.pageSize = 200;
+  $scope.pageSize = 400;
 
   var createArray = function(attr, elem){
     items = []

@@ -1,106 +1,44 @@
-.top-sect{
-  position: fixed;
-  top: 0;
-  background: lightblue;
-
-  .chart{
-    position: absolute;
-    top: 0;
-    left: 380px;
-    width: 800px;
-    height: 275px;
-    border: 1px solid;
-    overflow: auto;
-
-    rect {
-      fill: steelblue;
-    }
-
-    text {
-      fill: white;
-      font: 10px sans-serif;
-      text-anchor: end;
-    }
-  }
-
-  .input-fields{
-    position: absolute;
-    width: 370px;
-    top: 0;
-    left: 0;
-    padding: 10px;
-    border: 1px solid;
-
-    .desc-filter{
-      label{
-        width: 80px;
-      }
-      input{
-        width: 250px;
-
-        &#clear-all{
-          margin-left: 84px;
-        }
-
-      }
-    }
-
-    #date-submit{
-      text-align: center;
-      input{
-        margin-right: 30px;
-      }
-    }
-  }
-
-  .pagination{
-    position: absolute;
-    top: 260px;
-    left: 0;
-    width: 650px;
-
-    #filter-count{
-      text-align: center;
-      font-size: 24px;
-    }
-  }
-
+.top-fields{
+  padding: 20px 0;
 }
 
-.container{
-  margin-top: 370px;
-  padding-bottom: 50px;
-  overflow: auto;
-  height: 600px;
+.paginate{
+  text-align: center;
+}
 
-  .all-records{
-    text-align: center;
+.chart{
+  height: 300px;
+  border: 1px solid;
+  overflow-y: scroll;
+}
 
-    a{
-      cursor: pointer;
-    }
+.records{
+  margin-bottom: 100px;
+}
 
+.solo-record{
+  text-align: left;
+  padding: 5px 0;
+  overflow: hidden;
 
-    .item-header{
-      text-align: left;
-    }
-
-    .solo-rec{
-      text-align: left;
-      padding: 5px 0;
-      overflow: hidden;
-
-      &:nth-child(even){
-        background: #fff;
-      }
-
-      &:nth-child(odd){
-        background: #f0ffe2;
-      }
-
-      &:hover{
-        background: #ccc;
-      }
-    }
+  &:nth-child(even){
+    background: #fff;
   }
+
+  &:nth-child(odd){
+    background: #f0ffe2;
+  }
+
+  &:hover{
+    background: #ccc;
+  }
+}
+
+input[type=submit]{
+  margin-top: 5px;
+  width: 154px;
+}
+
+label{
+  width: 90px;
 }
