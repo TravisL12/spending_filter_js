@@ -8,6 +8,9 @@
   height: 300px;
   border: 1px solid;
   overflow-y: scroll; }
+  .chart > div {
+    background: #7da1ff;
+    border: 1px solid #495e95; }
 
 .records {
   margin-bottom: 100px; }
@@ -24,8 +27,7 @@
     background: #ccc; }
 
 input[type=submit] {
-  margin-top: 5px;
-  width: 154px; }
+  margin: 5px 0; }
 
 label {
   width: 90px; }

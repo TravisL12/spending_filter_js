@@ -10,6 +10,10 @@
   height: 300px;
   border: 1px solid;
   overflow-y: scroll;
+  &>div{
+    background: #7da1ff;
+    border: 1px solid #495e95;
+  }
 }
 
 .records{
@@ -35,8 +39,7 @@
 }
 
 input[type=submit]{
-  margin-top: 5px;
-  width: 154px;
+  margin: 5px 0;
 }
 
 label{

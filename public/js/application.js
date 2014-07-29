@@ -23,14 +23,16 @@ spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function
 
     var x = d3.scale.linear()
     .domain([0, d3.max(items)])
-    .range([0, 750]);
+    .range([0, 500]);
+
+    var format = d3.format(",.2f");
 
     d3.select(".chart")
     .selectAll("div")
     .data(items)
     .enter().append("div")
     .style("width", function(d) { return x(d) + "px"; })
-    .text(function(d) { return d; });
+    .text(function(d) { return "$" + format(d); });
 
   }
 
