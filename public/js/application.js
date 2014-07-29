@@ -65,7 +65,7 @@ spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function
 
   var httpRequest = $http({
     method: 'GET',
-    url: 'total_spending_small.json'
+    url: 'total_spending.json'
   }).success(function(data, status) {
     $scope.filter_records = data;
     $scope.all_records = $scope.filter_records;
