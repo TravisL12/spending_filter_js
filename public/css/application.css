@@ -4,14 +4,6 @@
 .paginate {
   text-align: center; }
 
-.chart {
-  height: 300px;
-  border: 1px solid;
-  overflow-y: scroll; }
-  .chart > div {
-    background: #7da1ff;
-    border: 1px solid #495e95; }
-
 .records {
   margin-bottom: 100px; }
 

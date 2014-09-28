@@ -12,83 +12,79 @@
 
   <div ng-app="spendingApp" ng-controller="SpendCtrl">
 
-    <div class="top-fields container">
+    <div class="container">
+      <div class="top-fields row">
+        <div class="row">
 
-      <div class="row">
+          <div class="col-md-2 col-xs-6">
+            <div class="row" id="description">
+              <label>Description:</label>
+              <input type='text' ng-model='searchRecords.description'>
+            </div>
 
-        <div class="col-md-2 col-xs-6">
-          <div class="row" id="description">
-            <label>Description:</label>
-            <input type='text' ng-model='searchRecords.description'>
+            <div class="row" id="category">
+              <label>Category:</label>
+              <input type='text' ng-model='searchRecords.category'>
+            </div>
           </div>
 
-          <div class="row" id="category">
-            <label>Category:</label>
-            <input type='text' ng-model='searchRecords.category'>
+          <div class="col-md-2 col-xs-6 col-md-offset-1">
+            <div class="row" id="start-date">
+              <label>Year:</label>
+              <select ng-model="date.year" ng-options="year as year for year in yearRange"></select>
+            </div>
+
+            <div class="row" id="start-price">
+              <label>Min Price:</label>
+              <input type='text' ng-model='start_price'>
+            </div>
+
+            <div class="row" id="end-price">
+              <label>High Price:</label>
+              <input type='text' ng-model='end_price'>
+            </div>
+
+            <div class="row"><input class="col-md-10 col-sm-8 col-xs-11" type='submit' ng-click="date_price_range()" value='Filter Date/Price'></div>
+            <div class="row"><input class="col-md-10 col-sm-8 col-xs-11" type='submit' ng-click="clear_all()" value='Clear All'></div>
           </div>
         </div>
+      </div>
 
-        <div class="col-md-2 col-xs-6 col-md-offset-1">
-          <div class="row" id="start-date">
-            <label>Begin Date:</label>
-            <input type='text' ng-model='start_date'>
-          </div>
+      <div class="records row">
+        <div class="date-grid col-md-6 col-sm-6">
 
-          <div class="row" id="end-date">
-            <label>End Date:</label>
-            <input type='text' ng-model='end_date'>
-          </div>
-
-          <div class="row" id="start-price">
-            <label>Min Price:</label>
-            <input type='text' ng-model='start_price'>
-          </div>
-
-          <div class="row" id="end-price">
-            <label>High Price:</label>
-            <input type='text' ng-model='end_price'>
-          </div>
-          <div class="row"><input class="col-md-10 col-sm-8 col-xs-11" type='submit' ng-click="date_price_range()" value='Filter Date/Price'></div>
-          <div class="row"><input class="col-md-10 col-sm-8 col-xs-11" type='submit' ng-click="clear_all()" value='Clear All'></div>
+          <table class="table table-bordered">
+            <thead>
+              <th></th>
+              <th ng-repeat="i in getNumber(12) track by $index">{{$index+1}}</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="i in getNumber(31) track by $index">
+                <td>{{$index+1}}</td>
+                <td ng-click="showDate($index+1, $parent.$index+1, date.year)" ng-repeat="i in getNumber(12) track by $index">{{$parent.$index+1}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
-        <!-- Lookup: http://www.sitepoint.com/creating-simple-line-bar-charts-using-d3-js/ -->
-        <svg class="chart col-md-7 col-sm-12" id="visualisation" width="1000" height="500"></svg>
-
-      </div>
-
-      <div class='paginate row'>
-        <ul class="pagination">
-          <li><a href="#">&laquo;</a></li>
-          <li ng-repeat="i in total_pages track by $index" ng-click="setCurrentPage($index)"><a>{{$index + 1}}</a> </li>
-          <li><a href="#">&raquo;</a></li>
-        </ul>
-        <br>
-        <button id="prev-page" ng-click="prevPage()" ng-disabled="currentPage == 0">Prev Page</button>
-        <button id="next-page" ng-click="nextPage()">Next Page</button>
-
-        <div id='filter-count'>Records found: {{(filter_records | filter: searchRecords).length}} / {{all_records.length}}
+        <div class="single-day col-md-6 col-sm-6">
+          <table class="table table-hover">
+            <thead>
+              <th>Date:</th>
+              <th>Category:</th>
+              <th>Amount:</th>
+              <th>Description:</th>
+            </thead>
+            <tbody>
+              <tr class="solo-record row" ng-repeat="record in filter_records">
+                <td class="col-md-3">{{record.date}}</td>
+                <td class="col-md-3">{{record.category}}</td>
+                <td class="col-md-3">{{record.amount | currency}}</td>
+                <td class="col-md-3">{{record.description}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-      </div>
-
-    </div>
-
-    <div class="records container">
-
-      <div class="row">
-        <span class="col-md-1" id='header-date'>Date:</span>
-        <span class="col-md-2" id='header-category'>Category:</span>
-        <span class="col-md-1" id='header-currency'>Amount:</span>
-        <span class="col-md-7" id='header-description'>Description:</span>
-      </div>
-
-      <div class="solo-record row" ng-repeat="record in filter_records | filter:searchRecords | startFrom: currentPage * pageSize  | limitTo:pageSize">
-        <span class="col-md-1" id='data-date'>{{record.date}}</span>
-        <span class="col-md-2" id='data-category'>{{record.category}}</span>
-        <span class="col-md-1" id='data-currency'>{{record.amount | currency}}</span>
-        <span class="col-md-7" id='data-description'>{{record.description}}</span>
-        <br>
       </div>
 
     </div>

@@ -1,8 +1,10 @@
 var spendingApp = angular.module('spendingApp', []);
 
 spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function($scope, $http, filterFilter){
-  $scope.currentPage = 0;
-  $scope.pageSize = 400;
+
+  $scope.getNumber = function(num) {
+    return getNumberAsArray(num);
+  }
 
   var createArray = function(attr, elem){
     items = []
@@ -17,63 +19,37 @@ spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function
     return items;
   }
 
-  var d3Stuff = function(){
-    $('.chart').empty();
-    items = createArray('amount');
-
-    var x = d3.scale.linear()
-    .domain([0, d3.max(items)])
-    .range([0, 500]);
-
-    var format = d3.format(",.2f");
-
-    d3.select(".chart")
-    .selectAll("div")
-    .data(items)
-    .enter().append("div")
-    .style("width", function(d) { return x(d) + "px"; })
-    .text(function(d) { return "$" + format(d); });
-
-  }
-
   $scope.$watch('searchRecords', function(data){
     $scope.filter_records = filterFilter($scope.all_records, data)
-    if($scope.filter_records){
-      d3Stuff();
-      $scope.setCurrentPage(0);
-      $scope.total_pages = getNumberAsArray(numberOfPages());
-    }
   })
-
-  $scope.setCurrentPage = function(currentPage) {
-    $scope.currentPage = currentPage;
-  }
-
-  $scope.prevPage = function(){
-    $scope.currentPage -= 1;
-  }
-
-  $scope.nextPage = function(){
-    $scope.currentPage += 1;
-  }
 
   function getNumberAsArray(num) {
     return new Array(num);
   };
 
-  function numberOfPages() {
-    return Math.ceil($scope.filter_records.length/ $scope.pageSize);
-  };
-
-  var httpRequest = $http({
+  var getData = $http({
     method: 'GET',
     url: 'total_spending.json'
   }).success(function(data, status) {
     $scope.filter_records = data;
     $scope.all_records = $scope.filter_records;
-    $scope.total_pages = getNumberAsArray(numberOfPages());
-    d3Stuff();
+    $scope.yearRange = getYears();
   });
+
+  function getYears() {
+    var date = new Date($scope.all_records[0].date);
+    var minYear = date.getYear() + 1900;
+
+    var ct = $scope.all_records.length - 1;
+    date = new Date($scope.all_records[ct].date);
+    var maxYear = date.getYear() + 1900;
+
+    var years = [];
+    for (var i=minYear; i <= maxYear; i++ ) {
+      years.push(i);
+    }
+    return years;
+  }
 
   $scope.clear_all = function(){
     $scope.searchRecords = '';
@@ -84,32 +60,38 @@ spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function
     $scope.start_price = '';
     $scope.end_price   = '';
 
-    $scope.date_price_range();
+    $scope.datePriceRange();
   }
 
-  $scope.date_price_range = function(){
-    var result = [];
+  $scope.showDate = function(month, day, year) {
+    if (year == undefined) { year = '2014'; }
+    var date = month + '/' + day + '/' + year;
+    $scope.datePriceRange(date);
+  }
 
-    var start_date = $scope.start_date ? Date.parse($scope.start_date) : 0;
-    var end_date   = $scope.end_date   ? Date.parse($scope.end_date)   : Date.now();
-
+  $scope.priceSum = function(date) {
+    // GET SUMS TO WORK!!!!!!!!!!!!!
     var start_price = $scope.start_price ? $scope.start_price : 0;
     var end_price   = $scope.end_price   ? $scope.end_price   : 100000;
 
-    $.each($scope.all_records, function (index, record){
+    if (record.amount >= start_price && record.amount <= end_price){
+      result.push(record);
+    }
+  }
 
+  $scope.datePriceRange = function(date){
+    var result = [];
+
+    var date = Date.parse(date);
+
+    $.each($scope.all_records, function (index, record){
       var recordDate = Date.parse(record.date);
-      if (recordDate >= start_date && recordDate <= end_date){
-        if (record.amount >= start_price && record.amount <= end_price){
-          result.push(record);
-        }
+      if (recordDate >= date && recordDate <= date){
+        result.push(record);
       }
     });
 
     $scope.filter_records = result;
-    d3Stuff();
-    $scope.setCurrentPage(0);
-    $scope.total_pages = getNumberAsArray(numberOfPages());
   };
 
 }]);
