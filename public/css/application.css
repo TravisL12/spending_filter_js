@@ -7,19 +7,18 @@
 .records {
   margin-bottom: 100px; }
 
-.solo-record {
-  text-align: left;
-  padding: 5px 0;
-  overflow: hidden; }
-  .solo-record:nth-child(even) {
-    background: #fff; }
-  .solo-record:nth-child(odd) {
-    background: #f0ffe2; }
-  .solo-record:hover {
-    background: #ccc; }
+.solo-record tr:nth-child(even) {
+  background: #f0ffe2; }
 
 input[type=submit] {
   margin: 5px 0; }
 
 label {
   width: 90px; }
+
+td.date-sum {
+  font-size: 10px; }
+td:hover {
+  background: #ccc; }
+td.active {
+  background: #f0ffe2; }

@@ -2,6 +2,14 @@ var spendingApp = angular.module('spendingApp', []);
 
 spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function($scope, $http, filterFilter){
 
+  Array.prototype.max = function() {
+    return Math.max.apply(null, this);
+  };
+
+  Array.prototype.min = function() {
+    return Math.min.apply(null, this);
+  };
+
   $scope.getNumber = function(num) {
     return getNumberAsArray(num);
   }
@@ -34,11 +42,13 @@ spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function
     $scope.filter_records = data;
     $scope.all_records = $scope.filter_records;
     $scope.yearRange = getYears();
+    $scope.summedPrices = sumPrices();
   });
 
   function getYears() {
     var date = new Date($scope.all_records[0].date);
     var minYear = date.getYear() + 1900;
+    $scope.defaultYear = minYear;
 
     var ct = $scope.all_records.length - 1;
     date = new Date($scope.all_records[ct].date);
@@ -64,19 +74,42 @@ spendingApp.controller('SpendCtrl', ['$scope', '$http', 'filterFilter', function
   }
 
   $scope.showDate = function(month, day, year) {
-    if (year == undefined) { year = '2014'; }
+    $scope.currentDate = true;
+    if (year == undefined) { year = $scope.yearRange.min(); }
     var date = month + '/' + day + '/' + year;
     $scope.datePriceRange(date);
   }
 
-  $scope.priceSum = function(date) {
-    // GET SUMS TO WORK!!!!!!!!!!!!!
-    var start_price = $scope.start_price ? $scope.start_price : 0;
-    var end_price   = $scope.end_price   ? $scope.end_price   : 100000;
+  function sumPrices() {
+    var sums = {};
+    for (var i=$scope.yearRange.min(); i <= $scope.yearRange.max(); i++) {
+      if (sums[i] == undefined) { sums[i] = {}; }
 
-    if (record.amount >= start_price && record.amount <= end_price){
-      result.push(record);
+      for (var j=1; j <= 12; j++) {
+        if (sums[i][j] == undefined) { sums[i][j] = {}; }
+
+        for (var k=1; k <= 31; k++) {
+          if (sums[i][j][k] == undefined) { sums[i][j][k] = 0; }
+
+          var sum = priceSum(j, k, i);
+          sums[i][j][k] = sum;
+        }
+      }
     }
+    return sums;
+  }
+
+  function priceSum(month, day, year) {
+    var sum = 0;
+    var date = Date.parse(month + '/' + day + '/' + year);
+
+    angular.forEach($scope.all_records, function(record) {
+      if(date == Date.parse(record.date) ) {
+        sum += record.amount;
+      }
+    })
+
+    return sum;
   }
 
   $scope.datePriceRange = function(date){

@@ -31,7 +31,7 @@
           <div class="col-md-2 col-xs-6 col-md-offset-1">
             <div class="row" id="start-date">
               <label>Year:</label>
-              <select ng-model="date.year" ng-options="year as year for year in yearRange"></select>
+              <select ng-model="defaultYear" ng-options="year as year for year in yearRange"></select>
             </div>
 
             <div class="row" id="start-price">
@@ -61,14 +61,14 @@
             <tbody>
               <tr ng-repeat="i in getNumber(31) track by $index">
                 <td>{{$index+1}}</td>
-                <td ng-click="showDate($index+1, $parent.$index+1, date.year)" ng-repeat="i in getNumber(12) track by $index">{{$parent.$index+1}}</td>
+                <td class="date-sum" ng-class='{active : currentDate}' ng-click="showDate($index+1, $parent.$index+1, defaultYear)" ng-repeat="i in getNumber(12) track by $index">${{summedPrices[defaultYear][$index+1][$parent.$index+1] | number:0 }}</td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <div class="single-day col-md-6 col-sm-6">
-          <table class="table table-hover">
+          <table class="table table-hover solo-record">
             <thead>
               <th>Date:</th>
               <th>Category:</th>
@@ -76,7 +76,7 @@
               <th>Description:</th>
             </thead>
             <tbody>
-              <tr class="solo-record row" ng-repeat="record in filter_records">
+              <tr ng-repeat="record in filter_records">
                 <td class="col-md-3">{{record.date}}</td>
                 <td class="col-md-3">{{record.category}}</td>
                 <td class="col-md-3">{{record.amount | currency}}</td>

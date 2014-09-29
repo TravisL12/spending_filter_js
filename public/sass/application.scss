@@ -11,20 +11,8 @@
 }
 
 .solo-record{
-  text-align: left;
-  padding: 5px 0;
-  overflow: hidden;
-
-  &:nth-child(even){
-    background: #fff;
-  }
-
-  &:nth-child(odd){
+  tr:nth-child(even){
     background: #f0ffe2;
-  }
-
-  &:hover{
-    background: #ccc;
   }
 }
 
@@ -34,4 +22,16 @@ input[type=submit]{
 
 label{
   width: 90px;
+}
+
+td{
+  &.date-sum{
+    font-size: 10px;
+  }
+  &:hover{
+    background: #ccc;
+  }
+  &.active{
+    background: #f0ffe2;
+  }
 }
