@@ -8,20 +8,18 @@
  *
  * Main module of the application.
  */
-angular
-  .module('spendingAngularApp', [
-    'ngCookies',
-    'ngRoute',
-    'ngSanitize'
-  ])
-  .config(function ($routeProvider) {
+ angular.module('spendingAngularApp', [
+  'ngCookies',
+  'ngRoute',
+  'ngSanitize'
+  ]).config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
+    .when('/', {
+      templateUrl: 'views/main.html',
+      controller: 'MainCtrl',
+      controllerAs: 'main'
+    })
+    .otherwise({
+      redirectTo: '/'
+    });
   });
