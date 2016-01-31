@@ -8704,46 +8704,30 @@ button.close {
   }
 }
 /* line 6, ../../app/styles/main.scss */
-.top-fields {
-  padding: 20px 0;
+.header {
+  margin-top: 50px;
 }
 
-/* line 10, ../../app/styles/main.scss */
-.paginate {
-  text-align: center;
+/* line 9, ../../app/styles/main.scss */
+.date-grid td.days-of-month, .date-grid th.months {
+  text-align: right;
+  font-weight: bold;
 }
-
-/* line 14, ../../app/styles/main.scss */
-.records {
-  margin-bottom: 100px;
+/* line 13, ../../app/styles/main.scss */
+.date-grid td.day {
+  cursor: pointer;
+  font-size: 12px;
+  padding-left: 0;
+  text-align: right;
+  width: 50px;
 }
-
-/* line 19, ../../app/styles/main.scss */
-.solo-record tr:nth-child(even) {
+/* line 20, ../../app/styles/main.scss */
+.date-grid td.day.active {
   background: #f0ffe2;
 }
-
-/* line 24, ../../app/styles/main.scss */
-input[type=submit] {
-  margin: 5px 0;
-}
-
-/* line 28, ../../app/styles/main.scss */
-label {
-  width: 90px;
-}
-
-/* line 33, ../../app/styles/main.scss */
-td.date-sum {
-  font-size: 10px;
-}
-/* line 36, ../../app/styles/main.scss */
-td:hover {
+/* line 23, ../../app/styles/main.scss */
+.date-grid td:hover {
   background: #ccc;
-}
-/* line 39, ../../app/styles/main.scss */
-td.active {
-  background: #f0ffe2;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -8,7 +8,7 @@
  * Controller of the spendingAngularApp
  */
 angular.module('spendingAngularApp')
-  .controller('MainCtrl', function($scope, $http, filterFilter){
+  .controller('MainCtrl', function($scope, $http){
   Array.prototype.max = function() {
     return Math.max.apply(null, this);
   };
@@ -20,10 +20,6 @@ angular.module('spendingAngularApp')
   $scope.getNumber = function(num) {
     return new Array(num);
   };
-
-  $scope.$watch('searchRecords', function(data){
-    $scope.filterRecords = filterFilter($scope.allRecords, data);
-  });
 
   $http({
     method: 'GET',
@@ -69,13 +65,13 @@ angular.module('spendingAngularApp')
 
   $scope.sumPrices = function(year) {
     if (!$scope.summedPrices[year]){
-      for (var i=year; i < (year+1); i++) {
+      for (var i = year; i < (year+1); i++) {
         if ($scope.summedPrices[i] === undefined) { $scope.summedPrices[i] = {}; }
 
-        for (var j=1; j <= 12; j++) {
+        for (var j = 1; j <= 12; j++) {
           if ($scope.summedPrices[i][j] === undefined) { $scope.summedPrices[i][j] = {}; }
 
-          for (var k=1; k <= 31; k++) {
+          for (var k = 1; k <= 31; k++) {
             if ($scope.summedPrices[i][j][k] === undefined) { $scope.summedPrices[i][j][k] = 0; }
 
             var sum = priceSum(j, k, i);

@@ -3,40 +3,24 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-.top-fields{
-  padding: 20px 0;
-}
+.header { margin-top: 50px; }
 
-.paginate{
-  text-align: center;
-}
-
-.records{
-  margin-bottom: 100px;
-}
-
-.solo-record{
-  tr:nth-child(even){
+.date-grid {
+  td.days-of-month, th.months {
+    text-align: right;
+    font-weight: bold;
+  }
+  td.day{
+    cursor: pointer;
+    font-size: 12px;
+    padding-left: 0;
+    text-align: right;
+    width: 50px;
+  }
+  td.day.active{
     background: #f0ffe2;
   }
-}
-
-input[type=submit]{
-  margin: 5px 0;
-}
-
-label{
-  width: 90px;
-}
-
-td{
-  &.date-sum{
-    font-size: 10px;
-  }
-  &:hover{
+  td:hover{
     background: #ccc;
-  }
-  &.active{
-    background: #f0ffe2;
   }
 }
