@@ -4,8 +4,10 @@
 *.swp
 local
 
-# Sass’s cache file
-.sass-cache/
-
 # Production Directory for Grunt
 /dist/
+
+/node_modules
+/.tmp
+/.sass-cache
+/bower_components
