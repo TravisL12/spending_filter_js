@@ -12,6 +12,32 @@ angular.module('spendingAngularApp')
 
   $scope.dateTotals  = {};
 
+  $scope.getNumber = function(num) {
+    return new Array(num);
+  };
+
+  $scope.csv = {
+    content: null,
+    header: true,
+    separator: ',',
+    result: null
+  };
+
+  function Day() {
+    return {
+      total: 0,
+      transactions: []
+    };
+  }
+
+  $scope.importCSV = function() {
+    angular.forEach($scope.csv.result, function(record) {
+      record.amount = parseFloat(record.amount);
+    });
+
+    createSpending($scope.csv.result);
+  };
+
   function buildSpendingData(data) {
     var totalSpending = {};
     angular.forEach(data, function(transaction) {
@@ -22,7 +48,7 @@ angular.module('spendingAngularApp')
 
       totalSpending[year]             = totalSpending[year] || {};
       totalSpending[year][month]      = totalSpending[year][month] || {};
-      totalSpending[year][month][day] = totalSpending[year][month][day] || {total:0, transactions:[]};
+      totalSpending[year][month][day] = totalSpending[year][month][day] || new Day();
 
       totalSpending[year][month][day].total += transaction.amount;
       totalSpending[year][month][day].transactions.push(transaction);
@@ -31,41 +57,29 @@ angular.module('spendingAngularApp')
     return totalSpending;
   }
 
-  $scope.getNumber = function(num) {
-    return new Array(num);
+  $scope.highlightActiveDay = function() {
+    return $scope.transactionDate === (this.$index + 1) + '/' + (this.$parent.$index+1);
   };
 
   $scope.showTransactions = function(month, day) {
-    var year = $scope.selectedYear;
     month = month || this.$index + 1;
     day   = day   || this.$parent.$index+1;
-    $scope.transactionDate = month + '/' + day + '/' + year;
-    $scope.listedTransactions = $scope.allRecords[year][month][day].transactions;
+    $scope.transactionDate = month + '/' + day;
+    $scope.selectedDate    = $scope.allRecords[$scope.selectedYear][month][day];
   };
 
-  $scope.datePriceRange = function(date){
-    var result = [];
-
-    date = Date.parse(date);
-
-    angular.forEach($scope.allRecords, function (record){
-      var recordDate = Date.parse(record.date);
-      if (recordDate >= date && recordDate <= date){
-        result.push(record);
-      }
-    });
-
-    $scope.listedTransactions = result;
-  };
+  function createSpending(data) {
+    $scope.allRecords    = buildSpendingData(data);
+    $scope.yearRange     = Object.keys($scope.allRecords);
+    $scope.selectedYear = $scope.yearRange[$scope.yearRange.length-1];
+    $scope.showTransactions(1,2);
+  }
 
   $http({
     method: 'GET',
     url: 'total_spending.json'
   }).success(function(data) {
-    $scope.allRecords    = buildSpendingData(data);
-    $scope.yearRange     = Object.keys($scope.allRecords);
-    $scope.selectedYear = $scope.yearRange[$scope.yearRange.length-1];
-    $scope.showTransactions(1,2);
+    createSpending(data);
   });
 
 });

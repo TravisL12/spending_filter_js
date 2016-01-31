@@ -8,7 +8,10 @@
     <tbody>
       <tr ng-repeat='i in getNumber(31) track by $index'>
         <td class='days-of-month'>{{$index+1}}</td>
-        <td class='day' ng-click='showTransactions()' ng-repeat='i in getNumber(12) track by $index'>${{allRecords[selectedYear][$index+1][$parent.$index+1].total || 0 | number:0 }}</td>
+        <td class='day' 
+            ng-class='{"active": highlightActiveDay()}' 
+            ng-click='showTransactions()' 
+            ng-repeat='i in getNumber(12) track by $index'>${{allRecords[selectedYear][$index+1][$parent.$index+1].total || 0 | number:0 }}</td>
       </tr>
     </tbody>
   </table>
@@ -46,18 +49,21 @@
     <div class='form-group'>
       <button class='btn btn-default' ng-click='datePriceRange()'>Filter Date/Price</button>
     </div>
+
+    <ng-csv-import content='csv.content' header='csv.header' separator='csv.separator' result='csv.result'></ng-csv-import>
+    <button class='btn btn-success' ng-click='importCSV()'>Complete Import</button>
   </div>
 
   <div class='row transaction-table'>
     <div class='col-md-12'>
-      <p>Transactions on {{transactionDate}}</p>
+      <p>Transactions on {{transactionDate}}/{{selectedYear}}</p>
       <table class='table table-hover table-striped table-condensed'>
         <thead>
           <th>Amount:</th>
           <th>Description:</th>
         </thead>
         <tbody>
-          <tr ng-repeat='transaction in listedTransactions'>
+          <tr ng-repeat='transaction in selectedDate.transactions'>
             <td class='col-md-2'>{{transaction.amount | currency}}</td>
             <td class='col-md-10'>{{transaction.description}}</td>
           </tr>

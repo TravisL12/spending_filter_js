@@ -8705,7 +8705,7 @@ button.close {
 }
 /* line 6, ../../app/styles/main.scss */
 .header {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 /* line 9, ../../app/styles/main.scss */
@@ -8721,13 +8721,17 @@ button.close {
   text-align: right;
   width: 50px;
 }
+/* line 19, ../../app/styles/main.scss */
+.date-grid td.day:nth-child(odd) {
+  background: #f9f9f9;
+}
 /* line 20, ../../app/styles/main.scss */
+.date-grid td.day:hover {
+  background: #ddd;
+}
+/* line 22, ../../app/styles/main.scss */
 .date-grid td.day.active {
   background: #f0ffe2;
-}
-/* line 23, ../../app/styles/main.scss */
-.date-grid td:hover {
-  background: #ccc;
 }
 
 /*# sourceMappingURL=main.css.map */

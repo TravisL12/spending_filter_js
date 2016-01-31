@@ -11,7 +11,8 @@
  angular.module('spendingAngularApp', [
   'ngCookies',
   'ngRoute',
-  'ngSanitize'
+  'ngSanitize',
+  'ngCsvImport'
   ]).config(function ($routeProvider) {
     $routeProvider
     .when('/', {
