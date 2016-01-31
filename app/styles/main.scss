@@ -1,0 +1,42 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+.top-fields{
+  padding: 20px 0;
+}
+
+.paginate{
+  text-align: center;
+}
+
+.records{
+  margin-bottom: 100px;
+}
+
+.solo-record{
+  tr:nth-child(even){
+    background: #f0ffe2;
+  }
+}
+
+input[type=submit]{
+  margin: 5px 0;
+}
+
+label{
+  width: 90px;
+}
+
+td{
+  &.date-sum{
+    font-size: 10px;
+  }
+  &:hover{
+    background: #ccc;
+  }
+  &.active{
+    background: #f0ffe2;
+  }
+}

@@ -1,0 +1,70 @@
+<div class="date-grid col-md-7">
+
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <th></th>
+      <th ng-repeat="i in getNumber(12) track by $index">{{$index+1}}</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="i in getNumber(31) track by $index">
+        <td>{{$index+1}}</td>
+        <td class="date-sum" ng-click="showDate($index+1, $parent.$index+1, defaultYear)" ng-repeat="i in getNumber(12) track by $index">${{summedPrices[defaultYear][$index+1][$parent.$index+1] | number:0 }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class='col-md-5'>
+
+  <div class="top-fields row">
+    <div class="form-group">
+      <label>Description:</label>
+      <input class='form-control' type='text' ng-model='searchRecords.description'>
+    </div>
+
+    <div class="form-group">
+      <label>Category:</label>
+      <input class='form-control' type='text' ng-model='searchRecords.category'>
+    </div>
+
+    <div class="form-group">
+      <label>Year:</label>
+      <select class='form-control' ng-model="defaultYear" ng-options="year as year for year in yearRange" ng-change="sumPrices(defaultYear)"></select>
+    </div>
+
+    <div class="form-group">
+      <label>Min Price:</label>
+      <input class='form-control' type='text' ng-model='priceStart'>
+    </div>
+
+    <div class="form-group">
+      <label>High Price:</label>
+      <input class='form-control' type='text' ng-model='priceEnd'>
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-default" ng-click="datePriceRange()">Filter Date/Price</button>
+      <button class="btn btn-default" ng-click="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <div class='single-day row'>
+    <div class="col-md-12">
+      <table class="table table-hover solo-record">
+        <thead>
+          <th>Date:</th>
+          <th>Amount:</th>
+          <th>Description:</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="record in filter_records">
+            <td class="col-md-2">{{record.date}}</td>
+            <td class="col-md-5">{{record.amount | currency}}</td>
+            <td class="col-md-5">{{record.description}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
