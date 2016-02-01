@@ -152,7 +152,6 @@ angular.module('spendingAngularApp')
         spending[year].month[month].day[day].transactions.push(transaction);
         setMaxDayTotal(spending[year].month[month], day); // Set the max sum within the month
       }
-
     });
 
     return spending;
