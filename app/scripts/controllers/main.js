@@ -8,7 +8,7 @@
  * Controller of the spendingAngularApp
  */
 angular.module('spendingAngularApp')
-  .controller('MainCtrl', function($scope, $http){
+  .controller('MainCtrl', function($scope, allRecords){
 
   $scope.getNumber = function(num) {
     return new Array(num);
@@ -22,6 +22,10 @@ angular.module('spendingAngularApp')
     return $scope.transactionDate === (this.$index + 1) + '/' + (this.$parent.$index+1);
   };
 
+  $scope.filterPrice = function() {
+    createSpending($scope.rawSpendingData);
+  };
+
   // Immediately imports a selected CSV
   $scope.$watch('csv.result', function(newVal, oldVal) {
     if (newVal !== oldVal) {
@@ -29,13 +33,8 @@ angular.module('spendingAngularApp')
     }
   });
 
-  $scope.filterPrice = function() {
-    createSpending($scope.rawSpendingData);
-  };
-
   $scope.searchRecords = {
-    // ng-model-options
-    options: { debounce: 1000 }
+    options: { debounce: 1000 } // ng-model-options
   };
 
   $scope.csv = {
@@ -54,6 +53,7 @@ angular.module('spendingAngularApp')
   function Month() {
     return {
       maxDayTotal: 0,
+      total: 0,
       day: {}
     };
   }
@@ -64,6 +64,17 @@ angular.module('spendingAngularApp')
       transactions: []
     };
   }
+
+  $scope.getDate = function(month, day) {
+    var monthObj = $scope.allRecords[$scope.selectedYear].month[month];
+    if (monthObj) {
+      if (day) {
+        return $scope.allRecords[$scope.selectedYear].month[month].day[day]; // return Day
+      }
+      return monthObj; // return Month
+    }
+    return;
+  };
 
   function buildCategories(category) {
     if ($scope.categories.indexOf(category) === -1) {
@@ -81,7 +92,7 @@ angular.module('spendingAngularApp')
     createSpending($scope.csv.result);
   }
 
-  function setMaxDaymaxDayTotal(month, day) {
+  function setMaxDayTotal(month, day) {
     if (month.day[day].total > month.maxDayTotal) {
       month.maxDayTotal = month.day[day].total;
     } 
@@ -123,6 +134,7 @@ angular.module('spendingAngularApp')
   function buildSpendingData(data) {
     $scope.categories = [];
     var spending = {};
+
     angular.forEach(data, function(transaction) {
       buildCategories(transaction.category);
       var date  = new Date(transaction.date);
@@ -135,10 +147,10 @@ angular.module('spendingAngularApp')
       spending[year].month[month].day[day] = spending[year].month[month].day[day] || new Day();
 
       if (validateTransaction(transaction)) {
+        spending[year].month[month].total += transaction.amount;
         spending[year].month[month].day[day].total += transaction.amount;
         spending[year].month[month].day[day].transactions.push(transaction);
-        // Set the max sum within the month
-        setMaxDaymaxDayTotal(spending[year].month[month], day);
+        setMaxDayTotal(spending[year].month[month], day); // Set the max sum within the month
       }
 
     });
@@ -147,26 +159,23 @@ angular.module('spendingAngularApp')
   }
 
   $scope.setConditionalFormatting = function() {
-    if ($scope.allRecords) {
-      var month = $scope.allRecords[$scope.selectedYear].month[this.$index+1];
-      if (month) {
-        var day = $scope.allRecords[$scope.selectedYear].month[this.$index+1].day[this.$parent.$index+1];
-        if (day) {
-          var monthMax = month.maxDayTotal;
-          var dayTotal = day.total;
-          var ratio = Math.ceil(parseFloat(dayTotal / monthMax) * 15);
-          return 'conditional-' + ratio;
-        }
+    var month = $scope.getDate(this.$index+1);
+    if (month) {
+      var day = $scope.getDate(this.$index+1, this.$parent.$index+1);
+      if (day) {
+        var formatSteps = 15; // Arbitrary number of color gradients, also referenced in CSS
+        var ratio = Math.ceil(parseFloat(day.total / month.maxDayTotal) * formatSteps);
+        return 'conditional-' + ratio;
       }
     }
-    return;
+    return 'empty';
   };
 
   $scope.showTransactions = function(month, day) {
     month = month || this.$index + 1;
     day   = day   || this.$parent.$index+1;
     $scope.transactionDate = month + '/' + day;
-    $scope.selectedDate    = $scope.allRecords[$scope.selectedYear].month[month].day[day];
+    $scope.selectedDate    = $scope.getDate(month, day);
   };
 
   function createSpending(data) {
@@ -176,12 +185,9 @@ angular.module('spendingAngularApp')
     $scope.showTransactions(1,2);
   }
 
-  $http({
-    method: 'GET',
-    url: 'total_spending.json'
-  }).success(function(data) {
-    $scope.rawSpendingData = data;
-    createSpending(data);
-  });
+  if (!allRecords.error) {
+    $scope.rawSpendingData = allRecords.data;
+    createSpending(allRecords.data);
+  }
 
 });

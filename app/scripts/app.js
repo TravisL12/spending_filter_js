@@ -18,7 +18,17 @@
     .when('/', {
       templateUrl: 'views/main.html',
       controller: 'MainCtrl',
-      controllerAs: 'main'
+      controllerAs: 'main',
+      resolve: {
+        allRecords: function($http) {
+          return $http({
+            method: 'GET',
+            url: 'total_spending.json'
+          }).success(function(data) {
+            return data;
+          });
+        }
+      }
     })
     .otherwise({
       redirectTo: '/'

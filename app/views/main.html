@@ -11,7 +11,11 @@
         <td class='day' 
             ng-class='[{"active": highlightActiveDay()}, setConditionalFormatting()]' 
             ng-click='showTransactions()' 
-            ng-repeat='i in getNumber(12) track by $index'>{{allRecords[selectedYear].month[$index+1].day[$parent.$index+1].total || 0 | currency:'$':0 }}</td>
+            ng-repeat='i in getNumber(12) track by $index'>{{getDate($index+1, $parent.$index+1).total | currency:'$':0 }}</td>
+      </tr>
+      <tr>
+        <td class='days-of-month'>Total:</td>
+        <td class='day' ng-repeat='i in getNumber(12) track by $index'>{{getDate($index+1).total | currency:'$':0}}</td>
       </tr>
     </tbody>
   </table>

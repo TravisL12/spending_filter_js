@@ -21,9 +21,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   }
 }
 
-.active{
-  background: #FFFA79 !important;
-}
+.active { background: #FFFA79 !important; }
+.empty  { background: #FFF9F9; }
 
 .date-grid {
   td.days-of-month, th.months {
