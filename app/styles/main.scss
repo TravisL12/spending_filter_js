@@ -2,13 +2,37 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
-
 .header { margin-top: 30px; }
+.year-pagination {
+  margin: 15px auto;
+  ul, li { display: inline-block; }
+
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 2px 4px;
+      margin-bottom: 5px;
+      margin-right: 5px;
+      background: #ddd;
+      cursor: pointer;
+    }
+  }
+}
+
+.active{
+  background: #FFFA79 !important;
+}
 
 .date-grid {
   td.days-of-month, th.months {
     text-align: right;
     font-weight: bold;
+  }
+  td.days-of-month, th.months, td.day {
+    padding-top: 1px;
+    padding-bottom: 1px;
   }
   td.day{
     cursor: pointer;
@@ -16,10 +40,13 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     padding-left: 0;
     text-align: right;
     width: 50px;
-    &:nth-child(odd) { background: #f9f9f9; }
     &:hover { background: #ddd; }
   }
-  td.day.active{
-    background: #f0ffe2;
-  }
 }
+
+// Create conditional formatting
+@for $i from 1 through 15 {
+  .conditional-#{$i} { background: rgba(100,255,100,$i/15); }
+}
+
+.csv-input { display: inline-block; }
