@@ -2,10 +2,19 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
-.header { margin-top: 30px; }
+ul, li { display: inline-block; }
+ul { padding: 0; margin: 0; }
+
+.header.container-fluid { 
+  background: #ccc; 
+  margin-bottom: 20px;
+  .container {
+    margin: 15px auto;
+  }
+}
+
 .year-pagination {
   margin: 15px auto;
-  ul, li { display: inline-block; }
 
   ul {
     padding: 0;
@@ -45,7 +54,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 // Create conditional formatting
 @for $i from 1 through 15 {
-  .conditional-#{$i} { background: rgba(100,255,100,$i/15); }
+  .day-conditional-#{$i} { background: rgba(100,255,100,$i/15); }
+}
+
+// Create conditional formatting
+@for $i from 1 through 12 {
+  .month-conditional-#{$i} { background: rgba(255,150,150,$i/12); }
 }
 
 .csv-input { display: inline-block; }

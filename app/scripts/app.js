@@ -14,6 +14,7 @@
   'ngSanitize',
   'ngCsvImport'
   ]).config(function ($routeProvider) {
+
     $routeProvider
     .when('/', {
       templateUrl: 'views/main.html',
@@ -29,6 +30,16 @@
           });
         }
       }
+    })
+    .when('/balances', {
+      templateUrl: 'views/balances.html',
+      controller: 'BalancesCtrl',
+      controllerAs: 'balances'
+    })
+    .when('/spendingGraph', {
+      templateUrl: 'views/spendinggraph.html',
+      controller: 'SpendinggraphCtrl',
+      controllerAs: 'spendingGraph'
     })
     .otherwise({
       redirectTo: '/'

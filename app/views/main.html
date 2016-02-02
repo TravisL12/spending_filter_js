@@ -3,19 +3,19 @@
   <table class='table table-bordered table-condensed'>
     <thead>
       <th></th>
-      <th class='months' ng-repeat='i in getNumber(12) track by $index'>{{$index+1}}</th>
+      <th class='months' ng-repeat='month in monthAbbreviations track by $index'>{{month}}</th>
     </thead>
     <tbody>
       <tr ng-repeat='i in getNumber(31) track by $index'>
         <td class='days-of-month'>{{$index+1}}</td>
         <td class='day' 
-            ng-class='[{"active": highlightActiveDay()}, setConditionalFormatting()]' 
+            ng-class='[{"active": highlightActiveDay()}, setDayStyling()]' 
             ng-click='showTransactions()' 
             ng-repeat='i in getNumber(12) track by $index'>{{getDate($index+1, $parent.$index+1).total | currency:'$':0 }}</td>
       </tr>
       <tr>
         <td class='days-of-month'>Total:</td>
-        <td class='day' ng-repeat='i in getNumber(12) track by $index'>{{getDate($index+1).total | currency:'$':0}}</td>
+        <td class='day' ng-class='setMonthStyling()' ng-repeat='i in getNumber(12) track by $index'>{{getDate($index+1).total | currency:'$':0}}</td>
       </tr>
     </tbody>
   </table>
@@ -42,7 +42,7 @@
 
     <div class='form-group'>
       <label>Category:</label>
-      <select class='form-control' ng-change='filterPrice()' ng-model='searchRecords.category' ng-options='category for category in categories'></select>
+      <select class='form-control' ng-change='filterPrice()' ng-model='searchRecords.category' ng-options='category for category in categories | orderBy:"toString()"'></select>
     </div>
 
     <div class='form-group'>
