@@ -8,10 +8,60 @@
  * Controller of the spendingAngularApp
  */
 angular.module('spendingAngularApp')
-  .controller('SpendinggraphCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('SpendinggraphCtrl', function ($scope, financeData, allRecords) {
+
+    var rawSpendingData;
+
+    if (typeof(financeData.getSpending()) === 'object') {
+      rawSpendingData = financeData.getSpending();
+    } else if (!allRecords.error) {
+      rawSpendingData = financeData.setSpending(allRecords.data);
+    }
+
+    $scope.chartOptions = {
+      chart: {
+        type: 'lineChart',
+        height: 600,
+        showLegend: false,
+        margin : {
+          top: 20,
+          right: 20,
+          bottom: 100,
+          left: 60
+        },
+        x: function(d){
+          return new Date(d.x);
+        },
+        y: function(d){
+          return d.y;
+        },
+        useInteractiveGuideline: true,
+        xScale : window.d3.time.scale.utc(),
+        xAxis: {
+          axisLabel: 'Dates',
+          rotateLabels: -90,
+          tickFormat: function(d) {
+            return window.d3.time.format('%m-%d-%y')(d);
+          }
+        },
+        yAxis: {
+          axisLabel: 'Revenue ($)',
+          tickFormat: function(d){
+            return window.d3.format('$,0f')(d);
+          }
+        }
+      },
+      title: {},
+      subtitle: {},
+      caption: {}
+    };
+
+    $scope.data = [{ key: 'Spending', values: [] }];
+
+    for(var i = 0; i < rawSpendingData.length; i++) {
+      if (rawSpendingData[i].amount > 0) {
+        $scope.data[0].values.push({ x: rawSpendingData[i].date, y: rawSpendingData[i].amount });
+      }
+    }
+
   });

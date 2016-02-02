@@ -47,17 +47,17 @@
 
     <div class='form-group'>
       <label>Description:</label>
-      <input class='form-control' ng-change='filterPrice()' ng-model-options='searchRecords.options' type='text' ng-model='searchRecords.description'>
+      <input class='form-control' ng-change='filterPrice()' ng-model-options='{ debounce: 1000 }' type='text' ng-model='searchRecords.description'>
     </div>
 
     <div class='row form-group'>
       <div class='col-md-6'>
         <label>Min Price:</label>
-        <input class='form-control' ng-change='filterPrice()' type='number' step='5' min='0' ng-model-options='searchRecords.options' ng-model='searchRecords.priceMin'>
+        <input class='form-control' ng-change='filterPrice()' type='number' step='5' min='0' ng-model-options='{ debounce: 1000 }' ng-model='searchRecords.priceMin'>
       </div>
       <div class='col-md-6'>
         <label>High Price:</label>
-        <input class='form-control' ng-change='filterPrice()' type='number' step='5' min='0' ng-model-options='searchRecords.options' ng-model='searchRecords.priceMax'>
+        <input class='form-control' ng-change='filterPrice()' type='number' step='5' min='0' ng-model-options='{ debounce: 1000 }' ng-model='searchRecords.priceMax'>
       </div>
 
     </div>
