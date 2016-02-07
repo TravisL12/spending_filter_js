@@ -30,20 +30,6 @@ angular.module('spendingAngularApp')
     createSpending(financeData.getSpending());
   };
 
-  // Immediately imports a selected CSV
-  $scope.$watch('csv.result', function(newVal, oldVal) {
-    if (newVal !== oldVal) {
-      importCsv();
-    }
-  });
-
-  $scope.csv = {
-    content: null,
-    header: true,
-    separator: ',',
-    result: null
-  };
-
   $scope.getDate = function(month, day) {
     var monthObj = $scope.allRecords[$scope.selectedYear].month[month];
     if (monthObj) {
@@ -54,28 +40,6 @@ angular.module('spendingAngularApp')
     }
     return;
   };
-
-  function parseDate(transaction) {
-    var re = new RegExp(/((^\d{1,2}|\s\d{1,2})\/\d{2}\s)/);
-    var newDate = transaction.description.match(re);
-    if (newDate) {
-      var date  = new Date(transaction.date);
-      var year  = date.getYear() - 100;
-      return newDate[0] + '/' + year;
-    }
-    return transaction.date;
-  }
-
-  function importCsv() {
-    financeData.resetCategories();
-    angular.forEach($scope.csv.result, function(transaction) {
-      financeData.buildCategories(transaction.category);
-      transaction.date = parseDate(transaction);
-      transaction.amount = Number(transaction.amount.replace(/[^0-9\.-]+/g,''));
-    });
-    $scope.rawSpendingData = financeData.setSpending($scope.csv.result);
-    createSpending($scope.csv.result);
-  }
 
   $scope.setMonthStyling = function() {
     var month = $scope.getDate(this.$index + 1);
@@ -117,11 +81,7 @@ angular.module('spendingAngularApp')
     $scope.showTransactions(1,2);
   }
 
-  if (typeof(financeData.getSpending()) === 'object') {
-    $scope.rawSpendingData = financeData.getSpending();
-  } else if (!allRecords.error) {
-    $scope.rawSpendingData = financeData.setSpending(allRecords.data);
-  }
+  $scope.rawSpendingData = financeData.setSpending(allRecords);
   createSpending($scope.rawSpendingData);
 
 });

@@ -8726,7 +8726,7 @@ ul {
 
 /* line 16, ../../app/styles/main.scss */
 .year-pagination {
-  margin: 15px auto;
+  margin-bottom: 15px;
 }
 /* line 19, ../../app/styles/main.scss */
 .year-pagination ul {

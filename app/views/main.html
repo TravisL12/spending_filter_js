@@ -26,15 +26,6 @@
 
   <div class='row input-fields'>
 
-    <div class='form-group'>
-      <ng-csv-import 
-      class='csv-input' 
-      content='csv.content' 
-      header='csv.header' 
-      separator='csv.separator' 
-      result='csv.result'></ng-csv-import>
-    </div>
-
     <div class='year-pagination'>
       <label>Years:</label>
       <ul><li ng-repeat='year in yearRange' ng-class='{"active": selectedYear == year }' ng-click='selectYear()'>{{year}}</li></ul>

@@ -53,6 +53,17 @@ angular.module('spendingAngularApp')
         searchRecords = attrs;
       },
 
+      parseDate: function(transaction) {
+        var re = new RegExp(/((^\d{1,2}|\s\d{1,2})\/\d{2}\s)/);
+        var newDate = transaction.description.match(re);
+        if (newDate) {
+          var date  = new Date(transaction.date);
+          var year  = date.getYear() - 100;
+          return newDate[0] + '/' + year;
+        }
+        return transaction.date;
+      },
+
       buildSpendingData: function(data) {
         var self = this;
         var spending = {};
@@ -60,6 +71,9 @@ angular.module('spendingAngularApp')
 
         angular.forEach(data, function(transaction) {
           self.buildCategories(transaction.category);
+          transaction.amount = parseFloat(transaction.amount);
+          transaction.date = self.parseDate(transaction);
+
           var date  = new Date(transaction.date);
           var year  = date.getYear() + 1900;
           var month = date.getMonth() + 1;
