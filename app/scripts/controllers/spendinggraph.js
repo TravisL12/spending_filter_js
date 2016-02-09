@@ -8,14 +8,14 @@
  * Controller of the spendingAngularApp
  */
 angular.module('spendingAngularApp')
-  .controller('SpendinggraphCtrl', function ($scope, financeData, allRecords) {
+  .controller('SpendinggraphCtrl', function ($scope, finances, Transactions) {
 
     var rawSpendingData;
 
-    if (typeof(financeData.getSpending()) === 'object') {
-      rawSpendingData = financeData.getSpending();
-    } else if (!allRecords.error) {
-      rawSpendingData = financeData.setSpending(allRecords.data);
+    if (typeof(finances.getSpending()) === 'object') {
+      rawSpendingData = finances.getSpending();
+    } else if (!Transactions.error) {
+      rawSpendingData = finances.setSpending(Transactions.data);
     }
 
     $scope.chartOptions = {
@@ -45,7 +45,7 @@ angular.module('spendingAngularApp')
           }
         },
         yAxis: {
-          axisLabel: 'Revenue ($)',
+          axisLabel: 'Total ($)',
           tickFormat: function(d){
             return window.d3.format('$,0f')(d);
           }

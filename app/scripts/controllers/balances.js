@@ -8,10 +8,11 @@
  * Controller of the spendingAngularApp
  */
 angular.module('spendingAngularApp')
-  .controller('BalancesCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('BalancesCtrl', function ($scope, Balances) {
+    $scope.balances = Balances;
+
+    $scope.calcTotal = function() {
+      var saving = parseFloat(this.balance.saving) || 0;
+      return parseFloat(this.balance.checking) + saving;
+    };
   });

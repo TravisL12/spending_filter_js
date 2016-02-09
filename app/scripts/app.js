@@ -12,12 +12,16 @@
   'ngCookies',
   'ngRoute',
   'ngSanitize',
-  'ngCsvImport',
+  'ui.router',
   'nvd3'
-  ]).config(function ($routeProvider) {
+  ]).config(function ($stateProvider) {
 
-    function defaultRecords($http) {
-      var url = 'https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/1/public/values?alt=json';
+    function getGoogleUrl(num) {
+      return 'https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/' + num + '/public/values?alt=json';
+    }
+
+    function getTransactions($http) {
+      var url = getGoogleUrl(1);
       return $http.get(url).then(function(data) {
         return data.data.feed.entry.map(function(obj) {
           return {
@@ -30,33 +34,46 @@
       });
     }
 
-    $routeProvider
-    .when('/', {
+    function getBalances($http) {
+      var url = getGoogleUrl(2);
+      return $http.get(url).then(function(data) {
+        return data.data.feed.entry.map(function(obj) {
+          return {
+            date:     obj.gsx$date.$t,
+            checking: obj.gsx$checking.$t,
+            saving:   obj.gsx$saving.$t
+          };
+        });
+      });
+    }
+
+    $stateProvider
+    .state('spreadsheet', {
+      url: '',
+      template: '<ui-view></ui-view>',
+      abstract: true,
+      resolve: {
+        Transactions: function($http) {
+          return getTransactions($http);
+        },
+        Balances: function($http) {
+          return getBalances($http);
+        }
+      }
+    })
+    .state('spreadsheet.spending', {
+      url:'/',
       templateUrl: 'views/main.html',
-      controller: 'MainCtrl',
-      controllerAs: 'main',
-      resolve: {
-        allRecords: function($http) {
-          return defaultRecords($http);
-        }
-      }
+      controller: 'MainCtrl'
     })
-    .when('/graph', {
+    .state('spreadsheet.graphs', {
+      url: '/graph',
       templateUrl: 'views/spendinggraph.html',
-      controller: 'SpendinggraphCtrl',
-      controllerAs: 'spendingGraph',
-      resolve: {
-        allRecords: function($http) {
-          return defaultRecords($http);
-        }
-      }
+      controller: 'SpendinggraphCtrl'
     })
-    .when('/balances', {
+    .state('spreadsheet.balances', {
+      url: '/balances',
       templateUrl: 'views/balances.html',
-      controller: 'BalancesCtrl',
-      controllerAs: 'balances'
-    })
-    .otherwise({
-      redirectTo: '/'
+      controller: 'BalancesCtrl'
     });
   });

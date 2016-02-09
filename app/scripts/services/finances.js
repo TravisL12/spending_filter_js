@@ -8,7 +8,7 @@
  * Factory in the spendingAngularApp.
  */
 angular.module('spendingAngularApp')
-  .factory('financeData', function () {
+  .factory('finances', function () {
 
     var spendingData;
     var categories = [];
@@ -64,6 +64,13 @@ angular.module('spendingAngularApp')
         return transaction.date;
       },
 
+      parseDescription: function(transaction) {
+        var purchaseRE = new RegExp(/(purchase\s*authorized\s*on\s*)/i);
+        var rand16RE = new RegExp(/\S{16} (card) \d{4,}/i);
+        
+        return transaction.description.replace(purchaseRE, '').replace(rand16RE,'');
+      },
+
       buildSpendingData: function(data) {
         var self = this;
         var spending = {};
@@ -71,8 +78,9 @@ angular.module('spendingAngularApp')
 
         angular.forEach(data, function(transaction) {
           self.buildCategories(transaction.category);
-          transaction.amount = parseFloat(transaction.amount);
-          transaction.date = self.parseDate(transaction);
+          transaction.amount      = parseFloat(transaction.amount);
+          transaction.date        = self.parseDate(transaction);
+          transaction.description = self.parseDescription(transaction);
 
           var date  = new Date(transaction.date);
           var year  = date.getYear() + 1900;

@@ -8,7 +8,7 @@
  * Controller of the spendingAngularApp
  */
 angular.module('spendingAngularApp')
-  .controller('MainCtrl', function($scope, allRecords, financeData){
+  .controller('MainCtrl', function($scope, Transactions, finances){
 
   $scope.monthAbbreviations = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   $scope.searchRecords = {};
@@ -26,8 +26,8 @@ angular.module('spendingAngularApp')
   };
 
   $scope.filterPrice = function() {
-    financeData.updateFilterAttributes($scope.searchRecords);
-    createSpending(financeData.getSpending());
+    finances.updateFilterAttributes($scope.searchRecords);
+    createSpending(finances.getSpending());
   };
 
   $scope.getDate = function(month, day) {
@@ -74,14 +74,14 @@ angular.module('spendingAngularApp')
   };
 
   function createSpending(data) {
-    $scope.allRecords   = financeData.buildSpendingData(data);
-    $scope.categories   = financeData.getCategories();
+    $scope.allRecords   = finances.buildSpendingData(data);
+    $scope.categories   = finances.getCategories();
     $scope.yearRange    = Object.keys($scope.allRecords);
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
     $scope.showTransactions(1,2);
   }
 
-  $scope.rawSpendingData = financeData.setSpending(allRecords);
+  $scope.rawSpendingData = finances.setSpending(Transactions);
   createSpending($scope.rawSpendingData);
 
 });

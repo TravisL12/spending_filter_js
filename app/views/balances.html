@@ -1,1 +1,19 @@
 <p>This is the balances view.</p>
+
+<table class='table'>
+  <thead>
+    <th>Date</th>
+    <th>Checking</th>
+    <th>Saving</th>
+    <th>Total</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat='balance in balances'>
+      <td>{{balance.date}}</td>
+      <td>{{balance.checking | currency}}</td>
+      <td>{{balance.saving | currency}}</td>
+      <td>{{calcTotal() | currency}}</td>
+    </tr>
+  </tbody>
+</table>
+
