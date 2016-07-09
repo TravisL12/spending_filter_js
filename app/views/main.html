@@ -55,7 +55,10 @@
         <label>High Price:</label>
         <input class='form-control' ng-change='filterPrice()' type='number' step='5' min='0' ng-model-options='{ debounce: 1000 }' ng-model='searchRecords.priceMax'>
       </div>
+    </div>
 
+    <div class='row form-group'>
+      <div class='col-md-12'><button class='btn btn-xs btn-default' ng-click='clearFilters()'>Clear Filters</button></div>
     </div>
 
   </div>

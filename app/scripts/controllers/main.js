@@ -84,4 +84,13 @@ angular.module('spendingAngularApp')
   $scope.rawSpendingData = finances.setSpending(Transactions);
   createSpending($scope.rawSpendingData);
 
+  $scope.clearFilters = function () {
+    $scope.searchRecords = {
+      category: '',
+      description: '',
+      priceMin: '',
+      priceMax: ''
+    };
+    $scope.filterPrice();
+  };
 });
