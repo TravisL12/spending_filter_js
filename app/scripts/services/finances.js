@@ -21,6 +21,7 @@ angular.module('spendingAngularApp')
 
     function Year() {
       return {
+        total: 0,
         month: {}
       };
     }
@@ -87,11 +88,12 @@ angular.module('spendingAngularApp')
           var month = date.getMonth() + 1;
           var day   = date.getDate();
 
-          spending[year]                       = spending[year] || new Year();
-          spending[year].month[month]          = spending[year].month[month] || new Month();
+          spending[year]                       = spending[year]                       || new Year();
+          spending[year].month[month]          = spending[year].month[month]          || new Month();
           spending[year].month[month].day[day] = spending[year].month[month].day[day] || new Day();
 
           if (self.validateTransaction(transaction)) {
+            spending[year].total += transaction.amount;
             spending[year].month[month].total += transaction.amount;
             spending[year].month[month].day[day].total += transaction.amount;
             spending[year].month[month].day[day].transactions.push(transaction);

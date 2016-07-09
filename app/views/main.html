@@ -17,6 +17,11 @@
         <td class='days-of-month'>Total:</td>
         <td class='day' ng-class='setMonthStyling()' ng-repeat='i in getNumber(12) track by $index'>{{getDate($index+1).total | currency:'$':0}}</td>
       </tr>
+      <tr>
+        <td colspan='9'></td>
+        <td colspan='2'>Year Total:</td>
+        <td colspan='2'>{{allRecords[selectedYear].total | currency:'$':0}}</td>
+      </tr>
     </tbody>
   </table>
 
