@@ -15,7 +15,7 @@ angular.module('spendingAngularApp')
     if (typeof(finances.getSpending()) === 'object') {
       rawSpendingData = finances.getSpending();
     } else if (!Transactions.error) {
-      rawSpendingData = finances.setSpending(Transactions.data);
+      rawSpendingData = finances.setSpending(Transactions);
     }
 
     $scope.chartOptions = {
@@ -49,6 +49,13 @@ angular.module('spendingAngularApp')
           tickFormat: function(d){
             return window.d3.format('$,0f')(d);
           }
+        },
+        zoom: {
+          scale: 2,
+          scaleExtent: [1, 10],
+          useNiceScale: true,
+          verticalOff: true,
+          unzoomEventType: 'dblclick.zoom'
         }
       },
       title: {},
@@ -60,7 +67,7 @@ angular.module('spendingAngularApp')
 
     for(var i = 0; i < rawSpendingData.length; i++) {
       if (rawSpendingData[i].amount > 0) {
-        $scope.data[0].values.push({ x: rawSpendingData[i].date, y: rawSpendingData[i].amount });
+        $scope.data[0].values.push({ x: rawSpendingData[i].date, y: parseFloat(rawSpendingData[i].amount) });
       }
     }
 

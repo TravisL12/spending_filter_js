@@ -15,7 +15,7 @@
   'ui.router',
   'nvd3'
   ]).config(function ($stateProvider) {
-
+    // $locationProvider.html5Mode(true);
     function getGoogleUrl(num) {
       return 'https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/' + num + '/public/values?alt=json';
     }
