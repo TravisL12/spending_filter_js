@@ -7,17 +7,16 @@
  * # financeData
  * Factory in the spendingAngularApp.
  */
-angular.module('spendingAngularApp')
-  .factory('finances', function () {
+angular.module('spendingAngularApp').factory('finances', function () {
 
-    var spendingData;
-    var categories = [];
-    var searchRecords = {
-      category: null,
-      description: null,
-      priceMin: null,
-      priceMax: null
-    };
+    var spendingData,
+        categories,
+        searchRecords = {
+          category: {},
+          description: null,
+          priceMin: null,
+          priceMax: null
+        };
 
     function Year() {
       return {
@@ -41,6 +40,16 @@ angular.module('spendingAngularApp')
     }
 
     return {
+
+      clearFilters: function () {
+        searchRecords = {
+          category: {},
+          description: '',
+          priceMin: '',
+          priceMax: ''
+        };
+        return searchRecords;
+      },
 
       setSpending: function (data) {
         spendingData = data;
@@ -105,8 +114,8 @@ angular.module('spendingAngularApp')
       },
 
       buildCategories: function(category) {
-        if (categories.indexOf(category) === -1) {
-          categories.push(category);
+        if (categories[category] === undefined) {
+          categories[category] = true;
         }
       },
 
@@ -115,7 +124,7 @@ angular.module('spendingAngularApp')
       },
 
       resetCategories: function() {
-        categories = [];
+        categories = searchRecords.category;
       },
 
       validatePrice: function(amount) {
@@ -130,10 +139,7 @@ angular.module('spendingAngularApp')
       },
 
       validateCategory: function(category) {
-        if (searchRecords.category) {
-          return category === searchRecords.category;
-        }
-        return true;
+        return searchRecords.category[category];
       },
 
       validateDescription: function(description) {

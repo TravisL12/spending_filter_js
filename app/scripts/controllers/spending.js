@@ -8,7 +8,7 @@
  * Controller of the spendingAngularApp
  */
 angular.module('spendingAngularApp')
-  .controller('MainCtrl', function($scope, Transactions, finances){
+  .controller('SpendingCtrl', function($scope, Transactions, finances){
 
   $scope.monthAbbreviations = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   $scope.searchRecords = {};
@@ -76,18 +76,30 @@ angular.module('spendingAngularApp')
   function createSpending(data) {
     $scope.allRecords   = finances.buildSpendingData(data);
     $scope.categories   = finances.getCategories();
+    $scope.searchRecords.category = $scope.categories;
     $scope.yearRange    = Object.keys($scope.allRecords);
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
     $scope.showTransactions(1,2);
   }
 
+  $scope.selectAllCategories = function () {
+    angular.forEach($scope.categories, function (value, category) {
+      $scope.searchRecords.category[category] = true;
+    });
+
+    $scope.filterPrice();
+  };
+
+  $scope.selectNoneCategories = function () {
+    angular.forEach($scope.categories, function (value, category) {
+      $scope.searchRecords.category[category] = false;
+    });
+
+    $scope.filterPrice();
+  };
+
   $scope.clearFilters = function () {
-    $scope.searchRecords = {
-      category: '',
-      description: '',
-      priceMin: '',
-      priceMax: ''
-    };
+    $scope.searchRecords = finances.clearFilters();
     $scope.filterPrice();
   };
 

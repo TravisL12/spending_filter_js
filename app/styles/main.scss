@@ -21,6 +21,11 @@ ul.category-checkboxes li {
   }
 }
 
+.spending-container {
+  @extend .container;
+  max-width: 1400px;
+}
+
 .year-pagination {
   margin-bottom: 15px;
 
@@ -42,20 +47,25 @@ ul.category-checkboxes li {
 .empty  { background: #FFF9F9; }
 
 .date-grid {
+
   td.days-of-month, th.months {
     text-align: right;
     font-weight: bold;
   }
+
   td.days-of-month, th.months, td.day {
     padding-top: 1px;
     padding-bottom: 1px;
   }
-  td.day{
+
+  td.day,
+  td.days-of-month { width: 50px; }
+
+  td.day {
     cursor: pointer;
     font-size: 12px;
     padding-left: 0;
     text-align: right;
-    width: 50px;
     &:hover { background: #ddd; }
   }
 }

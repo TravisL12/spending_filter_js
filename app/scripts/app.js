@@ -58,8 +58,8 @@
     })
     .state('spreadsheet.spending', {
       url:'/',
-      templateUrl: 'views/main.html',
-      controller: 'MainCtrl'
+      templateUrl: 'views/spending.html',
+      controller: 'SpendingCtrl'
     })
     .state('spreadsheet.graphs', {
       url: '/graph',
