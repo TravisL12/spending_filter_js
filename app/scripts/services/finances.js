@@ -41,6 +41,7 @@ angular.module('spendingAngularApp')
     }
 
     return {
+
       setSpending: function (data) {
         spendingData = data;
         return this.getSpending();

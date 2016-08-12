@@ -57,7 +57,7 @@ angular.module('spendingAngularApp')
     if (month) {
       var day = $scope.getDate(this.$index + 1, this.$parent.$index + 1);
       if (day) {
-        var formatSteps = 15; // Arbitrary number of color gradients, also referenced in CSS
+        var formatSteps = 10; // Arbitrary number of color gradients, also referenced in CSS
         var maxDay = (3*$scope.searchRecords.priceMax) || 2000;
         var ratio = day.total < maxDay ? Math.ceil(day.total / maxDay * formatSteps) : formatSteps;
         return 'day-conditional-' + ratio;
@@ -81,9 +81,6 @@ angular.module('spendingAngularApp')
     $scope.showTransactions(1,2);
   }
 
-  $scope.rawSpendingData = finances.setSpending(Transactions);
-  createSpending($scope.rawSpendingData);
-
   $scope.clearFilters = function () {
     $scope.searchRecords = {
       category: '',
@@ -93,4 +90,7 @@ angular.module('spendingAngularApp')
     };
     $scope.filterPrice();
   };
+
+  createSpending(finances.getSpending());
+
 });

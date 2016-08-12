@@ -53,8 +53,8 @@ ul { padding: 0; margin: 0; }
 }
 
 // Create conditional formatting
-@for $i from 1 through 15 {
-  .day-conditional-#{$i} { background: rgba(100,255,100,$i/15); }
+@for $i from 1 through 10 {
+  .day-conditional-#{$i} { background: rgba(100,255,100,$i/10); }
 }
 
 // Create conditional formatting

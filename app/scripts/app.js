@@ -14,38 +14,13 @@
   'ngSanitize',
   'ui.router',
   'nvd3'
-  ]).config(function ($stateProvider) {
-    // $locationProvider.html5Mode(true);
+  ]).config(function ($stateProvider, $urlRouterProvider) {
     function getGoogleUrl(num) {
       return 'https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/' + num + '/public/values?alt=json';
     }
 
-    function getTransactions($http) {
-      var url = getGoogleUrl(1);
-      return $http.get(url).then(function(data) {
-        return data.data.feed.entry.map(function(obj) {
-          return {
-            category:    obj.gsx$category.$t,
-            date:        obj.gsx$date.$t,
-            description: obj.gsx$description.$t,
-            amount:      obj.gsx$amount.$t
-          };
-        });
-      });
-    }
-
-    function getBalances($http) {
-      var url = getGoogleUrl(2);
-      return $http.get(url).then(function(data) {
-        return data.data.feed.entry.map(function(obj) {
-          return {
-            date:     obj.gsx$date.$t,
-            checking: obj.gsx$checking.$t,
-            saving:   obj.gsx$saving.$t
-          };
-        });
-      });
-    }
+    // $locationProvider.html5Mode(true);
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
     .state('spreadsheet', {
@@ -53,11 +28,31 @@
       template: '<ui-view></ui-view>',
       abstract: true,
       resolve: {
-        Transactions: function($http) {
-          return getTransactions($http);
+        Transactions: function($http, finances) {
+          var url = getGoogleUrl(1);
+          return $http.get(url).then(function(data) {
+            var transactions = data.data.feed.entry.map(function(obj) {
+              return {
+                category:    obj.gsx$category.$t,
+                date:        obj.gsx$date.$t,
+                description: obj.gsx$description.$t,
+                amount:      obj.gsx$amount.$t
+              };
+            });
+            finances.setSpending(transactions);
+          });
         },
         Balances: function($http) {
-          return getBalances($http);
+          var url = getGoogleUrl(2);
+          return $http.get(url).then(function(data) {
+            return data.data.feed.entry.map(function(obj) {
+              return {
+                date:     obj.gsx$date.$t,
+                checking: obj.gsx$checking.$t,
+                saving:   obj.gsx$saving.$t
+              };
+            });
+          });
         }
       }
     })
