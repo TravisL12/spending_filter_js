@@ -13,12 +13,12 @@
     <div class='form-group'>
       <label>Category:</label>
       <br>
-      <button class='btn btn-default btn-xs' ng-click='selectAllCategories()'>Select All</button>
-      <button class='btn btn-default btn-xs' ng-click='selectNoneCategories()'>Select None</button>
+      <button class='btn btn-default btn-xs' ng-click='toggleCategories(true)'>Select All</button>
+      <button class='btn btn-default btn-xs' ng-click='toggleCategories(false)'>Select None</button>
       <ul class='category-checkboxes'>
         <li ng-repeat='(category, value) in categories' ng-if='category != ""'>
           <label id='category-{{category}}'>
-            <input type='checkbox' for='category-{{category}}' ng-true-value='true' ng-false-value='false' ng-change='filterPrice()' ng-model='searchRecords.category[category]'> {{category}}
+            <input type='checkbox' for='category-{{category}}' ng-true-value='true' ng-false-value='false' ng-change='filterPrice()' ng-model='categories[category]'> {{category}}
           </label>
         </li>
       </ul>

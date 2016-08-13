@@ -26,7 +26,8 @@ angular.module('spendingAngularApp')
   };
 
   $scope.filterPrice = function() {
-    finances.updateFilterAttributes($scope.searchRecords);
+    finances.categories = $scope.categories;
+    finances.updateFilterAttributes = $scope.searchRecords;
     createSpending(finances.spending);
   };
 
@@ -76,23 +77,15 @@ angular.module('spendingAngularApp')
   function createSpending(data) {
     $scope.allRecords   = finances.buildSpendingData(data);
     $scope.categories   = finances.categories;
-    $scope.searchRecords.category = $scope.categories;
+    $scope.categories = $scope.categories;
     $scope.yearRange    = Object.keys($scope.allRecords);
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
     $scope.showTransactions(1,2);
   }
 
-  $scope.selectAllCategories = function () {
+  $scope.toggleCategories = function (boolVal) {
     angular.forEach($scope.categories, function (value, category) {
-      $scope.searchRecords.category[category] = true;
-    });
-
-    $scope.filterPrice();
-  };
-
-  $scope.selectNoneCategories = function () {
-    angular.forEach($scope.categories, function (value, category) {
-      $scope.searchRecords.category[category] = false;
+      $scope.categories[category] = boolVal;
     });
 
     $scope.filterPrice();

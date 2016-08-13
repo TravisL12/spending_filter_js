@@ -10,9 +10,8 @@
 angular.module('spendingAngularApp').factory('finances', function () {
 
     var spendingData,
-        categories,
+        categories = {},
         searchRecords = {
-          category: {},
           description: null,
           priceMin: null,
           priceMax: null
@@ -37,48 +36,41 @@ angular.module('spendingAngularApp').factory('finances', function () {
     }
 
     function Year() {
-      return {
-        total: 0,
-        month: {}
-      };
+      this.total = 0;
+      this.month = {};
     }
 
     function Month() {
-      return {
-        total: 0,
-        day: {}
-      };
+      this.total = 0;
+      this.day = {};
     }
 
     function Day() {
-      return {
-        total: 0,
-        transactions: []
-      };
+      this.total = 0;
+      this.transactions = [];
     }
 
     return {
 
       clearFilters: function () {
         searchRecords = {
-          category: {},
-          description: '',
-          priceMin: '',
-          priceMax: ''
+          description: null,
+          priceMin: null,
+          priceMax: null
         };
         return searchRecords;
       },
 
-      updateFilterAttributes: function(attrs) {
+      set updateFilterAttributes (attrs) {
         searchRecords = attrs;
       },
 
-      buildSpendingData: function(data) {
+      buildSpendingData: function (data) {
         var self = this;
         var spending = {};
-        self.resetCategories();
+        // categories = searchRecords.category;
 
-        angular.forEach(data, function(transaction) {
+        angular.forEach(data, function (transaction) {
           self.buildCategories(transaction.category);
           transaction.amount      = parseFloat(transaction.amount);
           transaction.date        = parseDate(transaction);
@@ -104,7 +96,7 @@ angular.module('spendingAngularApp').factory('finances', function () {
         return spending;
       },
 
-      buildCategories: function(category) {
+      buildCategories: function (category) {
         if (categories[category] === undefined) {
           categories[category] = true;
         }
@@ -118,15 +110,16 @@ angular.module('spendingAngularApp').factory('finances', function () {
         return spendingData;
       },
 
+      set categories(data) {
+        categories = data;
+      },
+
       get categories() {
         return categories;
       },
 
-      resetCategories: function() {
-        categories = searchRecords.category;
-      },
 
-      validatePrice: function(amount) {
+      validatePrice: function (amount) {
         var min = true, max = true;
         if (searchRecords.priceMin) {
           min = amount >= searchRecords.priceMin;
@@ -137,18 +130,18 @@ angular.module('spendingAngularApp').factory('finances', function () {
         return min && max;
       },
 
-      validateCategory: function(category) {
-        return searchRecords.category[category];
+      validateCategory: function (category) {
+        return categories[category];
       },
 
-      validateDescription: function(description) {
+      validateDescription: function (description) {
         if (searchRecords.description) {
           return description.toLowerCase().indexOf(searchRecords.description.toLowerCase()) > -1;
         }
         return true;
       },
 
-      validateTransaction: function(transaction) {
+      validateTransaction: function (transaction) {
         var price       = this.validatePrice(transaction.amount);
         var category    = this.validateCategory(transaction.category);
         var description = this.validateDescription(transaction.description);
