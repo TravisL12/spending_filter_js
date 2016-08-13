@@ -8,15 +8,9 @@
  * Controller of the spendingAngularApp
  */
 angular.module('spendingAngularApp')
-  .controller('SpendinggraphCtrl', function ($scope, finances, Transactions) {
+  .controller('SpendinggraphCtrl', function ($scope, finances) {
 
-    var rawSpendingData;
-
-    if (typeof(finances.getSpending()) === 'object') {
-      rawSpendingData = finances.getSpending();
-    } else if (!Transactions.error) {
-      rawSpendingData = finances.setSpending(Transactions);
-    }
+    var rawSpendingData = finances.spending;
 
     $scope.chartOptions = {
       chart: {

@@ -27,7 +27,7 @@ angular.module('spendingAngularApp')
 
   $scope.filterPrice = function() {
     finances.updateFilterAttributes($scope.searchRecords);
-    createSpending(finances.getSpending());
+    createSpending(finances.spending);
   };
 
   $scope.getDate = function(month, day) {
@@ -75,7 +75,7 @@ angular.module('spendingAngularApp')
 
   function createSpending(data) {
     $scope.allRecords   = finances.buildSpendingData(data);
-    $scope.categories   = finances.getCategories();
+    $scope.categories   = finances.categories;
     $scope.searchRecords.category = $scope.categories;
     $scope.yearRange    = Object.keys($scope.allRecords);
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
@@ -103,6 +103,6 @@ angular.module('spendingAngularApp')
     $scope.filterPrice();
   };
 
-  createSpending(finances.getSpending());
+  createSpending(finances.spending);
 
 });

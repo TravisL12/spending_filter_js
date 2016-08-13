@@ -18,6 +18,24 @@ angular.module('spendingAngularApp').factory('finances', function () {
           priceMax: null
         };
 
+    function parseDescription (transaction) {
+      var purchaseRE = new RegExp(/(purchase\s*authorized\s*on\s*)/i);
+      var rand16RE = new RegExp(/\S{16} (card) \d{4,}/i);
+      
+      return transaction.description.replace(purchaseRE, '').replace(rand16RE,'');
+    }
+
+    function parseDate (transaction) {
+      var re = new RegExp(/((^\d{1,2}|\s\d{1,2})\/\d{2}\s)/);
+      var newDate = transaction.description.match(re);
+      if (newDate) {
+        var date  = new Date(transaction.date);
+        var year  = date.getYear() - 100;
+        return newDate[0] + '/' + year;
+      }
+      return transaction.date;
+    }
+
     function Year() {
       return {
         total: 0,
@@ -51,35 +69,8 @@ angular.module('spendingAngularApp').factory('finances', function () {
         return searchRecords;
       },
 
-      setSpending: function (data) {
-        spendingData = data;
-        return this.getSpending();
-      },
-
-      getSpending: function() {
-        return spendingData;
-      },
-
       updateFilterAttributes: function(attrs) {
         searchRecords = attrs;
-      },
-
-      parseDate: function(transaction) {
-        var re = new RegExp(/((^\d{1,2}|\s\d{1,2})\/\d{2}\s)/);
-        var newDate = transaction.description.match(re);
-        if (newDate) {
-          var date  = new Date(transaction.date);
-          var year  = date.getYear() - 100;
-          return newDate[0] + '/' + year;
-        }
-        return transaction.date;
-      },
-
-      parseDescription: function(transaction) {
-        var purchaseRE = new RegExp(/(purchase\s*authorized\s*on\s*)/i);
-        var rand16RE = new RegExp(/\S{16} (card) \d{4,}/i);
-        
-        return transaction.description.replace(purchaseRE, '').replace(rand16RE,'');
       },
 
       buildSpendingData: function(data) {
@@ -90,8 +81,8 @@ angular.module('spendingAngularApp').factory('finances', function () {
         angular.forEach(data, function(transaction) {
           self.buildCategories(transaction.category);
           transaction.amount      = parseFloat(transaction.amount);
-          transaction.date        = self.parseDate(transaction);
-          transaction.description = self.parseDescription(transaction);
+          transaction.date        = parseDate(transaction);
+          transaction.description = parseDescription(transaction);
 
           var date  = new Date(transaction.date);
           var year  = date.getYear() + 1900;
@@ -119,7 +110,15 @@ angular.module('spendingAngularApp').factory('finances', function () {
         }
       },
 
-      getCategories: function() {
+      set spending(data) {
+        spendingData = data;
+      },
+
+      get spending() {
+        return spendingData;
+      },
+
+      get categories() {
         return categories;
       },
 

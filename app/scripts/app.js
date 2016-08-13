@@ -31,7 +31,7 @@
         Transactions: function($http, finances) {
           var url = getGoogleUrl(1);
           return $http.get(url).then(function(data) {
-            var transactions = data.data.feed.entry.map(function(obj) {
+            finances.spending = data.data.feed.entry.map(function(obj) {
               return {
                 category:    obj.gsx$category.$t,
                 date:        obj.gsx$date.$t,
@@ -39,7 +39,6 @@
                 amount:      obj.gsx$amount.$t
               };
             });
-            finances.setSpending(transactions);
           });
         },
         Balances: function($http) {
@@ -63,7 +62,7 @@
     })
     .state('spreadsheet.graphs', {
       url: '/graph',
-      templateUrl: 'views/spendinggraph.html',
+      templateUrl: 'views/graph.html',
       controller: 'SpendinggraphCtrl'
     })
     .state('spreadsheet.balances', {
