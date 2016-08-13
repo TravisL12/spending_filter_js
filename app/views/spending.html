@@ -48,7 +48,7 @@
         <tr>
           <td colspan='9'></td>
           <td colspan='2'>Year Total:</td>
-          <td colspan='2'>{{allRecords[selectedYear].total | currency:'$':0}}</td>
+          <td colspan='2'>{{allRecords.total | currency:'$':0}}</td>
         </tr>
       </tbody>
     </table>
@@ -87,13 +87,16 @@
         <thead>
           <th>Amount</th>
           <th>Category</th>
-          <th>Description</th>
         </thead>
         <tbody>
           <tr ng-repeat='transaction in selectedDate.transactions'>
             <td class='col-md-2'>{{transaction.amount | currency}}</td>
-            <td class='col-md-3'>{{transaction.category}}</td>
-            <td class='col-md-7'>{{transaction.description}}</td>
+            <td class='col-md-10'>
+              <ul>
+                <li>{{transaction.description}}</li>
+                <li class='pull-right'><small>{{transaction.category}}</small></li>
+              </ul>
+            </td>
           </tr>
         </tbody>
       </table>

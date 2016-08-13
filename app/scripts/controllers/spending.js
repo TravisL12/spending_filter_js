@@ -19,6 +19,7 @@ angular.module('spendingAngularApp')
 
   $scope.selectYear = function() {
     $scope.selectedYear = this.year;
+    updateSpending();
   };
 
   $scope.highlightActiveDay = function() {
@@ -27,15 +28,15 @@ angular.module('spendingAngularApp')
 
   $scope.filterPrice = function() {
     finances.categories = $scope.categories;
-    finances.updateFilterAttributes = $scope.searchRecords;
-    createSpending(finances.spending);
+    finances.searchRecords = $scope.searchRecords;
+    updateSpending(finances.spending);
   };
 
   $scope.getDate = function(month, day) {
-    var monthObj = $scope.allRecords[$scope.selectedYear].month[month];
+    var monthObj = $scope.allRecords.month[month];
     if (monthObj) {
       if (day) {
-        return $scope.allRecords[$scope.selectedYear].month[month].day[day]; // return Day
+        return $scope.allRecords.month[month].day[day]; // return Day
       }
       return monthObj; // return Month
     }
@@ -74,12 +75,12 @@ angular.module('spendingAngularApp')
     $scope.selectedDate    = $scope.getDate(month, day);
   };
 
-  function createSpending(data) {
-    $scope.allRecords   = finances.buildSpendingData(data);
+  function updateSpending() {
+    var records   = finances.buildSpendingData(finances.spending);
     $scope.categories   = finances.categories;
-    $scope.categories = $scope.categories;
-    $scope.yearRange    = Object.keys($scope.allRecords);
+    $scope.yearRange    = Object.keys(records);
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
+    $scope.allRecords = records[$scope.selectedYear];
     $scope.showTransactions(1,2);
   }
 
@@ -92,10 +93,10 @@ angular.module('spendingAngularApp')
   };
 
   $scope.clearFilters = function () {
-    $scope.searchRecords = finances.clearFilters();
+    $scope.searchRecords = finances.searchRecords;
     $scope.filterPrice();
   };
 
-  createSpending(finances.spending);
+  updateSpending();
 
 });
