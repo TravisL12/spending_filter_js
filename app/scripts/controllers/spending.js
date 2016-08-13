@@ -29,7 +29,7 @@ angular.module('spendingAngularApp')
   $scope.filterPrice = function() {
     finances.categories = $scope.categories;
     finances.searchRecords = $scope.searchRecords;
-    updateSpending(finances.spending);
+    updateSpending();
   };
 
   $scope.getDate = function(month, day) {
@@ -76,11 +76,10 @@ angular.module('spendingAngularApp')
   };
 
   function updateSpending() {
-    var records   = finances.buildSpendingData(finances.spending);
     $scope.categories   = finances.categories;
-    $scope.yearRange    = Object.keys(records);
+    $scope.yearRange    = Object.keys(finances.spending);
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
-    $scope.allRecords = records[$scope.selectedYear];
+    $scope.allRecords   = finances.yearSpending($scope.selectedYear);
     $scope.showTransactions(1,2);
   }
 
