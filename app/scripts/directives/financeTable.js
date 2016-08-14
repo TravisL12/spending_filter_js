@@ -5,11 +5,12 @@ angular.module('spendingAngularApp').directive('financeTable', function () {
   return {
     restrict: 'E',
     replace: true,
-    templateUrl: '/views/finance_table.html',
+    templateUrl: 'views/finance_table.html',
     scope: {
       allRecords: '=',
       priceMax: '=',
-      showTransactions: '&'
+      showTransactions: '&',
+      transactionDate: '='
     },
     link: function (scope) {
         function numberRange (num) {
@@ -23,7 +24,7 @@ angular.module('spendingAngularApp').directive('financeTable', function () {
         scope.monthCount = numberRange(12);
 
         scope.highlightActiveDay = function() {
-          return scope.transactionDate === (this.month) + '/' + (this.day);
+          return scope.transactionDate === this.month + '/' + this.day;
         };
 
         scope.setMonthStyling = function() {
