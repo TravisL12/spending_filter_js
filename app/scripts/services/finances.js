@@ -94,7 +94,11 @@ angular.module('spendingAngularApp').factory('finances', function () {
           transaction.description = parseDescription(transaction);
 
           if (categories[transaction.category] === undefined) {
-            categories[transaction.category] = true;
+            categories[transaction.category] = {
+              name: transaction.category,
+              value: true,
+              total: 0
+            };
           }
 
           var date  = new Date(transaction.date),
@@ -117,6 +121,7 @@ angular.module('spendingAngularApp').factory('finances', function () {
             for (var transIdx in yearData.month[month].day[day].transactions) {
               var transaction = yearData.month[month].day[day].transactions[transIdx];
               if (this.validateTransaction(transaction)) {
+                categories[transaction.category].total += transaction.amount;
                 yearSpending.total += transaction.amount;
                 yearSpending.month[month].total += transaction.amount;
                 yearSpending.month[month].day[day].total += transaction.amount;
@@ -150,7 +155,7 @@ angular.module('spendingAngularApp').factory('finances', function () {
       },
 
       validateTransaction: function (transaction) {
-        var category    = categories[transaction.category],
+        var category    = categories[transaction.category].value,
             price       = this.validatePrice.call(transaction),
             description = this.validateDescription.call(transaction);
 

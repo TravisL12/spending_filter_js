@@ -10,9 +10,9 @@
 
       <div class='form-group'>
         <ul class='category-checkboxes'>
-          <li ng-repeat='(category, value) in categories' ng-if='category != ""'>
-            <input type='checkbox' id='category-{{category}}' ng-true-value='true' ng-false-value='false' ng-change='filterPrice()' ng-model='categories[category]'>
-            <label for='category-{{category}}'>{{category}}</label>
+          <li ng-repeat='category in categories | orderBy:"name"' ng-if='category.name != ""'>
+            <input type='checkbox' id='category-{{category.name}}' ng-true-value='true' ng-false-value='false' ng-change='filterPrice()' ng-model='category.value'>
+            <label for='category-{{category.name}}'>{{category.name}}</label>
           </li>
         </ul>
       </div>

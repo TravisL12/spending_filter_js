@@ -80,7 +80,7 @@ angular.module('spendingAngularApp')
     $scope.yearRange    = Object.keys(finances.spending);
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
     $scope.allRecords   = finances.yearSpending($scope.selectedYear);
-    $scope.showTransactions(1,2);
+    $scope.showTransactions(1,1);
   }
 
   $scope.toggleCategories = function (boolVal) {
