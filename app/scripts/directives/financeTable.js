@@ -19,7 +19,10 @@ angular.module('spendingAngularApp').directive('financeTable', function () {
           });
         }
 
-        scope.monthAbbreviations = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        scope.dateAbbreviation = function () {
+          return new Date(this.month +'/1/2016');
+        };
+
         scope.dayCount   = numberRange(31);
         scope.monthCount = numberRange(12);
 

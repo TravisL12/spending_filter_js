@@ -1,7 +1,7 @@
 <table class='table table-bordered table-condensed'>
   <thead>
     <th></th>
-    <th class='months' ng-repeat='month in monthAbbreviations'>{{month}}</th>
+    <th class='months' ng-repeat='month in monthCount'>{{dateAbbreviation() | date:'MMM'}}</th>
   </thead>
   <tbody>
     <tr ng-repeat='day in dayCount'>
