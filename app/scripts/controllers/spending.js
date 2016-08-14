@@ -60,7 +60,7 @@ angular.module('spendingAngularApp')
       var day = $scope.getDate(this.$index + 1, this.$parent.$index + 1);
       if (day) {
         var formatSteps = 10; // Arbitrary number of color gradients, also referenced in CSS
-        var maxDay = (3*$scope.searchRecords.priceMax) || 2000;
+        var maxDay = (3 * $scope.searchRecords.priceMax) || 2000;
         var ratio = day.total < maxDay ? Math.ceil(day.total / maxDay * formatSteps) : formatSteps;
         return 'day-conditional-' + ratio;
       }

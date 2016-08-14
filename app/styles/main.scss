@@ -10,7 +10,20 @@ ul.year-range li { display: inline-block; }
 
 ul.category-checkboxes li {
   display: block;
-  font-size: 10px;
+  font-size: 14px;
+  label {
+    cursor: pointer;
+    font-weight: normal;
+    width: 100%;
+    padding: 2px 4px;
+    background: #ddd;
+  }
+  input[type=checkbox] {
+    display: none; 
+    &:checked + label {
+      background: #BDFFB7;
+    }
+  }
 }
 
 .header { 
@@ -23,8 +36,8 @@ ul.category-checkboxes li {
 }
 
 .spending-container {
-  @extend .container;
   max-width: 1400px;
+  margin: 0 auto;
 }
 
 .year-pagination {
@@ -72,13 +85,15 @@ ul.category-checkboxes li {
 }
 
 // Create conditional formatting
-@for $i from 1 through 10 {
-  .day-conditional-#{$i} { background: rgba(100,255,100,$i/10); }
+$day-steps: 10;
+@for $i from 1 through $day-steps {
+  .day-conditional-#{$i} { background: rgba(100,255,100,$i/$day-steps); }
 }
 
 // Create conditional formatting
-@for $i from 1 through 12 {
-  .month-conditional-#{$i} { background: rgba(255,150,150,$i/12); }
+$month-steps: 12;
+@for $i from 1 through $month-steps {
+  .month-conditional-#{$i} { background: rgba(255,150,150,$i/$month-steps); }
 }
 
 .csv-input { display: inline-block; }

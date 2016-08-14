@@ -38,7 +38,17 @@ angular.module('spendingAngularApp').factory('finances', function () {
     function Year() {
       this.total = 0;
       this.month = {};
+      this.buildMonths();
     }
+
+    Year.prototype.buildMonths = function () {
+      for (var i = 1; i <= 12; i++) {
+        this.month[i] = new Month();
+        for (var k = 1; k <= 31; k++) {
+          this.month[i].day[k] = new Day();
+        }
+      }
+    };
 
     function Month() {
       this.total = 0;
@@ -92,38 +102,26 @@ angular.module('spendingAngularApp').factory('finances', function () {
               month = date.getMonth() + 1,
               day   = date.getDate();
 
-          spending[year]                       = spending[year]                       || new Year();
-          spending[year].month[month]          = spending[year].month[month]          || new Month();
-          spending[year].month[month].day[day] = spending[year].month[month].day[day] || new Day();
-
-          spending[year].total                       += transaction.amount;
-          spending[year].month[month].total          += transaction.amount;
-          spending[year].month[month].day[day].total += transaction.amount;
+          spending[year] = spending[year] || new Year();
           spending[year].month[month].day[day].transactions.push(transaction);
         }
       },
 
       yearSpending: function (year) {
         var yearData = spending[year];
-        var yearSpending = {};
-        yearSpending = new Year();
+        var yearSpending = new Year();
         yearSpending.total = yearData.total;
 
         for (var month in yearData.month) {
-          yearSpending.month[month] = new Month();
-
           for (var day in yearData.month[month].day) {
-            yearSpending.month[month].day[day] = new Day();
-
             for (var transIdx in yearData.month[month].day[day].transactions) {
-
               var transaction = yearData.month[month].day[day].transactions[transIdx];
               if (this.validateTransaction(transaction)) {
+                yearSpending.total += transaction.amount;
                 yearSpending.month[month].total += transaction.amount;
                 yearSpending.month[month].day[day].total += transaction.amount;
                 yearSpending.month[month].day[day].transactions.push(transaction);
               }
-
             }
           }
         }
