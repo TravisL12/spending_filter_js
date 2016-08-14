@@ -128,8 +128,8 @@ angular.module('spendingAngularApp').factory('finances', function () {
           for (var day in yearData.month[month].day) {
             for (var transIdx in yearData.month[month].day[day].transactions) {
               var transaction = yearData.month[month].day[day].transactions[transIdx];
+              categories[transaction.category].total += transaction.amount;
               if (this.validateTransaction(transaction)) {
-                categories[transaction.category].total += transaction.amount;
                 yearSpending.total += transaction.amount;
                 yearSpending.month[month].total += transaction.amount;
                 yearSpending.month[month].day[day].total += transaction.amount;

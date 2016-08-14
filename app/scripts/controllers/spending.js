@@ -10,12 +10,7 @@
 angular.module('spendingAngularApp')
   .controller('SpendingCtrl', function($scope, Transactions, finances){
 
-  $scope.monthAbbreviations = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   $scope.searchRecords = {};
-
-  $scope.getNumber = function(num) {
-    return new Array(num);
-  };
 
   $scope.nextYear = function (num) {
     var year = {year: parseInt($scope.selectedYear) + num};
@@ -27,57 +22,15 @@ angular.module('spendingAngularApp')
     updateSpending();
   };
 
-  $scope.highlightActiveDay = function() {
-    return $scope.transactionDate === (this.$index + 1) + '/' + (this.$parent.$index + 1);
-  };
-
   $scope.filterPrice = function() {
     finances.categories = $scope.categories;
     finances.searchRecords = $scope.searchRecords;
     updateSpending();
   };
 
-  $scope.getDate = function(month, day) {
-    var monthObj = $scope.allRecords.month[month];
-    if (monthObj) {
-      if (day) {
-        return $scope.allRecords.month[month].day[day]; // return Day
-      }
-      return monthObj; // return Month
-    }
-    return;
-  };
-
-  $scope.setMonthStyling = function() {
-    var month = $scope.getDate(this.$index + 1);
-    if (month) {
-        var formatSteps = 12; // number of months, also referenced in CSS
-        var maxMonth = 20000;
-        var ratio = month.total < maxMonth ? Math.ceil(month.total / maxMonth * formatSteps) : formatSteps;
-        return 'month-conditional-' + ratio;
-    }
-    return 'empty';
-  };
-
-  $scope.setDayStyling = function() {
-    var month = $scope.getDate(this.$index + 1);
-    if (month) {
-      var day = $scope.getDate(this.$index + 1, this.$parent.$index + 1);
-      if (day) {
-        var formatSteps = 10; // Arbitrary number of color gradients, also referenced in CSS
-        var maxDay = (3 * $scope.searchRecords.priceMax) || 2000;
-        var ratio = day.total < maxDay ? Math.ceil(day.total / maxDay * formatSteps) : formatSteps;
-        return 'day-conditional-' + ratio;
-      }
-    }
-    return 'empty';
-  };
-
   $scope.showTransactions = function(month, day) {
-    month = month || this.$index + 1;
-    day   = day   || this.$parent.$index + 1;
     $scope.transactionDate = month + '/' + day;
-    $scope.selectedDate    = $scope.getDate(month, day);
+    $scope.selectedDate    = $scope.allRecords.month[month].day[day];
   };
 
   function updateSpending() {

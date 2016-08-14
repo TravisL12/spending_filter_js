@@ -10,9 +10,9 @@
 
       <div class='form-group'>
         <ul class='category-checkboxes'>
-          <li ng-repeat='category in categories' ng-if='category.name != ""'>
+          <li ng-repeat='category in categories' ng-if='category.name != "" && category.total > 0'>
             <input type='checkbox' id='category-{{category.name}}' ng-true-value='true' ng-false-value='false' ng-change='filterPrice()' ng-model='category.value'>
-            <label for='category-{{category.name}}'>{{category.name}} {{::category.total | currency:'$':0}}</label>
+            <label for='category-{{category.name}}'>{{category.name}} <span class='pull-right'>{{category.total | currency:'$':0}}</span></label>
           </li>
         </ul>
       </div>
@@ -37,28 +37,7 @@
 
     <div class='row'>
       <div class='col-md-12'>
-        <table class='table table-bordered table-condensed'>
-          <thead>
-            <th></th>
-            <th class='months' ng-repeat='month in monthAbbreviations track by $index'>{{month}}</th>
-          </thead>
-          <tbody>
-            <tr ng-repeat='i in getNumber(31) track by $index'>
-              <td class='days-of-month'>{{$index+1}}</td>
-              <td class='day' ng-class='[{"active": highlightActiveDay()}, setDayStyling()]' ng-click='showTransactions()'
-                  ng-repeat='i in getNumber(12) track by $index'>{{getDate($index+1, $parent.$index+1).total | currency:'$':0 }}</td>
-            </tr>
-            <tr>
-              <td class='days-of-month'>Total:</td>
-              <td class='day' ng-class='setMonthStyling()' ng-repeat='i in getNumber(12) track by $index'>{{getDate($index+1).total | currency:'$':0}}</td>
-            </tr>
-            <tr>
-              <td colspan='9'></td>
-              <td colspan='2'>Year Total:</td>
-              <td colspan='2'>{{allRecords.total | currency:'$':0}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <finance-table all-records='allRecords' show-transactions='showTransactions(month, day)' price-max='searchRecords.priceMax'></finance-table>
       </div>
     </div>
   </div>

@@ -1,0 +1,22 @@
+<table class='table table-bordered table-condensed'>
+  <thead>
+    <th></th>
+    <th class='months' ng-repeat='month in monthAbbreviations'>{{month}}</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat='day in dayCount'>
+      <td class='days-of-month'>{{day}}</td>
+      <td class='day' ng-class='[{"active": highlightActiveDay()}, setDayStyling()]' ng-click='showTransactions({month: month, day: day})'
+          ng-repeat='month in monthCount'>{{allRecords.month[month].day[day].total | currency:'$':0 }}</td>
+    </tr>
+    <tr>
+      <td class='days-of-month'>Total:</td>
+      <td class='day' ng-class='setMonthStyling()' ng-repeat='month in monthCount'>{{allRecords.month[month].total | currency:'$':0}}</td>
+    </tr>
+    <tr>
+      <td colspan='9'></td>
+      <td colspan='2'>Year Total:</td>
+      <td colspan='2'>{{allRecords.total | currency:'$':0}}</td>
+    </tr>
+  </tbody>
+</table>
