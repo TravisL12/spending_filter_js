@@ -17,6 +17,11 @@ angular.module('spendingAngularApp')
     return new Array(num);
   };
 
+  $scope.nextYear = function (num) {
+    var year = {year: parseInt($scope.selectedYear) + num};
+    $scope.selectYear.call(year);
+  };
+
   $scope.selectYear = function() {
     $scope.selectedYear = this.year;
     updateSpending();
@@ -84,8 +89,8 @@ angular.module('spendingAngularApp')
   }
 
   $scope.toggleCategories = function (boolVal) {
-    angular.forEach($scope.categories, function (value, category) {
-      $scope.categories[category] = boolVal;
+    angular.forEach($scope.categories, function (category) {
+      $scope.categories[category.name].value = boolVal;
     });
 
     $scope.filterPrice();

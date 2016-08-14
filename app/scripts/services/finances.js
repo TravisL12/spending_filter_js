@@ -20,8 +20,9 @@ angular.module('spendingAngularApp').factory('finances', function () {
     function parseDescription (transaction) {
       var purchaseRE = new RegExp(/(purchase\s*authorized\s*on\s*)/i);
       var rand16RE = new RegExp(/\S{16} (card) \d{4,}/i);
+      var leadDatesRE = new RegExp(/\d{2}\/\d{2}\s*/i);
       
-      return transaction.description.replace(purchaseRE, '').replace(rand16RE,'');
+      return transaction.description.replace(purchaseRE, '').replace(rand16RE,'').replace(leadDatesRE,'');
     }
 
     function parseDate (transaction) {
@@ -33,6 +34,12 @@ angular.module('spendingAngularApp').factory('finances', function () {
         return newDate[0] + '/' + year;
       }
       return transaction.date;
+    }
+
+    function resetCategoryTotals () {
+      for (var i in categories) {
+        categories[i].total = 0;
+      }
     }
 
     function Year() {
@@ -115,6 +122,7 @@ angular.module('spendingAngularApp').factory('finances', function () {
         var yearData = spending[year];
         var yearSpending = new Year();
         yearSpending.total = yearData.total;
+        resetCategoryTotals();
 
         for (var month in yearData.month) {
           for (var day in yearData.month[month].day) {
