@@ -33,7 +33,7 @@
           return $http.get(url).then(function(data) {
             finances.spending = data.data.feed.entry.map(function(obj) {
               return {
-                category:    obj.gsx$category.$t,
+                category:    obj.gsx$subcategory.$t || obj.gsx$category.$t,
                 date:        obj.gsx$date.$t,
                 description: obj.gsx$description.$t,
                 amount:      obj.gsx$amount.$t

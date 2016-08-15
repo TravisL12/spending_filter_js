@@ -10,7 +10,7 @@
 
       <div class='form-group'>
         <ul class='category-checkboxes'>
-          <li ng-repeat='category in categories' ng-if='category.name != "" && category.total > 0'>
+          <li ng-repeat='category in categories' ng-if='category.name != "" && category.total > 500'>
             <input type='checkbox' id='category-{{category.name}}' ng-true-value='true' ng-false-value='false' ng-change='filterPrice()' ng-model='category.value'>
             <label for='category-{{category.name}}'>{{category.name}} <span class='pull-right'>{{category.total | currency:'$':0}}</span></label>
           </li>

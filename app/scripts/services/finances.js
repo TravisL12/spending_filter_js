@@ -21,8 +21,9 @@ angular.module('spendingAngularApp').factory('finances', function () {
       var purchaseRE = new RegExp(/(purchase\s*authorized\s*on\s*)/i);
       var rand16RE = new RegExp(/\S{16} (card) \d{4,}/i);
       var leadDatesRE = new RegExp(/\d{2}\/\d{2}\s*/i);
+      var randomNumRE = new RegExp(/[\S]*\d{3,}/gi);
       
-      return transaction.description.replace(purchaseRE, '').replace(rand16RE,'').replace(leadDatesRE,'');
+      return transaction.description.replace(purchaseRE, '').replace(rand16RE,'').replace(leadDatesRE,'').replace(randomNumRE,'');
     }
 
     function parseDate (transaction) {
