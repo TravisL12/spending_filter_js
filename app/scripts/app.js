@@ -15,8 +15,8 @@
   'ui.router',
   'nvd3'
   ]).config(function ($stateProvider, $urlRouterProvider) {
-    function getGoogleUrl(num) {
-      return 'https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/' + num + '/public/values?alt=json';
+    function getGoogleUrl(sheetId) {
+      return 'https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/' + sheetId + '/public/values?alt=json';
     }
 
     // $locationProvider.html5Mode(true);
@@ -41,10 +41,10 @@
             });
           });
         },
-        Balances: function($http) {
+        Balances: function($http, finances) {
           var url = getGoogleUrl(2);
           return $http.get(url).then(function(data) {
-            return data.data.feed.entry.map(function(obj) {
+            finances.balances = data.data.feed.entry.map(function(obj) {
               return {
                 date:     obj.gsx$date.$t,
                 checking: obj.gsx$checking.$t,

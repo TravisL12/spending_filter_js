@@ -10,6 +10,7 @@
 angular.module('spendingAngularApp').factory('finances', function () {
 
     var spending = {},
+        balances = {},
         categories = {},
         searchRecords = {
           description: null,
@@ -116,6 +117,23 @@ angular.module('spendingAngularApp').factory('finances', function () {
 
           spending[year] = spending[year] || new Year();
           spending[year].month[month].day[day].transactions.push(transaction);
+        }
+      },
+
+      get balances () {
+        return balances;
+      },
+
+      set balances (data) {
+        for (var i in data) {
+          var balance  = data[i];
+          var date  = new Date(balance.date),
+              year  = date.getYear() + 1900,
+              month = date.getMonth() + 1,
+              day   = date.getDate();
+
+          balances[year] = balances[year] || new Year();
+          balances[year].month[month].day[day].total = parseFloat(balance.checking) + parseFloat(balance.saving);
         }
       },
 
