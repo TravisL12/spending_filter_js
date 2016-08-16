@@ -8,7 +8,6 @@ angular.module('spendingAngularApp').directive('financeTable', function ($docume
     templateUrl: 'views/finance_table.html',
     scope: {
       allRecords: '=',
-      priceMax: '=',
       showTransactions: '&',
       transactionDate: '='
     },
@@ -33,7 +32,7 @@ angular.module('spendingAngularApp').directive('financeTable', function ($docume
         scope.setMonthStyling = function() {
           var month = scope.allRecords.month[this.month];
           var formatSteps = Math.max.apply(null, scope.monthCount); // number of months, also referenced in CSS
-          var maxMonth = 20000;
+          var maxMonth = scope.allRecords.maxMonth;
           var ratio = month.total < maxMonth ? Math.ceil(month.total / maxMonth * formatSteps) : formatSteps;
           return 'month-conditional-' + ratio;
         };
@@ -41,7 +40,7 @@ angular.module('spendingAngularApp').directive('financeTable', function ($docume
         scope.setDayStyling = function() {
           var day = scope.allRecords.month[this.month].day[this.day];
           var formatSteps = 10; // Arbitrary number of color gradients, also referenced in CSS
-          var maxDay = (3 * scope.priceMax) || 2000;
+          var maxDay = scope.allRecords.maxDay;
           var ratio = day.total < maxDay ? Math.ceil(day.total / maxDay * formatSteps) : formatSteps;
           return 'day-conditional-' + ratio;
         };
@@ -55,33 +54,25 @@ angular.module('spendingAngularApp').directive('financeTable', function ($docume
           var month = parseInt(scope.transactionDate.split('/')[0]);
           var day   = parseInt(scope.transactionDate.split('/')[1]);
 
-          // Navigate by keyCodes: tab (9), return (13), arrows: left(37), up(38), right(39), down(40)
-          var navKeyCodes = [9, 13, 37, 38, 39, 40];
+          // Navigate by keyCodes: arrows: left(37), up(38), right(39), down(40)
+          var navKeyCodes = [37, 38, 39, 40];
           if (navKeyCodes.indexOf(code) !== -1) {
               event.preventDefault();
 
-              // Tab right
-              if (code === 9 && month < 12) {
-                scope.showTransactions({month: month + 1, day: day});
-              }
               // Right arrow
               if (code === 39 && month < 12) {
                 scope.showTransactions({month: month + 1, day: day});
-              }
-              // Shift-Tab left
-              if ((event.shiftKey && code === 9) && month > 1) {
-                scope.showTransactions({month: month - 1, day: day});
               }
                // Left arrow
               if (code === 37 && month > 1) {
                 scope.showTransactions({month: month - 1, day: day});
               }
-              // Return or down arrow pressed move 1 box down
-              if ((code === 13 || code === 40) && day < 31) {
+              // Down arrow
+              if (code === 40 && day < 31) {
                 scope.showTransactions({month: month, day: day + 1});
               }
-              // Shift-Return or up arrow pressed move 1 box up
-              if (((event.shiftKey && code === 13) || code === 38) && day > 1) {
+              // Up arrow
+              if (code === 38 && day > 1) {
                 scope.showTransactions({month: month, day: day - 1});
               }
               scope.$apply();

@@ -45,8 +45,10 @@ angular.module('spendingAngularApp').factory('finances', function () {
     }
 
     function Year() {
-      this.total = 0;
-      this.month = {};
+      this.total  = 0;
+      this.month  = {};
+      this.maxDay = 0;
+      this.maxMonth = 0;
       this.buildMonths();
     }
 
@@ -152,6 +154,15 @@ angular.module('spendingAngularApp').factory('finances', function () {
                 yearSpending.total += transaction.amount;
                 yearSpending.month[month].total += transaction.amount;
                 yearSpending.month[month].day[day].total += transaction.amount;
+
+                if (yearSpending.month[month].day[day].total > yearSpending.maxDay) {
+                  yearSpending.maxDay = yearSpending.month[month].day[day].total;
+                }
+
+                if (yearSpending.month[month].total > yearSpending.maxMonth) {
+                  yearSpending.maxMonth = yearSpending.month[month].total;
+                }
+
                 yearSpending.month[month].day[day].transactions.push(transaction);
               }
             }
