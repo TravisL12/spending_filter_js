@@ -9,6 +9,9 @@
  */
 angular.module('spendingAngularApp').factory('finances', function () {
 
+    // TODO build in checks to not calculate past the current day
+    // var today = new Date();
+
     var spending = {},
         balances = {},
         categories = {},
@@ -155,8 +158,9 @@ angular.module('spendingAngularApp').factory('finances', function () {
               var totalBal = balances[yearBal].month[monthBal].day[dayBal].total;
               if (totalBal === 0) {
                 balances[yearBal].month[monthBal].day[dayBal].total = lastBalance;
+              } else {
+                lastBalance = totalBal;
               }
-              lastBalance = totalBal > 0 ? totalBal : lastBalance;
 
               if (balances[yearBal].month[monthBal].day[dayBal].total > balances[yearBal].maxDay) {
                 balances[yearBal].maxDay = balances[yearBal].month[monthBal].day[dayBal].total;
