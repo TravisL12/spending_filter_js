@@ -31,6 +31,7 @@ angular.module('spendingAngularApp').directive('financeTable', function ($docume
 
         scope.setMonthStyling = function() {
           var month = scope.allRecords.month[this.month];
+          if (month.total === 0) { return; }
           var formatSteps = Math.max.apply(null, scope.monthCount); // number of months, also referenced in CSS
           var maxMonth = scope.allRecords.maxMonth;
           var ratio = month.total < maxMonth ? Math.ceil(month.total / maxMonth * formatSteps) : formatSteps;
@@ -39,6 +40,7 @@ angular.module('spendingAngularApp').directive('financeTable', function ($docume
 
         scope.setDayStyling = function() {
           var day = scope.allRecords.month[this.month].day[this.day];
+          if (day.total === 0) { return; }
           var formatSteps = 10; // Arbitrary number of color gradients, also referenced in CSS
           var maxDay = scope.allRecords.maxDay;
           var ratio = day.total < maxDay ? Math.ceil(day.total / maxDay * formatSteps) : formatSteps;
