@@ -10,7 +10,7 @@
 angular.module('spendingAngularApp').factory('finances', function () {
 
     // TODO build in checks to not calculate past the current day
-    // var today = new Date();
+    var today = new Date();
 
     var spending = {},
         balances = {},
@@ -155,6 +155,9 @@ angular.module('spendingAngularApp').factory('finances', function () {
         for (var yearBal in balances) {
           for (var monthBal in balances[yearBal].month) {
             for (var dayBal in balances[yearBal].month[monthBal].day) {
+              if (new Date(yearBal, monthBal, dayBal) > today) {
+                break;
+              }
               var totalBal = balances[yearBal].month[monthBal].day[dayBal].total;
               if (totalBal === 0) {
                 balances[yearBal].month[monthBal].day[dayBal].total = lastBalance;

@@ -52,6 +52,26 @@
               };
             });
           });
+        },
+        NewBalances: function($http) {
+          var url = getGoogleUrl(3);
+          return $http.get(url).then(function(data) {
+            return data.data.feed.entry.map(function(obj) {
+              return {
+                date1:    obj.gsx$date.$t,
+                checking: obj.gsx$checking.$t,
+
+                date2:       obj.gsx$date_2.$t,
+                oldchecking: obj.gsx$oldchecking.$t,
+
+                date3: obj.gsx$date_3.$t,
+                nanny: obj.gsx$nanny.$t,
+
+                date4:   obj.gsx$date_4.$t,
+                savings: obj.gsx$savings.$t
+              };
+            });
+          });
         }
       }
     })

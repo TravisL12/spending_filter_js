@@ -5,7 +5,7 @@
 local
 
 # Production Directory for Grunt
-# /dist/
+/dist
 
 /node_modules
 /.tmp
