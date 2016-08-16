@@ -25,6 +25,13 @@
 
     <div class='row'>
       <div class='col-md-12'>
+        <a ng-click='updateData("spending")'>Spending</a>
+        <a ng-click='updateData("balances")'>Balances</a>
+      </div>
+  </div>
+
+    <div class='row'>
+      <div class='col-md-12'>
         <div class='year-pagination'>
           <ul class='year-range'>
             <li ng-repeat='year in yearRange' ng-class='{"active": selectedYear == year }' ng-click='selectYear()'>{{year}}</li>

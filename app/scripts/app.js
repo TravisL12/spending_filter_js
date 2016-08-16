@@ -64,10 +64,5 @@
       url: '/graph',
       templateUrl: 'views/graph.html',
       controller: 'SpendinggraphCtrl'
-    })
-    .state('spreadsheet.balances', {
-      url: '/balances',
-      templateUrl: 'views/balances.html',
-      controller: 'BalancesCtrl'
     });
   });

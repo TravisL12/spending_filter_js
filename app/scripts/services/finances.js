@@ -127,15 +127,43 @@ angular.module('spendingAngularApp').factory('finances', function () {
       },
 
       set balances (data) {
+        var lastBalance = 0;
+        var startDate = new Date(data[0].date),
+            endDate   = new Date(data[data.length - 1].date),
+            startYear = startDate.getYear() + 1900,
+            endYear   = endDate.getYear()   + 1900;
+
+        for (var k = startYear; k <= endYear; k++) {
+          balances[k] = new Year();          
+        }
+
         for (var i in data) {
           var balance  = data[i];
+          var total = (parseFloat(balance.checking) || 0) + (parseFloat(balance.saving) || 0);
           var date  = new Date(balance.date),
               year  = date.getYear() + 1900,
               month = date.getMonth() + 1,
               day   = date.getDate();
 
-          balances[year] = balances[year] || new Year();
-          balances[year].month[month].day[day].total = parseFloat(balance.checking) + parseFloat(balance.saving);
+          balances[year].month[month].day[day].total = total;
+          lastBalance = total === 0 ? lastBalance : total;
+        }
+
+        for (var yearBal in balances) {
+          for (var monthBal in balances[yearBal].month) {
+            for (var dayBal in balances[yearBal].month[monthBal].day) {
+              var totalBal = balances[yearBal].month[monthBal].day[dayBal].total;
+              if (totalBal === 0) {
+                balances[yearBal].month[monthBal].day[dayBal].total = lastBalance;
+              }
+              lastBalance = totalBal > 0 ? totalBal : lastBalance;
+
+              if (balances[yearBal].month[monthBal].day[dayBal].total > balances[yearBal].maxDay) {
+                balances[yearBal].maxDay = balances[yearBal].month[monthBal].day[dayBal].total;
+              }
+
+            }
+          }
         }
       },
 
