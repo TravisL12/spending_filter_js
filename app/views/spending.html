@@ -59,12 +59,20 @@
       </div>
 
       <div class='form-group'>
-        <label>Description:</label>
-        <input class='form-control' ng-change='filterPrice()' ng-model-options='{ debounce: 1000 }' type='text' ng-model='searchRecords.description'>
+        <label>Keyword:</label>
+        <input class='form-control' ng-change='addDescriptionFilter()' ng-model-options='{ debounce: 1000 }' type='text' ng-model='description'>
       </div>
 
       <div class='row form-group'>
-        <div class='col-md-12'><button class='btn btn-xs btn-default' ng-click='clearFilters()'>Clear Filters</button></div>
+        <div class='col-md-8'>
+          <div class='search-description' ng-show='searchRecords.description.length'>
+            <label>Searches</label>
+            <ul>
+              <li ng-repeat='description in searchRecords.description' ng-click='removeDescription()'>{{description}} <span class='glyphicon glyphicon-remove'></span></li>
+            </ul>
+          </div>
+        </div>
+        <div class='col-md-4'><button class='btn btn-xs btn-default pull-right' ng-click='clearFilters()'>Clear Filters</button></div>
       </div>
 
     </div>

@@ -59,7 +59,31 @@ ul.category-checkboxes li {
 
 .active { background: #FFFA79 !important; }
 .empty  { background: #FFF9F9; }
-
+.search-description {
+  ul li {
+    position: relative;
+    cursor: pointer;
+    background: #ddd;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 1.2rem;
+    display: table;
+    transition: all 0.1s linear;
+    & + li { margin-top: 5px; }
+    .glyphicon {
+      position: absolute;
+      display: none;
+      top: 3px;
+      right: 3px;
+    }
+    &:hover {
+      padding-right: 2rem;
+      background: #f1a7a7;
+      .glyphicon { display: block; }
+    }
+  }
+}
 .date-grid {
 
   td.days-of-month, th.months {

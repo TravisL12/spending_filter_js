@@ -10,7 +10,8 @@
 angular.module('spendingAngularApp')
   .controller('SpendingCtrl', function($scope, Transactions, finances){
 
-  $scope.searchRecords = {};
+  $scope.searchRecords = finances.searchRecords;
+  $scope.description = null;
 
   $scope.nextYear = function (num) {
     var year = {year: parseInt($scope.selectedYear) + num};
@@ -20,6 +21,17 @@ angular.module('spendingAngularApp')
   $scope.selectYear = function() {
     $scope.selectedYear = this.year;
     updateSpending();
+  };
+
+  $scope.addDescriptionFilter = function () {
+    $scope.searchRecords.description.push($scope.description);
+    $scope.description = null;
+    $scope.filterPrice();
+  };
+
+  $scope.removeDescription = function () {
+    $scope.searchRecords.description.splice(this.$index, 1);
+    $scope.filterPrice();
   };
 
   $scope.filterPrice = function() {

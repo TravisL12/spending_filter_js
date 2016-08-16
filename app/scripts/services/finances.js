@@ -13,7 +13,7 @@ angular.module('spendingAngularApp').factory('finances', function () {
         balances = {},
         categories = {},
         searchRecords = {
-          description: null,
+          description: [],
           priceMin: null,
           priceMax: null
         };
@@ -75,14 +75,14 @@ angular.module('spendingAngularApp').factory('finances', function () {
 
       get searchRecords () {
         return {
-          description: null,
+          description: [],
           priceMin: null,
           priceMax: null
         };
       },
 
-      set searchRecords (attrs) {
-        searchRecords = attrs;
+      set searchRecords (search) {
+        searchRecords = search;
       },
 
       get categories() {
@@ -186,10 +186,15 @@ angular.module('spendingAngularApp').factory('finances', function () {
 
       validateDescription: function () {
         var description = this.description;
-        if (searchRecords.description) {
-          return description.toLowerCase().indexOf(searchRecords.description.toLowerCase()) > -1;
+        var result = !searchRecords.description.length; // set result to false if search terms exist
+        for (var i in searchRecords.description) {
+          var desc = searchRecords.description[i];
+          result = description.toLowerCase().indexOf(desc.toLowerCase()) > -1;
+          if (result) {
+            break;
+          }
         }
-        return true;
+        return result;
       },
 
       validateTransaction: function (transaction) {
