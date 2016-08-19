@@ -14,6 +14,7 @@ angular.module('spendingAngularApp').factory('finances', function () {
 
     var spending = {},
         balances = {},
+        newBalances = {},
         categories = {},
         searchRecords = {
           description: [],
@@ -123,6 +124,14 @@ angular.module('spendingAngularApp').factory('finances', function () {
           spending[year] = spending[year] || new Year();
           spending[year].month[month].day[day].transactions.push(transaction);
         }
+      },
+
+      get newBalances () {
+        return newBalances;
+      },
+
+      set newBalances (data) {
+        newBalances = data;
       },
 
       get balances () {

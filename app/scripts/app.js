@@ -53,24 +53,40 @@
             });
           });
         },
-        NewBalances: function($http) {
+        NewBalances: function($http, finances) {
           var url = getGoogleUrl(3);
-          return $http.get(url).then(function(data) {
-            return data.data.feed.entry.map(function(obj) {
-              return {
-                date1:    obj.gsx$date.$t,
-                checking: obj.gsx$checking.$t,
+          var balances = {};
 
-                date2:       obj.gsx$date_2.$t,
-                oldchecking: obj.gsx$oldchecking.$t,
-
-                date3: obj.gsx$date_3.$t,
-                nanny: obj.gsx$nanny.$t,
-
-                date4:   obj.gsx$date_4.$t,
-                savings: obj.gsx$savings.$t
+          function buildBalance (date) {
+            if (!balances[date]) {
+              balances[date] = {
+                oldchecking: 0,
+                checking:    0,
+                nanny:       0,
+                savings:     0
               };
-            });
+            }
+          }
+
+          function parseReplaceAmount (amount) {
+            return parseFloat(amount.replace(/[\$,]/g,''));
+          }
+
+          return $http.get(url).then(function(data) {
+            for (var i in data.data.feed.entry) {
+              var obj = data.data.feed.entry[i];
+
+              buildBalance(obj.gsx$date.$t);
+              buildBalance(obj.gsx$date_2.$t);
+              buildBalance(obj.gsx$date_3.$t);
+              buildBalance(obj.gsx$date_4.$t);
+
+              balances[obj.gsx$date.$t].oldchecking = parseReplaceAmount(obj.gsx$oldchecking.$t);
+              balances[obj.gsx$date_2.$t].checking  = parseReplaceAmount(obj.gsx$checking.$t);
+              balances[obj.gsx$date_3.$t].nanny     = parseReplaceAmount(obj.gsx$nanny.$t);
+              balances[obj.gsx$date_4.$t].savings   = parseReplaceAmount(obj.gsx$savings.$t);
+            }
+            finances.newBalances = balances;
           });
         }
       }
