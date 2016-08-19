@@ -9,7 +9,8 @@ angular.module('spendingAngularApp').directive('financeTable', function ($docume
     scope: {
       allRecords: '=',
       showTransactions: '&',
-      transactionDate: '='
+      transactionDate: '=',
+      financeType: '='
     },
     link: function (scope) {
         function numberRange (num) {

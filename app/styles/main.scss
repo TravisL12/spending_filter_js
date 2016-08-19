@@ -111,7 +111,8 @@ ul.category-checkboxes li {
 // Create conditional formatting
 $day-steps: 10;
 @for $i from 1 through $day-steps {
-  .day-conditional-#{$i} { background: rgba(100,255,100,$i/$day-steps); }
+  .day-conditional-#{$i} { background: rgba(255,150,150,$i/$day-steps); }
+  .balances.day-conditional-#{$i} { background: rgba(100,255,100,$i/$day-steps); }
 }
 
 // Create conditional formatting
