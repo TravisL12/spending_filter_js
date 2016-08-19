@@ -42,28 +42,16 @@
           });
         },
         Balances: function($http, finances) {
-          var url = getGoogleUrl(2);
-          return $http.get(url).then(function(data) {
-            finances.balances = data.data.feed.entry.map(function(obj) {
-              return {
-                date:     obj.gsx$date.$t,
-                checking: obj.gsx$checking.$t,
-                saving:   obj.gsx$saving.$t
-              };
-            });
-          });
-        },
-        NewBalances: function($http, finances) {
           var url = getGoogleUrl(3);
           var balances = {};
 
           function buildBalance (date) {
             if (!balances[date]) {
               balances[date] = {
-                oldchecking: 0,
-                checking:    0,
-                nanny:       0,
-                savings:     0
+                oldchecking: null,
+                checking:    null,
+                nanny:       null,
+                savings:     null
               };
             }
           }
@@ -86,7 +74,17 @@
               balances[obj.gsx$date_3.$t].nanny     = parseReplaceAmount(obj.gsx$nanny.$t);
               balances[obj.gsx$date_4.$t].savings   = parseReplaceAmount(obj.gsx$savings.$t);
             }
-            finances.newBalances = balances;
+            finances.balances = balances;
+            // var finalData = [];
+            // for (var j in balances) {
+            //   if (j !== '') {
+            //     finalData.push({ date: j, accounts: balances[j] });
+            //   }
+            // }
+
+            // finances.balances = finalData.sort(function(a,b) {
+            //   return new Date(a.date) - new Date(b.date);
+            // });
           });
         }
       }

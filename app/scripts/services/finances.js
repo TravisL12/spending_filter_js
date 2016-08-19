@@ -126,22 +126,20 @@ angular.module('spendingAngularApp').factory('finances', function () {
         }
       },
 
-      get newBalances () {
-        return newBalances;
-      },
-
-      set newBalances (data) {
-        newBalances = data;
-      },
-
       get balances () {
         return balances;
       },
 
       set balances (data) {
-        var lastBalance = 0;
-        var startDate = new Date(data[0].date),
-            endDate   = new Date(data[data.length - 1].date),
+        var lastBalance = {
+          oldchecking: 0,
+          checking:    0,
+          nanny:       0,
+          savings:     0
+        };
+
+        var startDate = new Date('1/1/2004'),
+            endDate   = new Date('1/1/2016'),
             startYear = startDate.getYear() + 1900,
             endYear   = endDate.getYear()   + 1900;
 
@@ -149,35 +147,49 @@ angular.module('spendingAngularApp').factory('finances', function () {
           balances[k] = new Year();          
         }
 
-        for (var i in data) {
-          var balance  = data[i];
-          var total = (parseFloat(balance.checking) || 0) + (parseFloat(balance.saving) || 0);
-          var date  = new Date(balance.date),
-              year  = date.getYear() + 1900,
-              month = date.getMonth() + 1,
-              day   = date.getDate();
+        // for (var i in data) {
+        //   var balance  = data[i];
+        //   var total = (balance.accounts.oldchecking || lastBalance.oldchecking) + (balance.accounts.checking || lastBalance.checking) + (balance.accounts.nanny || lastBalance.nanny) + (balance.accounts.savings || lastBalance.savings);
+        //   var date  = new Date(balance.date),
+        //       year  = date.getYear() + 1900,
+        //       month = date.getMonth() + 1,
+        //       day   = date.getDate();
 
-          balances[year].month[month].day[day].total = total;
-          lastBalance = total === 0 ? lastBalance : total;
-        }
+        //   balances[year].month[month].day[day].total = total;
+        //   lastBalance = {
+        //     oldchecking: balance.accounts.oldchecking || lastBalance.oldchecking,
+        //     checking:    balance.accounts.checking    || lastBalance.checking,
+        //     nanny:       balance.accounts.nanny       || lastBalance.nanny,
+        //     savings:     balance.accounts.savings     || lastBalance.savings
+        //   };
+        // }
 
         for (var yearBal in balances) {
           for (var monthBal in balances[yearBal].month) {
             for (var dayBal in balances[yearBal].month[monthBal].day) {
+
               if (new Date(yearBal, monthBal, dayBal) > today) {
                 break;
               }
-              var totalBal = balances[yearBal].month[monthBal].day[dayBal].total;
-              if (totalBal === 0) {
-                balances[yearBal].month[monthBal].day[dayBal].total = lastBalance;
+
+              var balanceData = data[monthBal + '/' + dayBal + '/' + yearBal.slice(2,4)];
+              if (!balanceData) {
+                balances[yearBal].month[monthBal].day[dayBal].total = lastBalance.oldchecking + lastBalance.checking + lastBalance.nanny + lastBalance.savings;
               } else {
-                lastBalance = totalBal;
+                var totalBal = (balanceData.oldchecking || lastBalance.oldchecking) + (balanceData.checking || lastBalance.checking) + (balanceData.nanny || lastBalance.nanny) + (balanceData.savings || lastBalance.savings);
+                balances[yearBal].month[monthBal].day[dayBal].total = totalBal;
+
+                lastBalance = {
+                  oldchecking: balanceData.oldchecking || lastBalance.oldchecking,
+                  checking:    balanceData.checking    || lastBalance.checking,
+                  nanny:       balanceData.nanny       || lastBalance.nanny,
+                  savings:     balanceData.savings     || lastBalance.savings
+                };
               }
 
               if (balances[yearBal].month[monthBal].day[dayBal].total > balances[yearBal].maxDay) {
                 balances[yearBal].maxDay = balances[yearBal].month[monthBal].day[dayBal].total;
               }
-
             }
           }
         }
