@@ -74,17 +74,8 @@
               balances[obj.gsx$date_3.$t].nanny     = parseReplaceAmount(obj.gsx$nanny.$t);
               balances[obj.gsx$date_4.$t].savings   = parseReplaceAmount(obj.gsx$savings.$t);
             }
-            finances.balances = balances;
-            // var finalData = [];
-            // for (var j in balances) {
-            //   if (j !== '') {
-            //     finalData.push({ date: j, accounts: balances[j] });
-            //   }
-            // }
 
-            // finances.balances = finalData.sort(function(a,b) {
-            //   return new Date(a.date) - new Date(b.date);
-            // });
+            finances.balances = balances;
           });
         }
       }

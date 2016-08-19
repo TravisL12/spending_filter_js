@@ -14,7 +14,6 @@ angular.module('spendingAngularApp').factory('finances', function () {
 
     var spending = {},
         balances = {},
-        newBalances = {},
         categories = {},
         searchRecords = {
           description: [],
@@ -138,31 +137,12 @@ angular.module('spendingAngularApp').factory('finances', function () {
           savings:     0
         };
 
-        var startDate = new Date('1/1/2004'),
-            endDate   = new Date('1/1/2016'),
-            startYear = startDate.getYear() + 1900,
-            endYear   = endDate.getYear()   + 1900;
+        var startYear = 2004,
+            endYear   = 2016;
 
         for (var k = startYear; k <= endYear; k++) {
           balances[k] = new Year();          
         }
-
-        // for (var i in data) {
-        //   var balance  = data[i];
-        //   var total = (balance.accounts.oldchecking || lastBalance.oldchecking) + (balance.accounts.checking || lastBalance.checking) + (balance.accounts.nanny || lastBalance.nanny) + (balance.accounts.savings || lastBalance.savings);
-        //   var date  = new Date(balance.date),
-        //       year  = date.getYear() + 1900,
-        //       month = date.getMonth() + 1,
-        //       day   = date.getDate();
-
-        //   balances[year].month[month].day[day].total = total;
-        //   lastBalance = {
-        //     oldchecking: balance.accounts.oldchecking || lastBalance.oldchecking,
-        //     checking:    balance.accounts.checking    || lastBalance.checking,
-        //     nanny:       balance.accounts.nanny       || lastBalance.nanny,
-        //     savings:     balance.accounts.savings     || lastBalance.savings
-        //   };
-        // }
 
         for (var yearBal in balances) {
           for (var monthBal in balances[yearBal].month) {
@@ -175,9 +155,16 @@ angular.module('spendingAngularApp').factory('finances', function () {
               var balanceData = data[monthBal + '/' + dayBal + '/' + yearBal.slice(2,4)];
               if (!balanceData) {
                 balances[yearBal].month[monthBal].day[dayBal].total = lastBalance.oldchecking + lastBalance.checking + lastBalance.nanny + lastBalance.savings;
+                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description:'Old Checking', amount: lastBalance.oldchecking});
+                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description:'Checking', amount: lastBalance.checking});
+                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description:'Nanny', amount: lastBalance.nanny});
+                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description:'Savings', amount: lastBalance.savings});
               } else {
-                var totalBal = (balanceData.oldchecking || lastBalance.oldchecking) + (balanceData.checking || lastBalance.checking) + (balanceData.nanny || lastBalance.nanny) + (balanceData.savings || lastBalance.savings);
-                balances[yearBal].month[monthBal].day[dayBal].total = totalBal;
+                balances[yearBal].month[monthBal].day[dayBal].total = (balanceData.oldchecking || lastBalance.oldchecking) + (balanceData.checking || lastBalance.checking) + (balanceData.nanny || lastBalance.nanny) + (balanceData.savings || lastBalance.savings);
+                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description: 'Old Checking', amount: ( balanceData.oldchecking || lastBalance.oldchecking)});
+                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description: 'Checking', amount: (balanceData.checking || lastBalance.checking)});
+                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description: 'Nanny', amount: (balanceData.nanny || lastBalance.nanny)});
+                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description: 'Savings', amount: (balanceData.savings || lastBalance.savings)});
 
                 lastBalance = {
                   oldchecking: balanceData.oldchecking || lastBalance.oldchecking,
