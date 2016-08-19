@@ -155,22 +155,31 @@ angular.module('spendingAngularApp').factory('finances', function () {
               var balanceData = data[monthBal + '/' + dayBal + '/' + yearBal.slice(2,4)];
               if (!balanceData) {
                 balances[yearBal].month[monthBal].day[dayBal].total = lastBalance.oldchecking + lastBalance.checking + lastBalance.nanny + lastBalance.savings;
-                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description:'Old Checking', amount: lastBalance.oldchecking});
-                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description:'Checking', amount: lastBalance.checking});
-                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description:'Nanny', amount: lastBalance.nanny});
-                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description:'Savings', amount: lastBalance.savings});
+                balances[yearBal].month[monthBal].day[dayBal].transactions = [
+                  {description:'Old Checking', amount: lastBalance.oldchecking},
+                  {description:'Checking',     amount: lastBalance.checking   },
+                  {description:'Nanny',        amount: lastBalance.nanny      },
+                  {description:'Savings',      amount: lastBalance.savings    }
+                ];
               } else {
-                balances[yearBal].month[monthBal].day[dayBal].total = (balanceData.oldchecking || lastBalance.oldchecking) + (balanceData.checking || lastBalance.checking) + (balanceData.nanny || lastBalance.nanny) + (balanceData.savings || lastBalance.savings);
-                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description: 'Old Checking', amount: ( balanceData.oldchecking || lastBalance.oldchecking)});
-                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description: 'Checking', amount: (balanceData.checking || lastBalance.checking)});
-                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description: 'Nanny', amount: (balanceData.nanny || lastBalance.nanny)});
-                balances[yearBal].month[monthBal].day[dayBal].transactions.push({description: 'Savings', amount: (balanceData.savings || lastBalance.savings)});
+                var oldchecking = (balanceData.oldchecking || lastBalance.oldchecking),
+                    checking    = (balanceData.checking    || lastBalance.checking),
+                    nanny       = (balanceData.nanny       || lastBalance.nanny),
+                    savings     = (balanceData.savings     || lastBalance.savings);
+
+                balances[yearBal].month[monthBal].day[dayBal].total = oldchecking + checking + nanny + savings;
+                balances[yearBal].month[monthBal].day[dayBal].transactions = [
+                  {description: 'Old Checking', amount: oldchecking},
+                  {description: 'Checking',     amount: checking},
+                  {description: 'Nanny',        amount: nanny},
+                  {description: 'Savings',      amount: savings}
+                ];
 
                 lastBalance = {
-                  oldchecking: balanceData.oldchecking || lastBalance.oldchecking,
-                  checking:    balanceData.checking    || lastBalance.checking,
-                  nanny:       balanceData.nanny       || lastBalance.nanny,
-                  savings:     balanceData.savings     || lastBalance.savings
+                  oldchecking: oldchecking,
+                  checking:    checking,
+                  nanny:       nanny,
+                  savings:     savings
                 };
               }
 
