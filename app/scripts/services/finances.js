@@ -125,6 +125,39 @@ angular.module('spendingAngularApp').factory('finances', function () {
         }
       },
 
+      yearSpending: function (year) {
+        var yearData = spending[year];
+        var yearSpending = new Year();
+        yearSpending.total = yearData.total;
+        resetCategoryTotals();
+
+        for (var month in yearData.month) {
+          for (var day in yearData.month[month].day) {
+            for (var transIdx in yearData.month[month].day[day].transactions) {
+              var transaction = yearData.month[month].day[day].transactions[transIdx];
+              categories[transaction.category].total += transaction.amount;
+              if (this.validateTransaction(transaction)) {
+                yearSpending.total += transaction.amount;
+                yearSpending.month[month].total += transaction.amount;
+                yearSpending.month[month].day[day].total += transaction.amount;
+
+                if (yearSpending.month[month].day[day].total > yearSpending.maxDay) {
+                  yearSpending.maxDay = yearSpending.month[month].day[day].total;
+                }
+
+                if (yearSpending.month[month].total > yearSpending.maxMonth) {
+                  yearSpending.maxMonth = yearSpending.month[month].total;
+                }
+
+                yearSpending.month[month].day[day].transactions.push(transaction);
+              }
+            }
+          }
+        }
+
+        return yearSpending;
+      },
+
       get balances () {
         return balances;
       },
@@ -191,39 +224,6 @@ angular.module('spendingAngularApp').factory('finances', function () {
             balances[yearBal].total += balances[yearBal].month[monthBal].total;
           }
         }
-      },
-
-      yearSpending: function (year) {
-        var yearData = spending[year];
-        var yearSpending = new Year();
-        yearSpending.total = yearData.total;
-        resetCategoryTotals();
-
-        for (var month in yearData.month) {
-          for (var day in yearData.month[month].day) {
-            for (var transIdx in yearData.month[month].day[day].transactions) {
-              var transaction = yearData.month[month].day[day].transactions[transIdx];
-              categories[transaction.category].total += transaction.amount;
-              if (this.validateTransaction(transaction)) {
-                yearSpending.total += transaction.amount;
-                yearSpending.month[month].total += transaction.amount;
-                yearSpending.month[month].day[day].total += transaction.amount;
-
-                if (yearSpending.month[month].day[day].total > yearSpending.maxDay) {
-                  yearSpending.maxDay = yearSpending.month[month].day[day].total;
-                }
-
-                if (yearSpending.month[month].total > yearSpending.maxMonth) {
-                  yearSpending.maxMonth = yearSpending.month[month].total;
-                }
-
-                yearSpending.month[month].day[day].transactions.push(transaction);
-              }
-            }
-          }
-        }
-
-        return yearSpending;
       },
 
       validatePrice: function () {

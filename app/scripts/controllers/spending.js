@@ -12,6 +12,8 @@ angular.module('spendingAngularApp')
 
   $scope.searchRecords = finances.searchRecords;
   $scope.description = null;
+  $scope.yearPrevBtnDisabled = false;
+  $scope.yearNextBtnDisabled = true;
 
   $scope.nextYear = function (num) {
     var year = {year: parseInt($scope.selectedYear) + num};
@@ -20,6 +22,8 @@ angular.module('spendingAngularApp')
 
   $scope.selectYear = function() {
     $scope.selectedYear = this.year;
+    $scope.yearPrevBtnDisabled = parseInt($scope.selectedYear) - 1 < 2003;
+    $scope.yearNextBtnDisabled = parseInt($scope.selectedYear) + 1 > 2016;
     $scope.updateData();
   };
 

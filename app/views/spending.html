@@ -3,6 +3,7 @@
   <!-- Category Select -->
   <div class='col-md-2'>
     <div class='row'>
+      <h4>Categories</h4>
       <div class='form-group'>
         <button class='btn btn-default btn-xs' ng-click='toggleCategories(true)'>Select All</button>
         <button class='btn btn-default btn-xs' ng-click='toggleCategories(false)'>Select None</button>
@@ -24,19 +25,19 @@
   <div class='date-grid col-md-7'>
 
     <div class='row'>
-      <div class='col-md-12'>
-        <a ng-click='updateData("spending")'>Spending</a>
-        <a ng-click='updateData("balances")'>Balances</a>
+      <div class='col-md-12 select-data'>
+        <button class='btn btn-default btn-xs' ng-click='updateData("spending")'>Spending</button>
+        <button class='btn btn-default btn-xs' ng-click='updateData("balances")'>Balances</button>
       </div>
-  </div>
+    </div>
 
     <div class='row'>
       <div class='col-md-12'>
         <div class='year-pagination'>
           <ul class='year-range'>
             <li ng-repeat='year in yearRange' ng-class='{"active": selectedYear == year }' ng-click='selectYear()'>{{year}}</li>
-            <li><button class='btn btn-xs btn-default' ng-click='nextYear(-1)' ng-disabled='selectedYear - 1 < 2003'>Prev. Year</button></li>
-            <li><button class='btn btn-xs btn-default' ng-click='nextYear(1)'  ng-disabled='selectedYear + 1 > 2016'>Next. Year</button></li>
+            <li><button class='btn btn-xs btn-default' ng-click='nextYear(-1)' ng-disabled='yearPrevBtnDisabled'>Prev. Year</button></li>
+            <li><button class='btn btn-xs btn-default' ng-click='nextYear(1)'  ng-disabled='yearNextBtnDisabled'>Next. Year</button></li>
           </ul>
         </div>
       </div>
