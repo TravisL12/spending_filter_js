@@ -8954,9 +8954,19 @@ ul.category-checkboxes li input[type=checkbox]:checked + label {
   background: rgba(255, 150, 150, 0.0833333333);
 }
 
+/* line 122, ../../app/styles/main.scss */
+.balances.month-conditional-1 {
+  background: rgba(100, 255, 100, 0.0833333333);
+}
+
 /* line 121, ../../app/styles/main.scss */
 .month-conditional-2 {
   background: rgba(255, 150, 150, 0.1666666667);
+}
+
+/* line 122, ../../app/styles/main.scss */
+.balances.month-conditional-2 {
+  background: rgba(100, 255, 100, 0.1666666667);
 }
 
 /* line 121, ../../app/styles/main.scss */
@@ -8964,9 +8974,19 @@ ul.category-checkboxes li input[type=checkbox]:checked + label {
   background: rgba(255, 150, 150, 0.25);
 }
 
+/* line 122, ../../app/styles/main.scss */
+.balances.month-conditional-3 {
+  background: rgba(100, 255, 100, 0.25);
+}
+
 /* line 121, ../../app/styles/main.scss */
 .month-conditional-4 {
   background: rgba(255, 150, 150, 0.3333333333);
+}
+
+/* line 122, ../../app/styles/main.scss */
+.balances.month-conditional-4 {
+  background: rgba(100, 255, 100, 0.3333333333);
 }
 
 /* line 121, ../../app/styles/main.scss */
@@ -8974,9 +8994,19 @@ ul.category-checkboxes li input[type=checkbox]:checked + label {
   background: rgba(255, 150, 150, 0.4166666667);
 }
 
+/* line 122, ../../app/styles/main.scss */
+.balances.month-conditional-5 {
+  background: rgba(100, 255, 100, 0.4166666667);
+}
+
 /* line 121, ../../app/styles/main.scss */
 .month-conditional-6 {
   background: rgba(255, 150, 150, 0.5);
+}
+
+/* line 122, ../../app/styles/main.scss */
+.balances.month-conditional-6 {
+  background: rgba(100, 255, 100, 0.5);
 }
 
 /* line 121, ../../app/styles/main.scss */
@@ -8984,9 +9014,19 @@ ul.category-checkboxes li input[type=checkbox]:checked + label {
   background: rgba(255, 150, 150, 0.5833333333);
 }
 
+/* line 122, ../../app/styles/main.scss */
+.balances.month-conditional-7 {
+  background: rgba(100, 255, 100, 0.5833333333);
+}
+
 /* line 121, ../../app/styles/main.scss */
 .month-conditional-8 {
   background: rgba(255, 150, 150, 0.6666666667);
+}
+
+/* line 122, ../../app/styles/main.scss */
+.balances.month-conditional-8 {
+  background: rgba(100, 255, 100, 0.6666666667);
 }
 
 /* line 121, ../../app/styles/main.scss */
@@ -8994,9 +9034,19 @@ ul.category-checkboxes li input[type=checkbox]:checked + label {
   background: rgba(255, 150, 150, 0.75);
 }
 
+/* line 122, ../../app/styles/main.scss */
+.balances.month-conditional-9 {
+  background: rgba(100, 255, 100, 0.75);
+}
+
 /* line 121, ../../app/styles/main.scss */
 .month-conditional-10 {
   background: rgba(255, 150, 150, 0.8333333333);
+}
+
+/* line 122, ../../app/styles/main.scss */
+.balances.month-conditional-10 {
+  background: rgba(100, 255, 100, 0.8333333333);
 }
 
 /* line 121, ../../app/styles/main.scss */
@@ -9004,12 +9054,22 @@ ul.category-checkboxes li input[type=checkbox]:checked + label {
   background: rgba(255, 150, 150, 0.9166666667);
 }
 
+/* line 122, ../../app/styles/main.scss */
+.balances.month-conditional-11 {
+  background: rgba(100, 255, 100, 0.9166666667);
+}
+
 /* line 121, ../../app/styles/main.scss */
 .month-conditional-12 {
   background: #ff9696;
 }
 
-/* line 124, ../../app/styles/main.scss */
+/* line 122, ../../app/styles/main.scss */
+.balances.month-conditional-12 {
+  background: #64ff64;
+}
+
+/* line 125, ../../app/styles/main.scss */
 .csv-input {
   display: inline-block;
 }

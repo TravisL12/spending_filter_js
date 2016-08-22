@@ -148,7 +148,7 @@ angular.module('spendingAngularApp').factory('finances', function () {
           for (var monthBal in balances[yearBal].month) {
             for (var dayBal in balances[yearBal].month[monthBal].day) {
 
-              if (new Date(yearBal, monthBal, dayBal) > today) {
+              if (new Date(yearBal, monthBal-1, dayBal) > today) {
                 break;
               }
 
@@ -187,6 +187,8 @@ angular.module('spendingAngularApp').factory('finances', function () {
                 balances[yearBal].maxDay = balances[yearBal].month[monthBal].day[dayBal].total;
               }
             }
+            balances[yearBal].month[monthBal].total = balances[yearBal].month[monthBal].day[31].total - balances[yearBal].month[monthBal].day[1].total;
+            balances[yearBal].total += balances[yearBal].month[monthBal].total;
           }
         }
       },

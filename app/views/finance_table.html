@@ -11,7 +11,7 @@
     </tr>
     <tr>
       <td class='days-of-month'>Total:</td>
-      <td class='day' ng-class='setMonthStyling()' ng-repeat='month in monthCount'>{{allRecords.month[month].total | currency:'$':0}}</td>
+      <td class='day' ng-class='[setMonthStyling(), {"balances": financeType == "balances"}]' ng-repeat='month in monthCount'>{{allRecords.month[month].total | currency:'$':0}}</td>
     </tr>
     <tr>
       <td colspan='9'></td>

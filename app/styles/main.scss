@@ -119,6 +119,7 @@ $day-steps: 10;
 $month-steps: 12;
 @for $i from 1 through $month-steps {
   .month-conditional-#{$i} { background: rgba(255,150,150,$i/$month-steps); }
+  .balances.month-conditional-#{$i} { background: rgba(100,255,100,$i/$month-steps); }
 }
 
 .csv-input { display: inline-block; }
