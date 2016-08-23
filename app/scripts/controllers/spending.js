@@ -49,19 +49,19 @@ angular.module('spendingAngularApp')
     $scope.selectedDate    = $scope.allRecords.month[month].day[day];
   };
 
-  function updateSpending() {
+  $scope.updateSpending = function () {
     $scope.categories   = finances.categories;
     $scope.yearRange    = Object.keys(finances.spending);
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
     $scope.allRecords   = finances.yearSpending($scope.selectedYear);
     $scope.showTransactions(1,1);
-  }
+  };
 
-  function updateBalances() {
+  $scope.updateBalances = function () {
     $scope.yearRange    = Object.keys(finances.balances);
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
     $scope.allRecords   = finances.balances[$scope.selectedYear];
-  }
+  };
 
   $scope.toggleCategories = function (boolVal) {
     angular.forEach($scope.categories, function (category) {
@@ -76,14 +76,11 @@ angular.module('spendingAngularApp')
     $scope.filterPrice();
   };
 
-  $scope.updateData = function (type) {
-    type = type || $scope.financeType;
-    if (type === 'spending') {
-      $scope.financeType = 'spending';
-      updateSpending();
-    } else if (type === 'balances') {
-      $scope.financeType = 'balances';
-      updateBalances();
+  $scope.updateData = function () {
+    if ($scope.financeType === 'spending') {
+      $scope.updateSpending();
+    } else if ($scope.financeType === 'balances') {
+      $scope.updateBalances();
     }
   };
 

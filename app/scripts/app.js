@@ -35,7 +35,7 @@
               return {
                 category:    obj.gsx$subcategory.$t || obj.gsx$category.$t,
                 date:        obj.gsx$date.$t,
-                description: obj.gsx$description.$t,
+                description: obj.gsx$payee.$t || obj.gsx$description.$t,
                 amount:      obj.gsx$amount.$t
               };
             });

@@ -37,7 +37,7 @@ ul.category-checkboxes li {
 
 .spending-container {
   max-width: 1400px;
-  margin: 50px auto 0;
+  margin: 3rem auto 0;
 }
 
 .year-pagination {
@@ -71,24 +71,30 @@ ul.category-checkboxes li {
     display: table;
     transition: all 0.1s linear;
     & + li { margin-top: 5px; }
-    .glyphicon {
-      position: absolute;
-      display: none;
-      top: 3px;
-      right: 3px;
-    }
     &:hover {
-      padding-right: 2rem;
       background: #f1a7a7;
-      .glyphicon { display: block; }
     }
   }
 }
+
 .date-grid {
 
   .select-data {
-    margin-bottom: 5px;
+    label {
+      cursor: pointer;
+      font-weight: normal;
+      padding: 2px 4px;
+      background: #ddd;
+    }
+    input[type=radio] {
+      display: none; 
+      &:checked + label {
+        background: #BDFFB7;
+      }
+    }
+
   }
+
   td.days-of-month, th.months {
     text-align: right;
     font-weight: bold;
@@ -101,14 +107,15 @@ ul.category-checkboxes li {
 
   td.day,
   td.days-of-month { width: 50px; }
-
   td.day {
     cursor: pointer;
+    border: none;
     font-size: 12px;
     padding-left: 0;
     text-align: right;
     &:hover { background: #ddd; }
   }
+  td.month-total { border-top: 1px solid #ddd; }
 }
 
 // Create conditional formatting

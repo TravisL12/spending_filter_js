@@ -26,8 +26,13 @@
 
     <div class='row'>
       <div class='col-md-12 select-data'>
-        <button class='btn btn-default btn-xs' ng-click='updateData("spending")'>Spending</button>
-        <button class='btn btn-default btn-xs' ng-click='updateData("balances")'>Balances</button>
+        <div class='form-group'>
+          <input type='radio' ng-model='financeType' ng-change='updateSpending()' value='spending' id='spending-data'>
+          <label for='spending-data'>Spending</label>
+
+          <input type='radio' ng-model='financeType' ng-change='updateBalances()' value='balances' id='balances-data'>
+          <label for='balances-data'>Balances</label>
+        </div>
       </div>
     </div>
 
@@ -76,7 +81,7 @@
           <div class='search-description' ng-show='searchRecords.description.length'>
             <label>Searches</label>
             <ul>
-              <li ng-repeat='description in searchRecords.description' ng-click='removeDescription()'>{{description}} <span class='glyphicon glyphicon-remove'></span></li>
+              <li ng-repeat='description in searchRecords.description' ng-click='removeDescription()'>{{description}}</li>
             </ul>
           </div>
         </div>
@@ -90,10 +95,10 @@
       <table class='table table-hover table-striped table-condensed'>
         <thead>
           <th>Amount</th>
-          <th>Category</th>
+          <th>Description</th>
         </thead>
         <tbody>
-          <tr ng-repeat='transaction in selectedDate.transactions'>
+          <tr ng-repeat='transaction in selectedDate.transactions | orderBy:"-amount"'>
             <td class='col-md-2'>{{transaction.amount | currency}}</td>
             <td class='col-md-10'>
               <ul>
