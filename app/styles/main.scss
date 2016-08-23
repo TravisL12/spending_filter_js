@@ -46,13 +46,15 @@ ul.category-checkboxes li {
   ul {
     padding: 0;
     margin: 0;
+    display: inline-block;
 
     li {
       padding: 2px 4px;
       margin-bottom: 5px;
       margin-right: 5px;
-      background: #ddd;
       cursor: pointer;
+      box-shadow: 0 0 0 1px #ddd;
+      border-radius: 1rem;
     }
   }
 }
@@ -88,7 +90,10 @@ ul.category-checkboxes li {
     }
     input[type=radio] {
       display: none; 
-      &:checked + label {
+      &:checked + label.spending {
+        background: rgb(255,150,150);
+      }
+      &:checked + label.balances {
         background: #BDFFB7;
       }
     }
@@ -113,7 +118,7 @@ ul.category-checkboxes li {
     font-size: 12px;
     padding-left: 0;
     text-align: right;
-    &:hover { background: #ddd; }
+    &:hover { box-shadow: inset 0 0 0px 1.5px; }
   }
   td.month-total { border-top: 1px solid #ddd; }
 }

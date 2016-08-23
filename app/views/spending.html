@@ -28,10 +28,10 @@
       <div class='col-md-12 select-data'>
         <div class='form-group'>
           <input type='radio' ng-model='financeType' ng-change='updateSpending()' value='spending' id='spending-data'>
-          <label for='spending-data'>Spending</label>
+          <label class='spending' for='spending-data'>Spending</label>
 
           <input type='radio' ng-model='financeType' ng-change='updateBalances()' value='balances' id='balances-data'>
-          <label for='balances-data'>Balances</label>
+          <label class='balances' for='balances-data'>Balances</label>
         </div>
       </div>
     </div>
@@ -41,9 +41,9 @@
         <div class='year-pagination'>
           <ul class='year-range'>
             <li ng-repeat='year in yearRange' ng-class='{"active": selectedYear == year }' ng-click='selectYear()'>{{year}}</li>
-            <li><button class='btn btn-xs btn-default' ng-click='nextYear(-1)' ng-disabled='yearPrevBtnDisabled'>Prev. Year</button></li>
-            <li><button class='btn btn-xs btn-default' ng-click='nextYear(1)'  ng-disabled='yearNextBtnDisabled'>Next. Year</button></li>
           </ul>
+          <button class='btn btn-xs btn-default' ng-click='nextYear(-1)' ng-disabled='yearPrevBtnDisabled'>Prev. Year</button>
+          <button class='btn btn-xs btn-default' ng-click='nextYear(1)'  ng-disabled='yearNextBtnDisabled'>Next. Year</button>
         </div>
       </div>
     </div>

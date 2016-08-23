@@ -16,14 +16,14 @@ angular.module('spendingAngularApp')
   $scope.yearNextBtnDisabled = true;
 
   $scope.nextYear = function (num) {
-    var year = {year: parseInt($scope.selectedYear) + num};
+    var year = {year: $scope.selectedYear + num};
     $scope.selectYear.call(year);
   };
 
   $scope.selectYear = function() {
     $scope.selectedYear = this.year;
-    $scope.yearPrevBtnDisabled = parseInt($scope.selectedYear) - 1 < 2003;
-    $scope.yearNextBtnDisabled = parseInt($scope.selectedYear) + 1 > 2016;
+    $scope.yearPrevBtnDisabled = $scope.selectedYear - 1 < 2003;
+    $scope.yearNextBtnDisabled = $scope.selectedYear + 1 > 2016;
     $scope.updateData();
   };
 
@@ -51,14 +51,14 @@ angular.module('spendingAngularApp')
 
   $scope.updateSpending = function () {
     $scope.categories   = finances.categories;
-    $scope.yearRange    = Object.keys(finances.spending);
+    $scope.yearRange    = Object.keys(finances.spending).map(function (year) { return parseInt(year); });
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
     $scope.allRecords   = finances.yearSpending($scope.selectedYear);
     $scope.showTransactions(1,1);
   };
 
   $scope.updateBalances = function () {
-    $scope.yearRange    = Object.keys(finances.balances);
+    $scope.yearRange    = Object.keys(finances.balances).map(function (year) { return parseInt(year); });
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
     $scope.allRecords   = finances.balances[$scope.selectedYear];
   };

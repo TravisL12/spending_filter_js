@@ -8769,27 +8769,29 @@ ul.category-checkboxes li input[type=checkbox]:checked + label {
 .year-pagination ul {
   padding: 0;
   margin: 0;
+  display: inline-block;
 }
-/* line 50, ../../app/styles/main.scss */
+/* line 51, ../../app/styles/main.scss */
 .year-pagination ul li {
   padding: 2px 4px;
   margin-bottom: 5px;
   margin-right: 5px;
-  background: #ddd;
   cursor: pointer;
+  box-shadow: 0 0 0 1px #ddd;
+  border-radius: 1rem;
 }
 
-/* line 60, ../../app/styles/main.scss */
+/* line 62, ../../app/styles/main.scss */
 .active {
   background: #FFFA79 !important;
 }
 
-/* line 61, ../../app/styles/main.scss */
+/* line 63, ../../app/styles/main.scss */
 .empty {
   background: #FFF9F9;
 }
 
-/* line 63, ../../app/styles/main.scss */
+/* line 65, ../../app/styles/main.scss */
 .search-description ul li {
   position: relative;
   cursor: pointer;
@@ -8801,46 +8803,50 @@ ul.category-checkboxes li input[type=checkbox]:checked + label {
   display: table;
   transition: all 0.1s linear;
 }
-/* line 73, ../../app/styles/main.scss */
+/* line 75, ../../app/styles/main.scss */
 .search-description ul li + li {
   margin-top: 5px;
 }
-/* line 74, ../../app/styles/main.scss */
+/* line 76, ../../app/styles/main.scss */
 .search-description ul li:hover {
   background: #f1a7a7;
 }
 
-/* line 83, ../../app/styles/main.scss */
+/* line 85, ../../app/styles/main.scss */
 .date-grid .select-data label {
   cursor: pointer;
   font-weight: normal;
   padding: 2px 4px;
   background: #ddd;
 }
-/* line 89, ../../app/styles/main.scss */
+/* line 91, ../../app/styles/main.scss */
 .date-grid .select-data input[type=radio] {
   display: none;
 }
-/* line 91, ../../app/styles/main.scss */
-.date-grid .select-data input[type=radio]:checked + label {
+/* line 93, ../../app/styles/main.scss */
+.date-grid .select-data input[type=radio]:checked + label.spending {
+  background: #ff9696;
+}
+/* line 96, ../../app/styles/main.scss */
+.date-grid .select-data input[type=radio]:checked + label.balances {
   background: #BDFFB7;
 }
-/* line 98, ../../app/styles/main.scss */
+/* line 103, ../../app/styles/main.scss */
 .date-grid td.days-of-month, .date-grid th.months {
   text-align: right;
   font-weight: bold;
 }
-/* line 103, ../../app/styles/main.scss */
+/* line 108, ../../app/styles/main.scss */
 .date-grid td.days-of-month, .date-grid th.months, .date-grid td.day {
   padding-top: 1px;
   padding-bottom: 1px;
 }
-/* line 108, ../../app/styles/main.scss */
+/* line 113, ../../app/styles/main.scss */
 .date-grid td.day,
 .date-grid td.days-of-month {
   width: 50px;
 }
-/* line 110, ../../app/styles/main.scss */
+/* line 115, ../../app/styles/main.scss */
 .date-grid td.day {
   cursor: pointer;
   border: none;
@@ -8848,236 +8854,236 @@ ul.category-checkboxes li input[type=checkbox]:checked + label {
   padding-left: 0;
   text-align: right;
 }
-/* line 116, ../../app/styles/main.scss */
+/* line 121, ../../app/styles/main.scss */
 .date-grid td.day:hover {
-  background: #ddd;
+  box-shadow: inset 0 0 0px 1.5px;
 }
-/* line 118, ../../app/styles/main.scss */
+/* line 123, ../../app/styles/main.scss */
 .date-grid td.month-total {
   border-top: 1px solid #ddd;
 }
 
-/* line 124, ../../app/styles/main.scss */
+/* line 129, ../../app/styles/main.scss */
 .day-conditional-1 {
   background: rgba(255, 150, 150, 0.1);
 }
 
-/* line 125, ../../app/styles/main.scss */
+/* line 130, ../../app/styles/main.scss */
 .balances.day-conditional-1 {
   background: rgba(100, 255, 100, 0.1);
 }
 
-/* line 124, ../../app/styles/main.scss */
+/* line 129, ../../app/styles/main.scss */
 .day-conditional-2 {
   background: rgba(255, 150, 150, 0.2);
 }
 
-/* line 125, ../../app/styles/main.scss */
+/* line 130, ../../app/styles/main.scss */
 .balances.day-conditional-2 {
   background: rgba(100, 255, 100, 0.2);
 }
 
-/* line 124, ../../app/styles/main.scss */
+/* line 129, ../../app/styles/main.scss */
 .day-conditional-3 {
   background: rgba(255, 150, 150, 0.3);
 }
 
-/* line 125, ../../app/styles/main.scss */
+/* line 130, ../../app/styles/main.scss */
 .balances.day-conditional-3 {
   background: rgba(100, 255, 100, 0.3);
 }
 
-/* line 124, ../../app/styles/main.scss */
+/* line 129, ../../app/styles/main.scss */
 .day-conditional-4 {
   background: rgba(255, 150, 150, 0.4);
 }
 
-/* line 125, ../../app/styles/main.scss */
+/* line 130, ../../app/styles/main.scss */
 .balances.day-conditional-4 {
   background: rgba(100, 255, 100, 0.4);
 }
 
-/* line 124, ../../app/styles/main.scss */
+/* line 129, ../../app/styles/main.scss */
 .day-conditional-5 {
   background: rgba(255, 150, 150, 0.5);
 }
 
-/* line 125, ../../app/styles/main.scss */
+/* line 130, ../../app/styles/main.scss */
 .balances.day-conditional-5 {
   background: rgba(100, 255, 100, 0.5);
 }
 
-/* line 124, ../../app/styles/main.scss */
+/* line 129, ../../app/styles/main.scss */
 .day-conditional-6 {
   background: rgba(255, 150, 150, 0.6);
 }
 
-/* line 125, ../../app/styles/main.scss */
+/* line 130, ../../app/styles/main.scss */
 .balances.day-conditional-6 {
   background: rgba(100, 255, 100, 0.6);
 }
 
-/* line 124, ../../app/styles/main.scss */
+/* line 129, ../../app/styles/main.scss */
 .day-conditional-7 {
   background: rgba(255, 150, 150, 0.7);
 }
 
-/* line 125, ../../app/styles/main.scss */
+/* line 130, ../../app/styles/main.scss */
 .balances.day-conditional-7 {
   background: rgba(100, 255, 100, 0.7);
 }
 
-/* line 124, ../../app/styles/main.scss */
+/* line 129, ../../app/styles/main.scss */
 .day-conditional-8 {
   background: rgba(255, 150, 150, 0.8);
 }
 
-/* line 125, ../../app/styles/main.scss */
+/* line 130, ../../app/styles/main.scss */
 .balances.day-conditional-8 {
   background: rgba(100, 255, 100, 0.8);
 }
 
-/* line 124, ../../app/styles/main.scss */
+/* line 129, ../../app/styles/main.scss */
 .day-conditional-9 {
   background: rgba(255, 150, 150, 0.9);
 }
 
-/* line 125, ../../app/styles/main.scss */
+/* line 130, ../../app/styles/main.scss */
 .balances.day-conditional-9 {
   background: rgba(100, 255, 100, 0.9);
 }
 
-/* line 124, ../../app/styles/main.scss */
+/* line 129, ../../app/styles/main.scss */
 .day-conditional-10 {
   background: #ff9696;
 }
 
-/* line 125, ../../app/styles/main.scss */
+/* line 130, ../../app/styles/main.scss */
 .balances.day-conditional-10 {
   background: #64ff64;
 }
 
-/* line 131, ../../app/styles/main.scss */
+/* line 136, ../../app/styles/main.scss */
 .month-conditional-1 {
   background: rgba(255, 150, 150, 0.0833333333);
 }
 
-/* line 132, ../../app/styles/main.scss */
+/* line 137, ../../app/styles/main.scss */
 .balances.month-conditional-1 {
   background: rgba(100, 255, 100, 0.0833333333);
 }
 
-/* line 131, ../../app/styles/main.scss */
+/* line 136, ../../app/styles/main.scss */
 .month-conditional-2 {
   background: rgba(255, 150, 150, 0.1666666667);
 }
 
-/* line 132, ../../app/styles/main.scss */
+/* line 137, ../../app/styles/main.scss */
 .balances.month-conditional-2 {
   background: rgba(100, 255, 100, 0.1666666667);
 }
 
-/* line 131, ../../app/styles/main.scss */
+/* line 136, ../../app/styles/main.scss */
 .month-conditional-3 {
   background: rgba(255, 150, 150, 0.25);
 }
 
-/* line 132, ../../app/styles/main.scss */
+/* line 137, ../../app/styles/main.scss */
 .balances.month-conditional-3 {
   background: rgba(100, 255, 100, 0.25);
 }
 
-/* line 131, ../../app/styles/main.scss */
+/* line 136, ../../app/styles/main.scss */
 .month-conditional-4 {
   background: rgba(255, 150, 150, 0.3333333333);
 }
 
-/* line 132, ../../app/styles/main.scss */
+/* line 137, ../../app/styles/main.scss */
 .balances.month-conditional-4 {
   background: rgba(100, 255, 100, 0.3333333333);
 }
 
-/* line 131, ../../app/styles/main.scss */
+/* line 136, ../../app/styles/main.scss */
 .month-conditional-5 {
   background: rgba(255, 150, 150, 0.4166666667);
 }
 
-/* line 132, ../../app/styles/main.scss */
+/* line 137, ../../app/styles/main.scss */
 .balances.month-conditional-5 {
   background: rgba(100, 255, 100, 0.4166666667);
 }
 
-/* line 131, ../../app/styles/main.scss */
+/* line 136, ../../app/styles/main.scss */
 .month-conditional-6 {
   background: rgba(255, 150, 150, 0.5);
 }
 
-/* line 132, ../../app/styles/main.scss */
+/* line 137, ../../app/styles/main.scss */
 .balances.month-conditional-6 {
   background: rgba(100, 255, 100, 0.5);
 }
 
-/* line 131, ../../app/styles/main.scss */
+/* line 136, ../../app/styles/main.scss */
 .month-conditional-7 {
   background: rgba(255, 150, 150, 0.5833333333);
 }
 
-/* line 132, ../../app/styles/main.scss */
+/* line 137, ../../app/styles/main.scss */
 .balances.month-conditional-7 {
   background: rgba(100, 255, 100, 0.5833333333);
 }
 
-/* line 131, ../../app/styles/main.scss */
+/* line 136, ../../app/styles/main.scss */
 .month-conditional-8 {
   background: rgba(255, 150, 150, 0.6666666667);
 }
 
-/* line 132, ../../app/styles/main.scss */
+/* line 137, ../../app/styles/main.scss */
 .balances.month-conditional-8 {
   background: rgba(100, 255, 100, 0.6666666667);
 }
 
-/* line 131, ../../app/styles/main.scss */
+/* line 136, ../../app/styles/main.scss */
 .month-conditional-9 {
   background: rgba(255, 150, 150, 0.75);
 }
 
-/* line 132, ../../app/styles/main.scss */
+/* line 137, ../../app/styles/main.scss */
 .balances.month-conditional-9 {
   background: rgba(100, 255, 100, 0.75);
 }
 
-/* line 131, ../../app/styles/main.scss */
+/* line 136, ../../app/styles/main.scss */
 .month-conditional-10 {
   background: rgba(255, 150, 150, 0.8333333333);
 }
 
-/* line 132, ../../app/styles/main.scss */
+/* line 137, ../../app/styles/main.scss */
 .balances.month-conditional-10 {
   background: rgba(100, 255, 100, 0.8333333333);
 }
 
-/* line 131, ../../app/styles/main.scss */
+/* line 136, ../../app/styles/main.scss */
 .month-conditional-11 {
   background: rgba(255, 150, 150, 0.9166666667);
 }
 
-/* line 132, ../../app/styles/main.scss */
+/* line 137, ../../app/styles/main.scss */
 .balances.month-conditional-11 {
   background: rgba(100, 255, 100, 0.9166666667);
 }
 
-/* line 131, ../../app/styles/main.scss */
+/* line 136, ../../app/styles/main.scss */
 .month-conditional-12 {
   background: #ff9696;
 }
 
-/* line 132, ../../app/styles/main.scss */
+/* line 137, ../../app/styles/main.scss */
 .balances.month-conditional-12 {
   background: #64ff64;
 }
 
-/* line 135, ../../app/styles/main.scss */
+/* line 140, ../../app/styles/main.scss */
 .csv-input {
   display: inline-block;
 }
