@@ -8778,7 +8778,7 @@ ul.category-checkboxes li input[type=checkbox]:checked + label {
   margin-right: 5px;
   cursor: pointer;
   box-shadow: 0 0 0 1px #ddd;
-  border-radius: 1rem;
+  border-radius: 0.3rem;
 }
 
 /* line 62, ../../app/styles/main.scss */
