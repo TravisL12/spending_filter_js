@@ -13,18 +13,18 @@ angular.module('spendingAngularApp').directive('financeTable', function ($docume
       financeType: '='
     },
     link: function (scope) {
-        function numberRange (num) {
+        scope.numberRange = function (num) {
           return Array.apply(null, {length: num}).map(function (current, index) {
             return index + 1;
           });
-        }
+        };
 
         scope.dateAbbreviation = function () {
           return new Date(this.month +'/1/2016');
         };
 
-        scope.dayCount   = numberRange(31);
-        scope.monthCount = numberRange(12);
+        scope.dayCount   = scope.numberRange(31);
+        scope.monthCount = scope.numberRange(12);
 
         scope.highlightActiveDay = function() {
           return scope.transactionDate === this.month + '/' + this.day;

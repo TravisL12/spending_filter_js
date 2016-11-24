@@ -109,12 +109,30 @@ ul.category-checkboxes li {
   td.day,
   td.days-of-month { width: 50px; }
   td.day {
+    position: relative;
     cursor: pointer;
     border: none;
     font-size: 12px;
     padding-left: 0;
     text-align: right;
     &:hover { box-shadow: inset 0 0 0px 1.5px; }
+    ul.transaction-count-hint {
+      position: absolute;
+      font-size: 8px;
+      color: black;
+      left: 0;
+      bottom: 0;
+      li {
+        display: inline-block;
+        width: 1px;
+        height: 2px;
+        background: #27C518;
+        margin-right: 1px;
+        &:nth-child(5n) {
+          background: black;
+        }
+      }
+    }
   }
   td.month-total { border-top: 1px solid #ddd; }
 }

@@ -7,7 +7,12 @@
     <tr ng-repeat='day in dayCount'>
       <td class='days-of-month'>{{day}}</td>
       <td class='day' ng-class='[{"active": highlightActiveDay()}, setDayStyling(), {"balances": financeType == "balances"}]' ng-click='showTransactions({month: month, day: day})'
-          ng-repeat='month in monthCount'>{{allRecords.month[month].day[day].total | currency:'$':0 }}</td>
+          ng-repeat='month in monthCount'>
+          {{allRecords.month[month].day[day].total | currency:'$':0 }}
+          <ul class='transaction-count-hint' ng-hide='financeType == "balances"'>
+            <li ng-repeat='dot in numberRange(allRecords.month[month].day[day].transactions.length)'></li>
+          </ul>
+      </td>
     </tr>
     <tr>
       <td class='days-of-month'>Total:</td>
