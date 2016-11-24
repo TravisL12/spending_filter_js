@@ -21,9 +21,13 @@ angular.module('spendingAngularApp').factory('finances', function () {
           priceMax: null
         };
 
+    function isGreaterThanToday(date) {
+      return today > date;
+    }
+
     function parseDescription (transaction) {
-      var purchaseRE = new RegExp(/(purchase\s*authorized\s*on\s*)/i);
-      var rand16RE = new RegExp(/\S{16} (card) \d{4,}/i);
+      var purchaseRE  = new RegExp(/(purchase\s*authorized\s*on\s*)/i);
+      var rand16RE    = new RegExp(/\S{16} (card) \d{4,}/i);
       var leadDatesRE = new RegExp(/\d{2}\/\d{2}\s*/i);
       var randomNumRE = new RegExp(/[\S]*\d{3,}/gi);
       
@@ -180,8 +184,8 @@ angular.module('spendingAngularApp').factory('finances', function () {
         for (var yearBal in balances) {
           for (var monthBal in balances[yearBal].month) {
             for (var dayBal in balances[yearBal].month[monthBal].day) {
-
-              if (new Date(yearBal, monthBal-1, dayBal) > today) {
+              
+              if (!isGreaterThanToday(new Date(yearBal, monthBal-1, dayBal))) {
                 break;
               }
 
@@ -219,8 +223,9 @@ angular.module('spendingAngularApp').factory('finances', function () {
               if (balances[yearBal].month[monthBal].day[dayBal].total > balances[yearBal].maxDay) {
                 balances[yearBal].maxDay = balances[yearBal].month[monthBal].day[dayBal].total;
               }
+
+              balances[yearBal].month[monthBal].total = balances[yearBal].month[monthBal].day[dayBal].total - balances[yearBal].month[monthBal].day[1].total;
             }
-            balances[yearBal].month[monthBal].total = balances[yearBal].month[monthBal].day[31].total - balances[yearBal].month[monthBal].day[1].total;
             balances[yearBal].total += balances[yearBal].month[monthBal].total;
           }
         }

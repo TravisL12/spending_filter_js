@@ -8,7 +8,7 @@
  * Controller of the spendingAngularApp
  */
 angular.module('spendingAngularApp')
-  .controller('SpendingCtrl', function($scope, Transactions, finances){
+  .controller('SpendingCtrl', function($scope, Transactions, finances, $stateParams){
 
   $scope.searchRecords = finances.searchRecords;
   $scope.description = null;
@@ -77,14 +77,14 @@ angular.module('spendingAngularApp')
   };
 
   $scope.updateData = function () {
-    if ($scope.financeType === 'spending') {
+    if ($scope.spendingType === 'spending') {
       $scope.updateSpending();
-    } else if ($scope.financeType === 'balances') {
+    } else if ($scope.spendingType === 'balances') {
       $scope.updateBalances();
     }
   };
 
-  $scope.financeType = 'spending';
+  $scope.spendingType = $stateParams.spendingType || 'spending';
   $scope.updateData();
 
 });

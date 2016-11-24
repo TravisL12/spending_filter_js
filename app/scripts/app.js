@@ -81,7 +81,7 @@
       }
     })
     .state('spreadsheet.spending', {
-      url:'/',
+      url:'/:spendingType',
       templateUrl: 'views/spending.html',
       controller: 'SpendingCtrl'
     })

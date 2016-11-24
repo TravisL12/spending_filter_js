@@ -27,10 +27,10 @@
     <div class='row'>
       <div class='col-md-12 select-data'>
         <div class='form-group'>
-          <input type='radio' ng-model='financeType' ng-change='updateSpending()' value='spending' id='spending-data'>
+          <input type='radio' ng-model='spendingType' ng-change='updateSpending()' value='spending' id='spending-data'>
           <label class='spending' for='spending-data'>Spending</label>
 
-          <input type='radio' ng-model='financeType' ng-change='updateBalances()' value='balances' id='balances-data'>
+          <input type='radio' ng-model='spendingType' ng-change='updateBalances()' value='balances' id='balances-data'>
           <label class='balances' for='balances-data'>Balances</label>
         </div>
       </div>
@@ -50,7 +50,7 @@
 
     <div class='row'>
       <div class='col-md-12'>
-        <finance-table finance-type='financeType' all-records='allRecords' transaction-date='transactionDate' show-transactions='showTransactions(month, day)'></finance-table>
+        <finance-table finance-type='spendingType' all-records='allRecords' transaction-date='transactionDate' show-transactions='showTransactions(month, day)'></finance-table>
       </div>
     </div>
   </div>
