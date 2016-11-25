@@ -13,7 +13,7 @@
         <ul class='category-checkboxes'>
           <li ng-repeat='category in categories' ng-if='category.name != "" && category.total > 500'>
             <input type='checkbox' id='category-{{category.name}}' ng-true-value='true' ng-false-value='false' ng-change='filterPrice()' ng-model='category.value'>
-            <label for='category-{{category.name}}'>{{category.name}} <span class='pull-right'>{{category.total | currency:'$':0}}</span></label>
+            <label for='category-{{category.name}}' ng-class='setCategoryStyling()'>{{category.name}} <span class='pull-right'>{{category.total | currency:'$':0}}</span></label>
           </li>
         </ul>
       </div>
@@ -27,11 +27,8 @@
     <div class='row'>
       <div class='col-md-12 select-data'>
         <div class='form-group'>
-          <input type='radio' ng-model='spendingType' ng-change='updateSpending()' value='spending' id='spending-data'>
-          <label class='spending' for='spending-data'>Spending</label>
-
-          <input type='radio' ng-model='spendingType' ng-change='updateBalances()' value='balances' id='balances-data'>
-          <label class='balances' for='balances-data'>Balances</label>
+          <button class='btn' ng-class='{spending: spendingType == "spending"}' ui-sref='spreadsheet.spending({spendingType:"spending"})'>Spending</button>
+          <button class='btn' ng-class='{balances: spendingType == "balances"}' ui-sref='spreadsheet.spending({spendingType:"balances"})'>Balances</button>
         </div>
       </div>
     </div>

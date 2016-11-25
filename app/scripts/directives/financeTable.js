@@ -13,6 +13,9 @@ angular.module('spendingAngularApp').directive('financeTable', function ($docume
       financeType: '='
     },
     link: function (scope) {
+
+        scope.transactionDate = scope.transactionDate || '1/1';
+
         scope.numberRange = function (num) {
           return Array.apply(null, {length: num}).map(function (current, index) {
             return index + 1;

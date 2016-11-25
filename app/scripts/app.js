@@ -28,10 +28,10 @@
       template: '<ui-view></ui-view>',
       abstract: true,
       resolve: {
-        Transactions: function($http, finances) {
+        Transactions: function($http, compileFinances) {
           var url = getGoogleUrl(1);
           return $http.get(url).then(function(data) {
-            finances.spending = data.data.feed.entry.map(function(obj) {
+            compileFinances.spending = data.data.feed.entry.map(function(obj) {
               return {
                 category:    obj.gsx$subcategory.$t || obj.gsx$category.$t,
                 date:        obj.gsx$date.$t,
@@ -41,7 +41,7 @@
             });
           });
         },
-        Balances: function($http, finances) {
+        Balances: function($http, compileFinances) {
           var url = getGoogleUrl(3);
           var balances = {};
 
@@ -75,7 +75,7 @@
               balances[obj.gsx$date_4.$t].savings   = parseReplaceAmount(obj.gsx$savings.$t);
             }
 
-            finances.balances = balances;
+            compileFinances.balances = balances;
           });
         }
       }

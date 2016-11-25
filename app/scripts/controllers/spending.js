@@ -8,9 +8,9 @@
  * Controller of the spendingAngularApp
  */
 angular.module('spendingAngularApp')
-  .controller('SpendingCtrl', function($scope, Transactions, finances, $stateParams){
+  .controller('SpendingCtrl', function($scope, Transactions, compileFinances, $stateParams){
 
-  $scope.searchRecords = finances.searchRecords;
+  $scope.searchRecords = compileFinances.searchRecords;
   $scope.description = null;
   $scope.yearPrevBtnDisabled = false;
   $scope.yearNextBtnDisabled = true;
@@ -39,8 +39,8 @@ angular.module('spendingAngularApp')
   };
 
   $scope.filterPrice = function() {
-    finances.categories = $scope.categories;
-    finances.searchRecords = $scope.searchRecords;
+    compileFinances.categories = $scope.categories;
+    compileFinances.searchRecords = $scope.searchRecords;
     $scope.updateData();
   };
 
@@ -50,17 +50,17 @@ angular.module('spendingAngularApp')
   };
 
   $scope.updateSpending = function () {
-    $scope.categories   = finances.categories;
-    $scope.yearRange    = Object.keys(finances.spending).map(function (year) { return parseInt(year); });
+    $scope.categories   = compileFinances.categories;
+    $scope.yearRange    = Object.keys(compileFinances.spending).map(function (year) { return parseInt(year); });
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
-    $scope.allRecords   = finances.yearSpending($scope.selectedYear);
+    $scope.allRecords   = compileFinances.yearSpending($scope.selectedYear);
     $scope.showTransactions(1,1);
   };
 
   $scope.updateBalances = function () {
-    $scope.yearRange    = Object.keys(finances.balances).map(function (year) { return parseInt(year); });
+    $scope.yearRange    = Object.keys(compileFinances.balances).map(function (year) { return parseInt(year); });
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
-    $scope.allRecords   = finances.balances[$scope.selectedYear];
+    $scope.allRecords   = compileFinances.balances[$scope.selectedYear];
   };
 
   $scope.toggleCategories = function (boolVal) {
@@ -71,8 +71,25 @@ angular.module('spendingAngularApp')
     $scope.filterPrice();
   };
 
+  function maxCategoryTotal() {
+    var categories = this.categories;
+    var totals = Object.keys(categories).map(function(name) {
+      return categories[name].value ? categories[name].total : 0;
+    });
+    return Math.max.apply(null, totals);
+  }
+
+  $scope.setCategoryStyling = function() {
+    var category = this.category;
+    if (category.total === 0) { return; }
+    var formatSteps = 10; // Arbitrary number of color gradients, also referenced in CSS
+    var maxCategory = maxCategoryTotal.call(this);
+    var ratio = category.total < maxCategory ? Math.ceil(category.total / maxCategory * formatSteps) : formatSteps;
+    return 'day-conditional-' + ratio;
+  };
+
   $scope.clearFilters = function () {
-    $scope.searchRecords = finances.searchRecords;
+    $scope.searchRecords = compileFinances.searchRecords;
     $scope.filterPrice();
   };
 

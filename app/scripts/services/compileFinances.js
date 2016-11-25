@@ -7,7 +7,7 @@
  * # financeData
  * Factory in the spendingAngularApp.
  */
-angular.module('spendingAngularApp').factory('finances', function () {
+angular.module('spendingAngularApp').factory('compileFinances', function () {
 
     // TODO build in checks to not calculate past the current day
     var today = new Date();

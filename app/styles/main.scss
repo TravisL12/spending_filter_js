@@ -16,13 +16,15 @@ ul.category-checkboxes li {
     font-weight: normal;
     width: 100%;
     padding: 2px 4px;
-    background: #ddd;
     border-radius: 3px;
   }
   input[type=checkbox] {
     display: none; 
-    &:checked + label {
-      background: #BDFFB7;
+    & + label { border: 1px solid transparent; }
+    &:not(:checked) + label {
+      background: white;
+      color: #ddd;
+      border-color: #ddd;
     }
   }
 }
@@ -78,20 +80,14 @@ ul.category-checkboxes li {
 .date-grid {
 
   .select-data {
-    label {
+    button {
       cursor: pointer;
       font-weight: normal;
       padding: 2px 4px;
       background: #ddd;
-    }
-    input[type=radio] {
-      display: none; 
-      &:checked + label.spending {
-        background: rgb(255,150,150);
-      }
-      &:checked + label.balances {
-        background: #BDFFB7;
-      }
+
+      &.spending { background: rgb(255,150,150); }
+      &.balances { background: #BDFFB7; }
     }
 
   }
