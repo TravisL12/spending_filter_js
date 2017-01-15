@@ -175,7 +175,7 @@ angular.module('spendingAngularApp').factory('compileFinances', function () {
         };
 
         var startYear = 2004,
-            endYear   = 2016;
+            endYear   = today.getFullYear();
 
         for (var k = startYear; k <= endYear; k++) {
           balances[k] = new Year();          

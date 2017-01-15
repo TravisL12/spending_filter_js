@@ -14,6 +14,7 @@ angular.module('spendingAngularApp')
   $scope.description = null;
   $scope.yearPrevBtnDisabled = false;
   $scope.yearNextBtnDisabled = true;
+  $scope.categoryTotalMin = 500;
 
   $scope.nextYear = function (num) {
     var year = {year: $scope.selectedYear + num};
@@ -23,7 +24,7 @@ angular.module('spendingAngularApp')
   $scope.selectYear = function() {
     $scope.selectedYear = this.year;
     $scope.yearPrevBtnDisabled = $scope.selectedYear - 1 < 2003;
-    $scope.yearNextBtnDisabled = $scope.selectedYear + 1 > 2016;
+    $scope.yearNextBtnDisabled = $scope.selectedYear + 1 > 2017;
     $scope.updateData();
   };
 
