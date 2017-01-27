@@ -39,6 +39,12 @@ angular.module('spendingAngularApp')
     $scope.filterPrice();
   };
 
+  $scope.singleCategoryChoice = function () {
+    $scope.toggleCategories(false);
+    this.category.value = true;
+    $scope.filterPrice();
+  };
+
   $scope.filterPrice = function() {
     compileFinances.categories = $scope.categories;
     compileFinances.searchRecords = $scope.searchRecords;
@@ -66,7 +72,7 @@ angular.module('spendingAngularApp')
 
   $scope.toggleCategories = function (boolVal) {
     angular.forEach($scope.categories, function (category) {
-      $scope.categories[category.name].value = boolVal;
+      category.value = boolVal;
     });
 
     $scope.filterPrice();

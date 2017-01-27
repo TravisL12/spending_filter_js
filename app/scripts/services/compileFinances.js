@@ -93,11 +93,19 @@ angular.module('spendingAngularApp').factory('compileFinances', function () {
       },
 
       get categories() {
-        return categories;
+        var categoriesArr = [];
+        angular.forEach(categories, function (category) {
+          categoriesArr.push(category);
+        });
+        return categoriesArr;
       },
 
       set categories(data) {
-        categories = data;
+        var categoriesObj = {};
+        angular.forEach(data, function (category) {
+          categoriesObj[category.name] = category;
+        });
+        categories = categoriesObj;
       },
 
       get spending() {

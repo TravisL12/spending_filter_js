@@ -3,17 +3,27 @@
   <!-- Category Select -->
   <div class='col-md-2'>
     <div class='row'>
-      <h4>Categories (over ${{categoryTotalMin}})</h4>
+      <h4>Categories <small>(min. {{categoryTotalMin || 0 | currency }})</small></h4>
+
+      <div class='form-group'>
+        <input class='form-control input-sm' placeholder='Minimum Category Total' type='text' ng-model=categoryTotalMin>
+      </div>
+
       <div class='form-group'>
         <button class='btn btn-default btn-xs' ng-click='toggleCategories(true)'>Select All</button>
         <button class='btn btn-default btn-xs' ng-click='toggleCategories(false)'>Select None</button>
       </div>
 
       <div class='form-group'>
-        <ul class='category-checkboxes'>
-          <li ng-repeat='category in categories' ng-if='category.name != "" && category.total > categoryTotalMin'>
-            <input type='checkbox' id='category-{{category.name}}' ng-true-value='true' ng-false-value='false' ng-change='filterPrice()' ng-model='category.value'>
-            <label for='category-{{category.name}}' ng-class='setCategoryStyling()'>{{category.name}} <span class='pull-right'>{{category.total | currency:'$':0}}</span></label>
+        <ul class='category-checkboxes row'>
+          <li ng-repeat='category in categories | orderBy:"-total"' ng-if='category.name != "" && category.total > categoryTotalMin'>
+            <div class='col-md-1'>
+              <input type='checkbox' id='category-{{category.name}}' ng-true-value='true' ng-false-value='false' ng-change='filterPrice()' ng-model='category.value'>
+            </div>
+
+            <div class='col-md-10 category-list-item'>
+              <a ng-click='singleCategoryChoice()' ng-class='[setCategoryStyling(), category.value ? "checked" : "unchecked"]'>{{category.name}} <span class='pull-right'>{{category.total | currency:'$':0}}</span></a>
+            </div>
           </li>
         </ul>
       </div>
