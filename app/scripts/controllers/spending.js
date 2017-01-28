@@ -14,7 +14,8 @@ angular.module('spendingAngularApp')
   $scope.description = null;
   $scope.yearPrevBtnDisabled = false;
   $scope.yearNextBtnDisabled = true;
-  $scope.categoryTotalMin = 500;
+  $scope.categoryTotalMin = 50;
+  $scope.toggleAllCategories = true;
 
   $scope.nextYear = function (num) {
     var year = {year: $scope.selectedYear + num};
@@ -40,7 +41,8 @@ angular.module('spendingAngularApp')
   };
 
   $scope.singleCategoryChoice = function () {
-    $scope.toggleCategories(false);
+    $scope.toggleAllCategories = false;
+    $scope.toggleCategories();
     this.category.value = true;
     $scope.filterPrice();
   };
@@ -70,9 +72,9 @@ angular.module('spendingAngularApp')
     $scope.allRecords   = compileFinances.balances[$scope.selectedYear];
   };
 
-  $scope.toggleCategories = function (boolVal) {
+  $scope.toggleCategories = function () {
     angular.forEach($scope.categories, function (category) {
-      category.value = boolVal;
+      category.value = $scope.toggleAllCategories;
     });
 
     $scope.filterPrice();

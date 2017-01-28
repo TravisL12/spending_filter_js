@@ -6,32 +6,21 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 ul { padding: 0; margin: 0; }
 li { list-style: none; }
 
-ul.year-range li { display: inline-block; }
+ul.year-range li {
+  display: inline-block;
+}
 
-ul.category-checkboxes li {
-  display: block;
+table.categories {
   font-size: 12px;
-  .category-list-item {
-    margin-bottom: 5px;
-    a {
-      display: block;
-      color: #333;
-      cursor: pointer;
-      font-weight: normal;
-      width: 100%;
-      padding: 2px 4px;
-      border: 1px solid transparent;
-      border-radius: 3px;
 
-      &:hover {
-        text-decoration: none;
-      }
-    }
+  tr {
+    color: #333;
+    cursor: pointer;
+    font-weight: normal;
 
-    .unchecked {
+    &.unchecked {
       background: white;
       color: #ddd;
-      border-color: #ddd;
     }
   }
 
