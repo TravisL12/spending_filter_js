@@ -14,8 +14,6 @@ angular.module('spendingAngularApp')
   $scope.description = null;
   $scope.yearPrevBtnDisabled = false;
   $scope.yearNextBtnDisabled = true;
-  $scope.categoryTotalMin = 50;
-  $scope.toggleAllCategories = true;
 
   $scope.nextYear = function (num) {
     var year = {year: $scope.selectedYear + num};
@@ -40,11 +38,9 @@ angular.module('spendingAngularApp')
     $scope.filterPrice();
   };
 
-  $scope.singleCategoryChoice = function () {
-    $scope.toggleAllCategories = false;
-    $scope.toggleCategories();
-    this.category.value = true;
-    $scope.filterPrice();
+  $scope.showTransactions = function(month, day) {
+    $scope.transactionDate = month + '/' + day;
+    $scope.selectedDate    = $scope.allRecords.month[month].day[day];
   };
 
   $scope.filterPrice = function() {
@@ -53,9 +49,9 @@ angular.module('spendingAngularApp')
     $scope.updateData();
   };
 
-  $scope.showTransactions = function(month, day) {
-    $scope.transactionDate = month + '/' + day;
-    $scope.selectedDate    = $scope.allRecords.month[month].day[day];
+  $scope.clearFilters = function () {
+    $scope.searchRecords = compileFinances.searchRecords;
+    $scope.filterPrice();
   };
 
   $scope.updateSpending = function () {
@@ -70,36 +66,6 @@ angular.module('spendingAngularApp')
     $scope.yearRange    = Object.keys(compileFinances.balances).map(function (year) { return parseInt(year); });
     $scope.selectedYear = $scope.selectedYear || $scope.yearRange[$scope.yearRange.length - 1];
     $scope.allRecords   = compileFinances.balances[$scope.selectedYear];
-  };
-
-  $scope.toggleCategories = function () {
-    angular.forEach($scope.categories, function (category) {
-      category.value = $scope.toggleAllCategories;
-    });
-
-    $scope.filterPrice();
-  };
-
-  function maxCategoryTotal() {
-    var categories = this.categories;
-    var totals = Object.keys(categories).map(function(name) {
-      return categories[name].value ? categories[name].total : 0;
-    });
-    return Math.max.apply(null, totals);
-  }
-
-  $scope.setCategoryStyling = function() {
-    var category = this.category;
-    if (category.total === 0) { return; }
-    var formatSteps = 10; // Arbitrary number of color gradients, also referenced in CSS
-    var maxCategory = maxCategoryTotal.call(this);
-    var ratio = category.total < maxCategory ? Math.ceil(category.total / maxCategory * formatSteps) : formatSteps;
-    return 'day-conditional-' + ratio;
-  };
-
-  $scope.clearFilters = function () {
-    $scope.searchRecords = compileFinances.searchRecords;
-    $scope.filterPrice();
   };
 
   $scope.updateData = function () {

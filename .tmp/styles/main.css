@@ -8801,21 +8801,22 @@ table.categories tr.unchecked {
   background: #f1a7a7;
 }
 
-/* line 80, ../../app/styles/main.scss */
-.date-grid .select-data button {
+/* line 78, ../../app/styles/main.scss */
+.select-data button {
   cursor: pointer;
   font-weight: normal;
   padding: 2px 4px;
   background: #ddd;
 }
-/* line 86, ../../app/styles/main.scss */
-.date-grid .select-data button.spending {
+/* line 84, ../../app/styles/main.scss */
+.select-data button.spending {
   background: #ff9696;
 }
-/* line 87, ../../app/styles/main.scss */
-.date-grid .select-data button.balances {
+/* line 85, ../../app/styles/main.scss */
+.select-data button.balances {
   background: #BDFFB7;
 }
+
 /* line 92, ../../app/styles/main.scss */
 .date-grid td.days-of-month, .date-grid th.months {
   text-align: right;

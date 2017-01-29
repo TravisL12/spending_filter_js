@@ -1,0 +1,21 @@
+<div class='row' ng-show='spendingType === "spending"'>
+  <h4>Categories <small>(min. {{minCategoryTotal || 0 | currency }})</small></h4>
+  <div class='category-minimum-input'><input class='form-control input-sm' placeholder='Minimum Category Total' type='text' ng-model=minCategoryTotal></div>
+
+  <table class='table categories'>
+    <thead>
+      <th><input type='checkbox' id='toggle-categories' ng-true-value='true' ng-false-value='false' ng-change='toggleAllCategories()' ng-model='isAllCategoriesSelected'></th>
+      <th>Name</th>
+      <th>Amount</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat='category in categories | orderBy:"name"' ng-if='category.name != "" && category.total > minCategoryTotal' ng-class='[setCategoryStyling(), category.value ? "checked" : "unchecked"]'>
+        <td class='col-md-1'>
+          <input type='checkbox' id='category-{{category.name}}' ng-true-value='true' ng-false-value='false' ng-change='filterPrice()' ng-model='category.value'>
+        </td>
+        <td class='col-md-9' ng-click='singleCategoryChoice()'><small>{{category.name}}</small></td>
+        <td class='col-md-2' ng-click='singleCategoryChoice()'>{{category.total | currency:'$':0}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

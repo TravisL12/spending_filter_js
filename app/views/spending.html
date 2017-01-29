@@ -1,34 +1,7 @@
-<div class='spending-container'>
+<div class='spending-container row'>
 
-  <!-- Category Select -->
-  <div class='col-md-2'>
-    <div class='row' ng-show='spendingType === "spending"'>
-      <h4>Categories <small>(min. {{categoryTotalMin || 0 | currency }})</small></h4>
-      <div class='category-minimum-input'><input class='form-control input-sm' placeholder='Minimum Category Total' type='text' ng-model=categoryTotalMin></div>
-
-      <table class='table categories'>
-        <thead>
-          <th><input type='checkbox' id='toggle-categories' ng-true-value='true' ng-false-value='false' ng-change='toggleCategories()' ng-model='toggleAllCategories'></th>
-          <th>Name</th>
-          <th>Amount</th>
-        </thead>
-        <tbody>
-          <tr ng-repeat='category in categories | orderBy:"-total"' ng-if='category.name != "" && category.total > categoryTotalMin' ng-class='[setCategoryStyling(), category.value ? "checked" : "unchecked"]'>
-            <td class='col-md-1'>
-              <input type='checkbox' id='category-{{category.name}}' ng-true-value='true' ng-false-value='false' ng-change='filterPrice()' ng-model='category.value'>
-            </td>
-            <td class='col-md-9' ng-click='singleCategoryChoice()'><small>{{category.name}}</small></td>
-            <td class='col-md-2' ng-click='singleCategoryChoice()'>{{category.total | currency:'$':0}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <!-- END Category Select -->
-
-  <!-- Spending Table Cells -->
-  <div class='date-grid col-md-7'>
-
+  <!-- Date pagination -->
+  <div class='date-pagination col-md-offset-2 col-md-10'>
     <div class='row'>
       <div class='col-md-12 select-data'>
         <div class='form-group'>
@@ -49,7 +22,17 @@
         </div>
       </div>
     </div>
+  </div>
+  <!-- END date pagination -->
 
+  <!-- Category Select -->
+  <div class='category-select col-md-2'>
+    <categories spending-type='{{spendingType}}' categories='categories' filter-price='filterPrice()'></categories>
+  </div>
+  <!-- END Category Select -->
+
+  <!-- Spending Table Cells -->
+  <div class='date-grid col-md-7'>
     <div class='row'>
       <div class='col-md-12'>
         <finance-table finance-type='spendingType' all-records='allRecords' transaction-date='transactionDate' show-transactions='showTransactions(month, day)'></finance-table>
