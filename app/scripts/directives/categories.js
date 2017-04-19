@@ -15,8 +15,7 @@ angular.module('spendingAngularApp').directive('categories', function () {
       scope.minCategoryTotal = 500;
       scope.isAllCategoriesSelected = true;
 
-      function maxCategoryTotal() {
-        var categories = this.categories;
+      function maxCategoryTotal(categories) {
         var totals = Object.keys(categories).map(function(name) {
           return categories[name].value ? categories[name].total : 0;
         });
@@ -27,7 +26,7 @@ angular.module('spendingAngularApp').directive('categories', function () {
         var category = this.category;
         if (category.total === 0) { return; }
         var formatSteps = 10; // Arbitrary number of color gradients, also referenced in CSS
-        var maxCategory = maxCategoryTotal.call(this);
+        var maxCategory = maxCategoryTotal(this.categories);
         var ratio = category.total < maxCategory ? Math.ceil(category.total / maxCategory * formatSteps) : formatSteps;
         return 'day-conditional-' + ratio;
       };

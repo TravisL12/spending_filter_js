@@ -10,9 +10,8 @@
 angular.module('spendingAngularApp').factory('compileFinances', function () {
 
     // TODO build in checks to not calculate past the current day
-    var today = new Date();
-
-    var spending = {},
+    var today = new Date(),
+        spending = {},
         balances = {},
         categories = {},
         searchRecords = {
@@ -32,6 +31,10 @@ angular.module('spendingAngularApp').factory('compileFinances', function () {
       var randomNumRE = new RegExp(/[\S]*\d{3,}/gi);
       
       return transaction.description.replace(purchaseRE, '').replace(rand16RE,'').replace(leadDatesRE,'').replace(randomNumRE,'');
+    }
+
+    function zeroPadDate (val) {
+      return ('0' + val).slice(-2);
     }
 
     function parseDate (transaction) {
@@ -197,7 +200,7 @@ angular.module('spendingAngularApp').factory('compileFinances', function () {
                 break;
               }
 
-              var balanceData = data[monthBal + '/' + dayBal + '/' + yearBal.slice(2,4)];
+              var balanceData = data[yearBal + '-' + zeroPadDate(monthBal) + '-' + zeroPadDate(dayBal)];
               if (!balanceData) {
                 balances[yearBal].month[monthBal].day[dayBal].total = lastBalance.oldchecking + lastBalance.checking + lastBalance.nanny + lastBalance.savings;
                 balances[yearBal].month[monthBal].day[dayBal].transactions = [

@@ -15,10 +15,6 @@
   'ui.router',
   'nvd3'
   ]).config(function ($stateProvider, $urlRouterProvider) {
-    function getGoogleUrl(sheetId) {
-      return 'https://spreadsheets.google.com/feeds/list/1X05BAK1GSF4rbr-tSPWh2GBFk1zqg3jUPxrDcGivw9s/' + sheetId + '/public/values?alt=json';
-    }
-
     // $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/');
 
@@ -30,8 +26,8 @@
       resolve: {
         Transactions: function($http, compileFinances) {
           var url = 'http://0.0.0.0:4000/spending';
-          return $http.get(url).then(function(data) {
-            compileFinances.spending = data.data.spending.map(function(obj) {
+          return $http.get(url).then(function(response) {
+            compileFinances.spending = response.data.spending.map(function(obj) {
               return {
                 category:    obj.subcategory || obj.category,
                 date:        obj.date,
@@ -45,10 +41,11 @@
           var url = 'http://0.0.0.0:4000/balances';
           var balances = {};
 
-          return $http.get(url).then(function(data) {
-            for (var i in data.data.balances) {
-              var obj = data.data.balances[i];
-              var date = obj.date.slice(0,10);
+          return $http.get(url).then(function(response) {
+            for (var i in response.data.balances) {
+              var obj    = response.data.balances[i];
+              var date   = obj.date.slice(0,10);
+              var amount = obj.amount / 100;
 
               if (!balances[date]) {
                 balances[date] = {
@@ -61,16 +58,16 @@
 
               switch (obj.category) {
                 case 'old checking':
-                  balances[date].oldchecking = obj.amount / 1000;
+                  balances[date].oldchecking = amount;
                   break;
                 case 'checking':
-                  balances[date].checking = obj.amount / 1000;
+                  balances[date].checking = amount;
                   break;
                 case 'nanny':
-                  balances[date].nanny     = obj.amount / 1000;
+                  balances[date].nanny = amount;
                   break;
                 case 'savings':
-                  balances[date].savings   = obj.amount / 1000;
+                  balances[date].savings = amount;
                   break;
               }
 
