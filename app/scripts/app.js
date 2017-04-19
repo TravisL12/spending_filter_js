@@ -29,50 +29,51 @@
       abstract: true,
       resolve: {
         Transactions: function($http, compileFinances) {
-          var url = getGoogleUrl(1);
+          var url = 'http://0.0.0.0:4000/spending';
           return $http.get(url).then(function(data) {
-            compileFinances.spending = data.data.feed.entry.map(function(obj) {
+            compileFinances.spending = data.data.spending.map(function(obj) {
               return {
-                category:    obj.gsx$subcategory.$t || obj.gsx$category.$t,
-                date:        obj.gsx$date.$t,
-                description: obj.gsx$payee.$t || obj.gsx$description.$t,
-                amount:      obj.gsx$amount.$t
+                category:    obj.subcategory || obj.category,
+                date:        obj.date,
+                description: obj.payee || obj.description,
+                amount:      obj.amount / 100
               };
             });
           });
         },
         Balances: function($http, compileFinances) {
-          var url = getGoogleUrl(3);
+          var url = 'http://0.0.0.0:4000/balances';
           var balances = {};
 
-          function buildBalance (date) {
-            if (!balances[date]) {
-              balances[date] = {
-                oldchecking: null,
-                checking:    null,
-                nanny:       null,
-                savings:     null
-              };
-            }
-          }
-
-          function parseReplaceAmount (amount) {
-            return parseFloat(amount.replace(/[\$,]/g,''));
-          }
-
           return $http.get(url).then(function(data) {
-            for (var i in data.data.feed.entry) {
-              var obj = data.data.feed.entry[i];
+            for (var i in data.data.balances) {
+              var obj = data.data.balances[i];
+              var date = obj.date.slice(0,10);
 
-              buildBalance(obj.gsx$date.$t);
-              buildBalance(obj.gsx$date_2.$t);
-              buildBalance(obj.gsx$date_3.$t);
-              buildBalance(obj.gsx$date_4.$t);
+              if (!balances[date]) {
+                balances[date] = {
+                  oldchecking: null,
+                  checking:    null,
+                  nanny:       null,
+                  savings:     null
+                };
+              }
 
-              balances[obj.gsx$date.$t].oldchecking = parseReplaceAmount(obj.gsx$oldchecking.$t);
-              balances[obj.gsx$date_2.$t].checking  = parseReplaceAmount(obj.gsx$checking.$t);
-              balances[obj.gsx$date_3.$t].nanny     = parseReplaceAmount(obj.gsx$nanny.$t);
-              balances[obj.gsx$date_4.$t].savings   = parseReplaceAmount(obj.gsx$savings.$t);
+              switch (obj.category) {
+                case 'old checking':
+                  balances[date].oldchecking = obj.amount / 1000;
+                  break;
+                case 'checking':
+                  balances[date].checking = obj.amount / 1000;
+                  break;
+                case 'nanny':
+                  balances[date].nanny     = obj.amount / 1000;
+                  break;
+                case 'savings':
+                  balances[date].savings   = obj.amount / 1000;
+                  break;
+              }
+
             }
 
             compileFinances.balances = balances;
